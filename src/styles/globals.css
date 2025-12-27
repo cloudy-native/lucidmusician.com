@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
+
+.mermaid {
+	display: block;
+}
+
+.mermaid svg {
+	max-width: 100%;
+	height: auto;
+	background: transparent;
+}
+
+.prose :is(ul, ol) > li > p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.prose :is(ul, ol) > li {
+	margin-top: 0;
+	margin-bottom: 0;
+}

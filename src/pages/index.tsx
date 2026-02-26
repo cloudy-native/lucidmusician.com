@@ -1,9 +1,8 @@
 import { subtitle, title } from "@/components/primitives";
-import SoundCloudEmbed from "@/components/SoundCloudEmbed";
 import SoundCloudAlbumEmbed from "@/components/SoundCloudAlbumEmbed";
+import SoundCloudEmbed from "@/components/SoundCloudEmbed";
 import { features, operationSteps } from "@/data/features";
 import DefaultLayout from "@/layouts/default";
-import { Button } from "@heroui/button";
 import {
   BadgeDollarSign,
   Brain,
@@ -41,6 +40,18 @@ export default function IndexPage() {
 
   const closeLightbox = useCallback(() => {
     setLightboxSrc(null);
+  }, []);
+
+  const trackOutboundClickConversion = useCallback(() => {
+    type GtagFunction = (...args: unknown[]) => void;
+
+    const gtag = (globalThis as unknown as { gtag?: GtagFunction }).gtag;
+
+    if (!gtag) return;
+
+    gtag("event", "conversion", {
+      send_to: "AW-951228427/rn08CMKM5PECEIuwysUD",
+    });
   }, []);
 
   useEffect(() => {
@@ -129,7 +140,7 @@ export default function IndexPage() {
             onClick={() =>
               openLightbox(
                 "/lucid-harmony-hero.com.png",
-                "LucidHarmony Plugin Interface"
+                "LucidHarmony Plugin Interface",
               )
             }
           >
@@ -140,18 +151,86 @@ export default function IndexPage() {
             />
           </button>
         </div>
+        <Spacer y={4} />
+        <a
+          className="gumroad-button"
+          href="https://lucidmusician.gumroad.com/l/lucid-harmony"
+          onClick={trackOutboundClickConversion}
+        >
+          Pay what you like on
+        </a>
+        <p
+          className={subtitle({
+            class:
+              "mt-5 md:mt-6 !w-full text-center text-base md:text-lg font-semibold",
+          })}
+        >
+          <span className="mx-auto px-5 py-3">
+            ✨ Pay-what-you-want 🛡️ No-risk 30-day money-back guarantee <br/>
+            🍎 Mac + 🐧 Linux today 🪟 Windows coming soon
+          </span>
+        </p>
       </section>
 
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col items-center gap-6">
             <div className="max-w-3xl text-center">
-              <h1 className={title({ size: "lg", color: "violet" })}>
-                If you only listen to one thing...
-              </h1>
+              <h2 className={title({ size: "lg", color: "violet" })}>
+                In 30 seconds...
+              </h2>
             </div>
+
             <Spacer y={6} />
 
+            <div className="w-full max-w-5xl">
+              <div className="aspect-video overflow-hidden rounded-2xl border border-divider bg-content1 shadow-2xl">
+                <iframe
+                  className="h-full w-full"
+                  src="https://www.youtube.com/embed/sSWSHgycSkk"
+                  title="LucidHarmony in 30 seconds"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col items-center gap-6">
+            <div className="max-w-3xl text-center">
+              <h2 className={title({ size: "lg", color: "violet" })}>
+                In 5 minutes...
+              </h2>
+            </div>
+
+            <Spacer y={6} />
+
+            <div className="w-full max-w-5xl">
+              <div className="aspect-video overflow-hidden rounded-2xl border border-divider bg-content1 shadow-2xl">
+                <iframe
+                  className="h-full w-full"
+                  src="https://www.youtube.com/embed/HgQNWbGRb7M"
+                  title="LucidHarmony in 5 minutes"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col items-center gap-6">
             <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-10 items-stretch">
               <div className="flex h-full flex-col gap-4">
                 <div className="flex min-h-0 flex-col gap-2 text-center lg:min-h-[160px] lg:text-left">
@@ -207,7 +286,7 @@ export default function IndexPage() {
                       class: "leading-tight text-balance",
                     })}
                   >
-                    3. Listen!
+                    3. Any Instrument!
                   </h3>
                   <div className="text-sm leading-snug text-default-600 text-pretty">
                     Asign your favorite instrument for lush pads, choir, or ear
@@ -254,18 +333,13 @@ export default function IndexPage() {
                 />
               </a>
             </div> */}
-            <Button
-              size="lg"
-              color="primary"
-              variant="shadow"
-              className="font-semibold"
-              as="a"
+            <a
+              className="gumroad-button"
               href="https://lucidmusician.gumroad.com/l/lucid-harmony"
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={trackOutboundClickConversion}
             >
-              Download Now
-            </Button>
+              Pay what you like on
+            </a>
           </div>
         </div>
       </section>
@@ -318,7 +392,7 @@ export default function IndexPage() {
                     </p>
                   </div>
                 );
-              })()
+              })(),
             )}
           </div>
         </div>
@@ -397,11 +471,13 @@ export default function IndexPage() {
           <div className="w-full max-w-4xl mx-auto">
             <p className={subtitle({ class: "text-xl md:text-2xl" })}>
               All samples in this album were created using LucidHarmony. MIDI
-              was exported unedited into DAW tracks.
+              was exported unedited into DAW tracks. No keyboards, no editing,
+              no tweaking. It's beautiful from the very beginning.
             </p>
             <p className={subtitle({ class: "text-xl md:text-2xl" })}>
               The instruments are Omnisphere 3, Pigments 7, and Ashlight 2 in
-              Kontakt 8 by Native Instruments. All this in Logic Pro.
+              Kontakt 8 by Native Instruments. All this in Logic Pro, but works
+              in any DAW.
             </p>
             <SoundCloudAlbumEmbed
               albumId={2162448524}
@@ -428,18 +504,13 @@ export default function IndexPage() {
             sophisticated harmonies in seconds.
           </p>
           <Spacer y={8} />
-          <Button
-            size="lg"
-            color="primary"
-            variant="shadow"
-            className="font-semibold"
-            as="a"
+          <a
+            className="gumroad-button"
             href="https://lucidmusician.gumroad.com/l/lucid-harmony"
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={trackOutboundClickConversion}
           >
-            Get LucidHarmony
-          </Button>
+            Pay what you like on
+          </a>
         </div>
       </section>
 

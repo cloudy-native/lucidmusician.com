@@ -21,3 +21,7 @@ I’m always interested in helping other people with their projects. If you’ve
 - Software Development
 - Most common programming languages
 - Websites
+
+## Product highlight
+
+![LucidHarmony](/images/LH-logo-small-cropped.jpg)

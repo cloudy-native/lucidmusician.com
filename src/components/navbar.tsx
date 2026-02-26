@@ -11,7 +11,6 @@ import {
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
 
-import { MusicChordIcon } from "@/components/icons";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { siteConfig } from "@/config/site";
 
@@ -25,8 +24,12 @@ export const Navbar = () => {
 						color="foreground"
 						href="/"
 					>
-						<MusicChordIcon />
-						<p className="font-bold text-inherit">Lucid Mucision</p>
+						<img
+							alt="Lucid Musician"
+							height={64}
+							src="/images/LH-logo-small-cropped.jpg"
+							width={64}
+						/>
 					</Link>
 				</NavbarBrand>
 				<div className="hidden lg:flex gap-4 justify-start ml-2">

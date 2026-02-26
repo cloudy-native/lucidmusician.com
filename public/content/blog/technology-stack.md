@@ -168,16 +168,6 @@ At a high level it:
   - https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow
 - **Staples** the notarization ticket to the `.pkg` with `xcrun stapler staple`.
 
-The script reads configuration and credentials from a local `.env` (kept out of git) and expects identities/credentials like:
-
-- `AU_COMPONENT_PATH`
-- `PKG_IDENTIFIER`
-- `CODESIGN_APP_IDENTITY`
-- `CODESIGN_INSTALLER_IDENTITY`
-- Notary credentials via either `NOTARY_KEYCHAIN_PROFILE` or `NOTARY_APPLE_ID` / `NOTARY_TEAM_ID` / `NOTARY_APP_PASSWORD`
-
-Output is written to `dist/` by default as a versioned, signed, notarized installer (e.g. `LucidHarmony-<version>-macOS-AU.pkg`).
-
 ## Related reading
 
 - [Modeling Harmonies: From Scores of the Masters to Real-Time AI](/blog/modeling-harmonies)

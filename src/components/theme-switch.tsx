@@ -4,7 +4,7 @@ import { SwitchProps, useSwitch } from "@heroui/switch";
 import clsx from "clsx";
 import { useTheme } from "@heroui/use-theme";
 
-import { SunFilledIcon, MoonFilledIcon } from "@/components/icons";
+import { Moon, Sun } from "lucide-react";
 
 export interface ThemeSwitchProps {
   className?: string;
@@ -72,9 +72,9 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
         })}
       >
         {isSelected ? (
-          <MoonFilledIcon size={22} />
+          <Moon size={22} />
         ) : (
-          <SunFilledIcon size={22} />
+          <Sun size={22} />
         )}
       </div>
     </Component>

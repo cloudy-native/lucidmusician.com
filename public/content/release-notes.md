@@ -2,7 +2,27 @@
 
 ![](/images/LH-logo-small-cropped.jpg)
 
+## 1.2.1: March 17, 2026
+
+_Fixed a bug preventing Ableton Live from loading the plugin_
+
+- The plugin is now correctly signed and should load in all versions of Ableton Live
+
+## 1.2.0: March 10, 2026
+
+_Infinite mode & major/minor AI improvements_
+
+- New "Infinite mode"
+  - Just press play, sit back, and listen to an endless stream of harmony
+  - Configured the same way you do with the generated sequences
+  - You can stop and drag the entire sequence to a track at any time
+- Better AI model support for major/minor modes
+  - The model is trained to more faithfully follow mode harmonies
+- Lots of bug fixes and improvements
+
 ## 1.1.0: February 26, 2026
+
+_Improved chord generation_
 
 - Top-to-bottom rewrite of how notes are generated from the AI model
 - Replaced tons of special cases and logic with a more robust approach using extensive off-line music theory data
@@ -12,16 +32,22 @@
 
 ## 1.0.6: February 11, 2026
 
+_License keys_
+
 - License key registration and checking
 - Custom remote API AWS stack for Gumroad license key registrations and checking
 - Updated UI for license key, including a tiny nag, which will not stop the app from running
 
 ## 1.0.5: February 2, 2026
 
+_Internal improvements_
+
 - Internal refactoring to improve code quality
 - Rework of build process to use GitHub Actions
 
 ## 1.0.4: January 14, 2026
+
+_DAW citizenship improvements_
 
 - Correct MIDI priority so when a track already contains MIDI data, the plugin passes the existing MIDI data to the host
 - Refined chord selection to ignore duplicate chords when they are generated from candidates with different note lengths in the training data

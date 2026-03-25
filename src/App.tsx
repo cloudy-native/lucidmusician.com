@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import AboutPage from "@/pages/about";
+import BetaPage from "@/pages/beta";
 import BlogPage from "@/pages/blog";
 import BlogArticlePage from "@/pages/blog-article";
 import DocsPage from "@/pages/docs";
@@ -17,6 +18,7 @@ function App() {
       <Route element={<BlogPage />} path="/blog" />
       <Route element={<BlogArticlePage />} path="/blog/:slug" />
       <Route element={<AboutPage />} path="/about" />
+      <Route element={<BetaPage />} path="/beta" />
       <Route element={<NotFoundPage />} path="*" />
     </Routes>
   );

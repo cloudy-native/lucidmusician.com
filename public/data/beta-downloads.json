@@ -1,0 +1,26 @@
+{
+  "versions": [
+    {
+      "version": "1.2.2",
+      "changelog": [
+        "Initial Windows beta release"
+      ],
+      "downloads": [
+        {
+          "name": "Windows (64-bit) - Installer",
+          "fileName": "LucidHarmony-1.2.2-Windows-x86_64.exe",
+          "releaseDate": "2026-03-25",
+          "requirements": "Windows 10 (64-bit) or later",
+          "installationInstructions": "Download and run the installer. Follow the on-screen prompts to complete installation. Windows may show a security warning - click 'More info' then 'Run anyway' to proceed."
+        },
+        {
+          "name": "Windows (64-bit) - Portable ZIP",
+          "fileName": "LucidHarmony-1.2.2-Windows-x86_64.zip",
+          "releaseDate": "2026-03-25",
+          "requirements": "Windows 10 (64-bit) or later",
+          "installationInstructions": "Download and extract the ZIP file to your desired location. Copy the contents of the extracted folder to C:\\Program Files\\Common Files\\VST3, or pick an alternative and let your DAW know where to look."
+        }
+      ]
+    }
+  ]
+}

@@ -80,7 +80,7 @@ export default function IndexPage() {
 
         <div className="max-w-3xl text-center">
           <h1 className={title({ size: "lg", color: "violet" })}>
-            Introducing LucidHarmony
+            LucidHarmony
           </h1>
           <Spacer y={6} />
           <div className="grid grid-cols-1 gap-4 text-left md:grid-cols-3">

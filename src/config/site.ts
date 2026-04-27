@@ -15,8 +15,16 @@ const navItems: NavItem[] = [
 		href: "/docs",
 	},
 	{
+		label: "Support",
+		href: "/support",
+	},
+	{
 		label: "Release Notes",
 		href: "/release-notes",
+	},
+	{
+		label: "Roadmap",
+		href: "/roadmap",
 	},
 	{
 		label: "Blog",

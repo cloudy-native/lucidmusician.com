@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 interface BlogPost {
   slug: string;
@@ -78,6 +79,10 @@ const blogPosts: BlogPost[] = [
 ];
 
 export default function BlogPage() {
+  useEffect(() => {
+    document.title = "Blog - LucidHarmony";
+  }, []);
+
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">

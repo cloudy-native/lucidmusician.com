@@ -1,4 +1,5 @@
 import DefaultLayout from "@/layouts/default";
+import { useTheme } from "@heroui/use-theme";
 import {
 	AlertOctagon,
 	AlertTriangle,
@@ -18,7 +19,6 @@ import {
 import type { ExtraProps } from "react-markdown";
 import ReactMarkdown from "react-markdown";
 import { Link as RouterLink } from "react-router-dom";
-import { useTheme } from "@heroui/use-theme";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -109,6 +109,13 @@ export default function MarkdownPage({ markdownPath }: MarkdownPageProps) {
 			})
 			.then((text) => {
 				setContent(text);
+				
+				// Extract title from first H1 heading for document.title
+				const h1Match = text.match(/^#\s+(.+)$/m);
+				if (h1Match) {
+					document.title = `${h1Match[1]} - LucidHarmony`;
+				}
+				
 				setLoading(false);
 			})
 			.catch((err) => {

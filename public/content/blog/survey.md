@@ -197,7 +197,7 @@ Our niche is the deep learning AI modeling of chord sequences from the masters. 
 - **Drag MIDI to your DAW** in both single and multiple tracks.
 - **Every aspect of the generator is configurable** and applies different underlying music theory principles.
 - **Create your own sequences** guided by the same AI using an intuitive and novel Harmony Explorer.
-- **Pay-what-you-like, 30-day money-back guarantee.** No questions. No license keys.
+- **Pay-what-you-like, 30-day money-back guarantee.** No questions. 
 - **Free updates forever.**
 
 See the main product page for more details.

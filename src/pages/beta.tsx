@@ -23,14 +23,24 @@ interface BetaVersion {
   downloads: BetaDownload[];
 }
 
-interface BetaManifest {
+interface BetaProduct {
+  productName: string;
+  description: string;
   versions: BetaVersion[];
 }
 
+interface BetaManifest {
+  products: BetaProduct[];
+}
+
 export default function BetaPage() {
-  const [versions, setVersions] = useState<BetaVersion[]>([]);
+  const [products, setProducts] = useState<BetaProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    document.title = "Beta Downloads - LucidHarmony";
+  }, []);
 
   useEffect(() => {
     fetch("/data/beta-downloads.json")
@@ -41,7 +51,7 @@ export default function BetaPage() {
         return response.json();
       })
       .then((data: BetaManifest) => {
-        setVersions(data.versions);
+        setProducts(data.products);
         setLoading(false);
       })
       .catch((err) => {
@@ -75,8 +85,8 @@ export default function BetaPage() {
               Beta Downloads
             </h1>
             <p className={subtitle({ class: "mx-auto mt-4 max-w-3xl" })}>
-              Early access to the latest LucidHarmony builds. These are beta
-              releases—expect some rough edges.
+              Early access to the latest builds. These are beta releases—expect
+              some rough edges.
             </p>
           </div>
 
@@ -102,7 +112,7 @@ export default function BetaPage() {
             </div>
           )}
 
-          {!loading && !error && versions.length === 0 && (
+          {!loading && !error && products.length === 0 && (
             <div className="text-center py-12">
               <p className="text-lg text-default-600">
                 No beta downloads available at this time.
@@ -110,19 +120,31 @@ export default function BetaPage() {
             </div>
           )}
 
-          {!loading && !error && versions.length > 0 && (
-            <div className="space-y-12">
-              {versions.map((versionData) => (
-                <div
-                  key={versionData.version}
-                  className="overflow-hidden rounded-2xl border border-divider bg-content1 shadow-sm"
-                >
-                  <div className="p-6">
-                    <div className="mb-6">
-                      <h2 className="text-2xl font-bold text-default-900 mb-1">
-                        Version {versionData.version}
-                      </h2>
-                    </div>
+          {!loading && !error && products.length > 0 && (
+            <div className="space-y-16">
+              {products.map((product) => (
+                <div key={product.productName} className="space-y-8">
+                  <div className="text-center">
+                    <h2 className="text-3xl font-bold text-default-900 mb-2">
+                      {product.productName}
+                    </h2>
+                    <p className="text-lg text-default-600">
+                      {product.description}
+                    </p>
+                  </div>
+
+                  <div className="space-y-8">
+                    {product.versions.map((versionData) => (
+                      <div
+                        key={`${product.productName}-${versionData.version}`}
+                        className="overflow-hidden rounded-2xl border border-divider bg-content1 shadow-sm"
+                      >
+                        <div className="p-6">
+                          <div className="mb-6">
+                            <h3 className="text-2xl font-bold text-default-900 mb-1">
+                              Version {versionData.version}
+                            </h3>
+                          </div>
 
                     {versionData.changelog &&
                       versionData.changelog.length > 0 && (
@@ -212,7 +234,10 @@ export default function BetaPage() {
                 </div>
               ))}
             </div>
-          )}
+          </div>
+        ))}
+      </div>
+    )}
 
           <div className="mt-12 max-w-3xl mx-auto">
             <a
@@ -222,7 +247,8 @@ export default function BetaPage() {
               className="flex items-center justify-center gap-3 w-full px-6 py-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-lg transition-colors shadow-lg hover:shadow-xl mb-8"
             >
               <AlertTriangle className="h-6 w-6" />
-              Please report any issues, no matter how small you think it is.
+              👉 Please click here to report any issues, no matter how small you
+              think they are. 👈
             </a>
           </div>
 

@@ -1,8 +1,13 @@
 import { subtitle, title } from "@/components/primitives";
 import { teamMembers } from "@/data/team";
 import DefaultLayout from "@/layouts/default";
+import { useEffect } from "react";
 
 export default function AboutPage() {
+  useEffect(() => {
+    document.title = "About - LucidHarmony";
+  }, []);
+
   return (
     <DefaultLayout>
       <section className="relative flex flex-col items-center justify-center gap-8 py-10 px-4">

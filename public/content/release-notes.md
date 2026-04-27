@@ -1,6 +1,47 @@
 # LucidHarmony: Release Notes
 
-![](/images/LH-logo-small-cropped.jpg)
+## 1.2.5: April 27, 2026
+
+_Always improving the AI model, chord sequence editing, and a new lick of paint_
+
+| Feature | Description |
+| --- | --- |
+| _AI Model improvements._ | We extract chords with more fidelity when non-chord tones (passing notes, suspensions, and so on) and present. |
+| _Harmony editor_ | You can now drag chords around in the chord sequence, delete them, insert new ones, and use the Harmony Explorer to change chords. |
+| _UI tweaks._ | We designed a different look and updated UI components to use it. |
+| _Bug elves hard at work._ | We got a lot of feedback about bugs including things that were completely broken to minor typos. We believe we fixed everything except that annoying CLAP graphics issue, which prevents users from entering a license key. We just can't reproduce it! You have our profuse apologies. (You know who you are.)|
+
+## 1.2.4: April 12, 2026 
+
+_Enhanced harmonic richness tools & chord identification by harmonic role_
+
+| Feature | Description |
+|---------|-------------|
+| _The **Richness** dial has been enhanced._ | Now you can specify which extended chords you want the richness bias to generate more of. |
+| _We have added annotations to generated chords._ | The role of the chord and inversion in the scale is identified by color and descriptive tooltip. |
+| _Harmonic extraction improvements._ | The way figured basses are extracted from the source MIDI has been improved. This lets us use more accurate harmonic modeling. The AI models have been retrained on the enhanced harmonic analysis. You can see the benefits in generated sequences because stepwise bass lines are significantly more fluid. |
+| _Voice leading improvements._ | We built in more music theory about chord voicing. This means that the roles of notes in a chord are used more effectively in voice leading. |
+| _Chord notation is more consistent._ | We devised a method of _chord aliasing_, which lets us use simpler chord names in four-part harmony. This makes the chord tape less cluttered. |
+| _No automatic harmony generation._ | We removed the option to regenerate the sequence on DAW transport play. Now, all actions—like changing the starting chord—highlight the **Generate** button. It's always up to you when you want to create a new sequence. |
+
+Known issues:
+- There is a redraw bug in the CLAP version that prevents you entering your license key. Don't worry: Nothing stops working.
+
+## 1.2.3: March 31, 2026
+
+_Windows support & quality-of-life improvements_
+
+- Added Windows support
+- LucidHarmony no longer clears chords when you change settings
+- 100 settings and chords in undo/redo history
+- The single randomness setting has now been split out to 2 separate controls that let you increase likelihood of rarer chord combinations and the presence of extended chords independently
+- Other small UX improvements
+
+## 1.2.2: March 24, 2026
+
+_Closed Beta Release_
+
+- Windows support
 
 ## 1.2.1: March 17, 2026
 

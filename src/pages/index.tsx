@@ -3,6 +3,8 @@ import SoundCloudAlbumEmbed from "@/components/SoundCloudAlbumEmbed";
 import SoundCloudEmbed from "@/components/SoundCloudEmbed";
 import { features, operationSteps } from "@/data/features";
 import DefaultLayout from "@/layouts/default";
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 import {
   BadgeDollarSign,
   Brain,
@@ -30,6 +32,10 @@ const featureIcons: Record<string, LucideIcon> = {
 };
 
 export default function IndexPage() {
+  useEffect(() => {
+    document.title = "LucidHarmony - AI-Powered Chord Progression Generator";
+  }, []);
+
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [lightboxAlt, setLightboxAlt] = useState<string>("");
 
@@ -75,58 +81,78 @@ export default function IndexPage() {
   return (
     <DefaultLayout>
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center gap-8 py-8 md:py-8 px-4">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-violet-500/10 to-transparent" />
+      <section className="relative flex flex-col items-center justify-center gap-4 py-16 md:py-24 px-4">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-violet-500/20 via-violet-500/5 to-transparent" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-600/20 via-transparent to-transparent" />
 
-        <div className="max-w-3xl text-center">
-          <h1 className={title({ size: "lg", color: "violet" })}>
-            LucidHarmony
+        <div className="max-w-5xl text-center">
+          <h1 className={title({ size: "lg" })}>
+            <span className="bg-gradient-to-r from-violet-600 to-cyan-600 bg-clip-text text-transparent text-5xl md:text-7xl lg:text-8xl font-bold">
+              Gorgeous Infinite Harmony
+            </span>
           </h1>
-          <Spacer y={6} />
-          <div className="grid grid-cols-1 gap-4 text-left md:grid-cols-3">
-            <div className="rounded-2xl border border-divider bg-gradient-to-br from-violet-500/15 via-content1 to-content2 p-5 shadow-sm">
-              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/15 text-violet-600">
-                <Brain className="h-5 w-5" aria-hidden="true" />
-              </div>
-              <div className="text-base md:text-lg font-semibold text-default-800">
-                Centuries of harmony
-              </div>
-              <p
-                className={subtitle({ class: "text-base md:text-lg !w-full" })}
-              >
-                An innovative AI-powered harmony generation plugin. Centuries of
-                harmonic knowledge at your fingertips.
-              </p>
+          <Spacer y={12} />
+          
+          {/* Feature Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/10 via-content1 to-content1 p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-500/20 text-violet-600">
+                  <Sparkles className="h-7 w-7" aria-hidden="true" />
+                </div>
+                <h3 className="text-2xl font-bold text-default-900 mb-3">
+                  Infinite Variety
+                </h3>
+                <p className="text-lg text-default-700 leading-relaxed">
+                  Every sequence unique. Clever voicing, always configurable. Any key, tempo, note length.
+                </p>
             </div>
 
-            <div className="rounded-2xl border border-divider bg-gradient-to-br from-cyan-500/15 via-content1 to-content2 p-5 shadow-sm">
-              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-600">
-                <Sparkles className="h-5 w-5" aria-hidden="true" />
-              </div>
-              <div className="text-base md:text-lg font-semibold text-default-800">
-                Always surprising
-              </div>
-              <p
-                className={subtitle({ class: "text-base md:text-lg !w-full" })}
-              >
-                Always random, always harmonious. One click to create anything
-                from Renaissance polyphony to swirling ambient.
-              </p>
+            <div className="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 via-content1 to-content1 p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-600">
+                  <Brain className="h-7 w-7" aria-hidden="true" />
+                </div>
+                <h3 className="text-2xl font-bold text-default-900 mb-3">
+                  Theory Built-In
+                </h3>
+                <p className="text-lg text-default-700 leading-relaxed">
+                  Steeped in music theory, so you don't have to be. From drifting ambient to choral to cinematic.
+                </p>
             </div>
 
-            <div className="rounded-2xl border border-divider bg-gradient-to-br from-green-500/15 via-content1 to-content2 p-5 shadow-sm">
-              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-green-500/15 text-green-600">
-                <SlidersHorizontal className="h-5 w-5" aria-hidden="true" />
-              </div>
-              <div className="text-base md:text-lg font-semibold text-default-800">
-                No fiddling required
-              </div>
-              <p
-                className={subtitle({ class: "text-base md:text-lg !w-full" })}
-              >
-                No music theory required. No editing. No tweaking. No fiddling.
-                It's beautiful from the very beginning.
-              </p>
+            <div className="rounded-2xl border border-green-500/30 bg-gradient-to-br from-green-500/10 via-content1 to-content1 p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-green-500/20 text-green-600">
+                  <BadgeDollarSign className="h-7 w-7" aria-hidden="true" />
+                </div>
+                <h3 className="text-2xl font-bold text-default-900 mb-3">
+                  Fair & Forever
+                </h3>
+                <p className="text-lg text-default-700 leading-relaxed">
+                  Pay what you want. No-risk 30-day guarantee. Free updates forever.
+                </p>
+            </div>
+          </div>
+
+          <Spacer y={12} />
+
+          {/* Platform badges */}
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+            <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-violet-500/20 to-violet-600/20 border border-violet-500/30">
+              <span className="text-2xl">🪟</span>
+              <span className="text-lg md:text-xl font-semibold text-default-800">
+                Windows
+              </span>
+            </div>
+            <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-violet-500/20 to-violet-600/20 border border-violet-500/30">
+              <span className="text-2xl">🍎</span>
+              <span className="text-lg md:text-xl font-semibold text-default-800">
+                Mac
+              </span>
+            </div>
+            <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-violet-500/20 to-violet-600/20 border border-violet-500/30">
+              <span className="text-2xl">🐧</span>
+              <span className="text-lg md:text-xl font-semibold text-default-800">
+                Linux
+              </span>
             </div>
           </div>
         </div>
@@ -151,25 +177,89 @@ export default function IndexPage() {
             />
           </button>
         </div>
-        <Spacer y={4} />
-        <a
-          className="gumroad-button"
+        <Spacer y={8} />
+        <Button
+          as={Link}
           href="https://lucidmusician.gumroad.com/l/lucid-harmony"
-          onClick={trackOutboundClickConversion}
+          size="lg"
+          radius="full"
+          className="bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-semibold text-lg px-8 py-6 shadow-lg hover:shadow-xl"
+          onPress={trackOutboundClickConversion}
         >
-          Pay what you like on
-        </a>
+          Get LucidHarmony - Pay What You Like
+        </Button>
         <p
           className={subtitle({
             class:
-              "mt-5 md:mt-6 !w-full text-center text-base md:text-lg font-semibold",
+              "mt-6 md:mt-8 !w-full text-center text-base md:text-xl font-semibold",
           })}
         >
           <span className="mx-auto px-5 py-3">
-            ✨ Pay-what-you-want 🛡️ No-risk 30-day money-back guarantee <br/>
-            🍎 Mac + 🐧 Linux today 🪟 Windows coming soon
+            ✨ Pay-what-you-want 🛡️ No-risk 30-day money-back guarantee
           </span>
         </p>
+      </section>
+
+      {/* Video Hero Section */}
+      <section className="relative py-20 px-4">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-violet-500/10 via-transparent to-transparent" />
+
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center">
+            <h1 className={title({ size: "lg", class: "mb-6" })}>
+              <span className="bg-gradient-to-r from-violet-600 to-cyan-600 bg-clip-text text-transparent">
+                LucidHarmony Makes Ambient Easy
+              </span>
+            </h1>
+          </div>
+
+          <Spacer y={8} />
+
+          {/* Large YouTube Video Embed */}
+          <div className="w-full max-w-6xl mx-auto">
+            <div className="aspect-video overflow-hidden rounded-3xl border-2 border-violet-500/30 bg-content1 shadow-2xl">
+              <iframe
+                className="h-full w-full"
+                src="https://www.youtube.com/embed/zZXODsd1zlY"
+                title="LucidHarmony Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+
+            <Spacer y={8} />
+
+            <div className="text-center">
+              <p
+                className={subtitle({
+                  class: "text-lg md:text-xl max-w-4xl mx-auto leading-relaxed",
+                })}
+              >
+                🎹 Drag MIDI straight from the plugin · 🌊 Pads, bass &
+                windchimes · ⏱️ 60 BPM · ♾️ Infinite mode engaged · 🚫 No MIDI
+                controller · ✋ Zero hand editing · ✨ Unique harmony out of the
+                box
+              </p>
+            </div>
+
+            <Spacer y={8} />
+
+            <div className="text-center">
+              <Button
+                as={Link}
+                href="https://lucidmusician.gumroad.com/l/lucid-harmony"
+                size="lg"
+                radius="full"
+                className="bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-semibold text-lg px-8 py-6 shadow-lg hover:shadow-xl"
+                onPress={trackOutboundClickConversion}
+              >
+                Get LucidHarmony - Pay What You Like
+              </Button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="py-20 px-4">
@@ -333,13 +423,16 @@ export default function IndexPage() {
                 />
               </a>
             </div> */}
-            <a
-              className="gumroad-button"
+            <Button
+              as={Link}
               href="https://lucidmusician.gumroad.com/l/lucid-harmony"
-              onClick={trackOutboundClickConversion}
+              size="lg"
+              radius="full"
+              className="bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-semibold text-lg px-8 py-6 shadow-lg hover:shadow-xl"
+              onPress={trackOutboundClickConversion}
             >
-              Pay what you like on
-            </a>
+              Get LucidHarmony - Pay What You Like
+            </Button>
           </div>
         </div>
       </section>
@@ -368,28 +461,28 @@ export default function IndexPage() {
                     key={feature.title}
                     className="relative overflow-visible p-6 pt-12 rounded-xl bg-gradient-to-br from-content1 to-content2 border border-divider hover:shadow-lg transition-shadow"
                   >
-                    <div className="absolute -top-6 -left-6 z-10 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-content1/80 backdrop-blur border border-divider shadow-md">
-                      {Icon ? (
-                        <Icon
-                          className={`h-9 w-9 ${feature.iconColorClass}`}
-                          aria-hidden="true"
-                        />
-                      ) : null}
-                    </div>
-                    <h3
-                      className={title({
-                        size: "sm",
-                        class: feature.iconColorClass,
-                      })}
-                    >
-                      {feature.title}
-                    </h3>
-                    <Spacer y={3} />
-                    <p
-                      className={`text-default-600 ${feature.iconColorClass}/80`}
-                    >
-                      {feature.description}
-                    </p>
+                      <div className="absolute -top-6 -left-6 z-10 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-content1/80 backdrop-blur border border-divider shadow-md">
+                        {Icon ? (
+                          <Icon
+                            className={`h-9 w-9 ${feature.iconColorClass}`}
+                            aria-hidden="true"
+                          />
+                        ) : null}
+                      </div>
+                      <h3
+                        className={title({
+                          size: "sm",
+                          class: feature.iconColorClass,
+                        })}
+                      >
+                        {feature.title}
+                      </h3>
+                      <Spacer y={3} />
+                      <p
+                        className={`text-default-600 ${feature.iconColorClass}/80`}
+                      >
+                        {feature.description}
+                      </p>
                   </div>
                 );
               })(),
@@ -504,13 +597,16 @@ export default function IndexPage() {
             sophisticated harmonies in seconds.
           </p>
           <Spacer y={8} />
-          <a
-            className="gumroad-button"
+          <Button
+            as={Link}
             href="https://lucidmusician.gumroad.com/l/lucid-harmony"
-            onClick={trackOutboundClickConversion}
+            size="lg"
+            radius="full"
+            className="bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-semibold text-lg px-8 py-6 shadow-lg hover:shadow-xl"
+            onPress={trackOutboundClickConversion}
           >
-            Pay what you like on
-          </a>
+            Get LucidHarmony - Pay What You Like
+          </Button>
         </div>
       </section>
 

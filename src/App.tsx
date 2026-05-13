@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
+import { TrailingSlashRedirect } from "@/components/TrailingSlashRedirect";
 import AboutPage from "@/pages/about";
 import BetaPage from "@/pages/beta";
 import BlogPage from "@/pages/blog";
@@ -13,18 +14,21 @@ import SupportPage from "./pages/support";
 
 function App() {
   return (
-    <Routes>
-      <Route element={<IndexPage />} path="/" />
-      <Route element={<DocsPage />} path="/docs" />
-      <Route element={<SupportPage />} path="/support" />
-      <Route element={<ReleaseNotesPage />} path="/release-notes" />
-      <Route element={<RoadmapPage />} path="/roadmap" />
-      <Route element={<BlogPage />} path="/blog" />
-      <Route element={<BlogArticlePage />} path="/blog/:slug" />
-      <Route element={<AboutPage />} path="/about" />
-      <Route element={<BetaPage />} path="/beta" />
-      <Route element={<NotFoundPage />} path="*" />
-    </Routes>
+    <>
+      <TrailingSlashRedirect />
+      <Routes>
+        <Route element={<IndexPage />} path="/" />
+        <Route element={<DocsPage />} path="/docs" />
+        <Route element={<SupportPage />} path="/support" />
+        <Route element={<ReleaseNotesPage />} path="/release-notes" />
+        <Route element={<RoadmapPage />} path="/roadmap" />
+        <Route element={<BlogPage />} path="/blog" />
+        <Route element={<BlogArticlePage />} path="/blog/:slug" />
+        <Route element={<AboutPage />} path="/about" />
+        <Route element={<BetaPage />} path="/beta" />
+        <Route element={<NotFoundPage />} path="*" />
+      </Routes>
+    </>
   );
 }
 

@@ -113,8 +113,17 @@ export default function MarkdownPage({ markdownPath }: MarkdownPageProps) {
 				// Extract title from first H1 heading for document.title
 				const h1Match = text.match(/^#\s+(.+)$/m);
 				if (h1Match) {
-					document.title = `${h1Match[1]} - LucidHarmony`;
+					document.title = `${h1Match[1]} - LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring`;
 				}
+
+				// Set canonical URL
+				let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+				if (!link) {
+					link = document.createElement("link");
+					link.rel = "canonical";
+					document.head.appendChild(link);
+				}
+				link.href = `https://lucidmusician.com${window.location.pathname}`;
 				
 				setLoading(false);
 			})
@@ -140,6 +149,7 @@ export default function MarkdownPage({ markdownPath }: MarkdownPageProps) {
 						</div>
 					)}
 					{!loading && !error && (
+					<>
 						<article className="prose prose-md prose-p:leading-normal dark:prose-invert max-w-none prose-code:before:content-none prose-code:after:content-none">
 							<ReactMarkdown
 								remarkPlugins={[remarkGfm, remarkMath]}
@@ -339,6 +349,41 @@ export default function MarkdownPage({ markdownPath }: MarkdownPageProps) {
 								{content}
 							</ReactMarkdown>
 						</article>
+
+						{/* Internal linking CTA */}
+						{markdownPath.includes("/blog/") && (
+							<div className="mt-12 rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/10 via-transparent to-transparent p-8 text-center">
+								<h3 className="text-xl font-bold text-default-900 mb-3">
+									Try LucidHarmony
+								</h3>
+								<p className="text-default-600 mb-5 max-w-lg mx-auto">
+									Gorgeous, infinite chord progressions for ambient and scoring — powered by the AI techniques discussed in this article.
+								</p>
+								<div className="flex flex-wrap items-center justify-center gap-4">
+									<a
+										href="https://lucidmusician.gumroad.com/l/lucid-harmony"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow"
+									>
+										Get LucidHarmony
+									</a>
+									<RouterLink
+										to="/docs"
+										className="inline-flex items-center px-6 py-3 rounded-full border border-default-300 text-default-700 font-semibold hover:border-violet-500 transition-colors"
+									>
+										Read the Docs
+									</RouterLink>
+									<RouterLink
+										to="/blog"
+										className="inline-flex items-center px-6 py-3 rounded-full border border-default-300 text-default-700 font-semibold hover:border-violet-500 transition-colors"
+									>
+										More Articles
+									</RouterLink>
+								</div>
+							</div>
+						)}
+					</>
 					)}
 				</div>
 			</section>

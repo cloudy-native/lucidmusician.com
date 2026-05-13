@@ -21,3 +21,23 @@
 	margin-top: 0;
 	margin-bottom: 0;
 }
+
+/* lite-youtube-embed: fill parent container */
+lite-youtube {
+	max-width: 100% !important;
+	width: 100% !important;
+}
+
+lite-youtube::after {
+	/* Parent already has aspect-video, so remove the intrinsic ratio padding */
+	display: none !important;
+}
+
+lite-youtube {
+	/* With ::after gone, use absolute positioning to fill the aspect-video parent */
+	position: absolute !important;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+}

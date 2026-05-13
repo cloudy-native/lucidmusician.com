@@ -1,13 +1,13 @@
 import { subtitle, title } from "@/components/primitives";
+import { useSEO } from "@/hooks/useSEO";
 import DefaultLayout from "@/layouts/default";
 import { Button } from "@heroui/button";
-import { useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 export default function NotFoundPage() {
-  useEffect(() => {
-    document.title = "404 - Page Not Found | LucidHarmony";
-  }, []);
+  useSEO({
+    title: "404 - Page Not Found | LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring",
+  });
 
   return (
     <DefaultLayout>

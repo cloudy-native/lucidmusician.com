@@ -1,7 +1,9 @@
+import LiteYouTube from "@/components/LiteYouTube";
 import { subtitle, title } from "@/components/primitives";
 import SoundCloudAlbumEmbed from "@/components/SoundCloudAlbumEmbed";
 import SoundCloudEmbed from "@/components/SoundCloudEmbed";
 import { features, operationSteps } from "@/data/features";
+import { useSEO } from "@/hooks/useSEO";
 import DefaultLayout from "@/layouts/default";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
@@ -32,9 +34,11 @@ const featureIcons: Record<string, LucideIcon> = {
 };
 
 export default function IndexPage() {
-  useEffect(() => {
-    document.title = "LucidHarmony - AI-Powered Chord Progression Generator";
-  }, []);
+  useSEO({
+    title: "LucidHarmony - Gorgeous Infinite Harmony for Ambient and Scoring",
+    description: "LucidHarmony generates gorgeous, infinite chord progressions for ambient music and film scoring. AI-powered MIDI plugin for any DAW on Windows, Mac, and Linux.",
+    path: "/",
+  });
 
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [lightboxAlt, setLightboxAlt] = useState<string>("");
@@ -218,14 +222,10 @@ export default function IndexPage() {
           {/* Large YouTube Video Embed */}
           <div className="w-full max-w-6xl mx-auto">
             <div className="aspect-video overflow-hidden rounded-3xl border-2 border-violet-500/30 bg-content1 shadow-2xl">
-              <iframe
+              <LiteYouTube
+                videoId="zZXODsd1zlY"
+                title="LucidHarmony Demo - Gorgeous Infinite Harmony for Ambient"
                 className="h-full w-full"
-                src="https://www.youtube.com/embed/zZXODsd1zlY"
-                title="LucidHarmony Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                loading="lazy"
               />
             </div>
 
@@ -275,14 +275,10 @@ export default function IndexPage() {
 
             <div className="w-full max-w-5xl">
               <div className="aspect-video overflow-hidden rounded-2xl border border-divider bg-content1 shadow-2xl">
-                <iframe
-                  className="h-full w-full"
-                  src="https://www.youtube.com/embed/sSWSHgycSkk"
+                <LiteYouTube
+                  videoId="sSWSHgycSkk"
                   title="LucidHarmony in 30 seconds"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                  loading="lazy"
+                  className="h-full w-full"
                 />
               </div>
             </div>
@@ -303,14 +299,10 @@ export default function IndexPage() {
 
             <div className="w-full max-w-5xl">
               <div className="aspect-video overflow-hidden rounded-2xl border border-divider bg-content1 shadow-2xl">
-                <iframe
-                  className="h-full w-full"
-                  src="https://www.youtube.com/embed/HgQNWbGRb7M"
+                <LiteYouTube
+                  videoId="HgQNWbGRb7M"
                   title="LucidHarmony in 5 minutes"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                  loading="lazy"
+                  className="h-full w-full"
                 />
               </div>
             </div>
@@ -341,7 +333,7 @@ export default function IndexPage() {
                 </div>
                 <img
                   src="/images/four-chord-harmony.png"
-                  alt="A harmonic story"
+                  alt="LucidHarmony generating a four-chord ambient progression with AI"
                   className="w-full h-auto rounded-2xl shadow-2xl object-cover lg:h-[320px]"
                 />
               </div>
@@ -363,7 +355,7 @@ export default function IndexPage() {
                 </div>
                 <img
                   src="/images/beautifully-voiced.png"
-                  alt="Beautifuly voiced"
+                  alt="Beautifully voiced MIDI chord voicings exported to a DAW piano roll"
                   className="w-full h-auto rounded-2xl shadow-2xl object-cover lg:h-[320px]"
                 />
               </div>

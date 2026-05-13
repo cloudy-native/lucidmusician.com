@@ -1,4 +1,5 @@
 import { subtitle, title } from "@/components/primitives";
+import { useSEO } from "@/hooks/useSEO";
 import DefaultLayout from "@/layouts/default";
 import {
   AlertCircle,
@@ -38,9 +39,11 @@ export default function BetaPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    document.title = "Beta Downloads - LucidHarmony";
-  }, []);
+  useSEO({
+    title: "Beta Downloads - LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring",
+    description: "Download beta versions of LucidHarmony to try the latest features before release.",
+    path: "/beta",
+  });
 
   useEffect(() => {
     fetch("/data/beta-downloads.json")

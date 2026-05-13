@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && node scripts/generate-static-pages.mjs",
     "lint": "eslint --fix",
     "preview": "vite preview"
   },
@@ -30,6 +30,7 @@
     "clsx": "2.1.1",
     "framer-motion": "11.18.2",
     "katex": "^0.16.27",
+    "lite-youtube-embed": "^0.3.4",
     "lucide-react": "^0.561.0",
     "mermaid": "^11.12.2",
     "react": "18.3.1",

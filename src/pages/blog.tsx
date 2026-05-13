@@ -1,6 +1,6 @@
 import { title } from "@/components/primitives";
+import { useSEO } from "@/hooks/useSEO";
 import DefaultLayout from "@/layouts/default";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 interface BlogPost {
@@ -79,9 +79,11 @@ const blogPosts: BlogPost[] = [
 ];
 
 export default function BlogPage() {
-  useEffect(() => {
-    document.title = "Blog - LucidHarmony";
-  }, []);
+  useSEO({
+    title: "Blog - LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring",
+    description: "Articles about AI-powered music generation, chord progression theory, audio plugin development, and the technology behind LucidHarmony.",
+    path: "/blog",
+  });
 
   return (
     <DefaultLayout>

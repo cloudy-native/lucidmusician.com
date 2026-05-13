@@ -1,12 +1,14 @@
 import { subtitle, title } from "@/components/primitives";
 import { teamMembers } from "@/data/team";
+import { useSEO } from "@/hooks/useSEO";
 import DefaultLayout from "@/layouts/default";
-import { useEffect } from "react";
 
 export default function AboutPage() {
-  useEffect(() => {
-    document.title = "About - LucidHarmony";
-  }, []);
+  useSEO({
+    title: "About - LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring",
+    description: "Meet the team behind LucidHarmony, the AI-powered chord progression generator for ambient music and film scoring.",
+    path: "/about",
+  });
 
   return (
     <DefaultLayout>

@@ -193,7 +193,7 @@ The Harmonic Explorer shows alternatives based on the chords surrounding the sel
 
 ### How Licensing Works
 
-LucidHarmony uses a simple, hassle-free licensing system through Gumroad. Pay what you like with a 30-day money-back guarantee.
+LucidHarmony uses a simple, hassle-free licensing system through Gumroad. The full price is $20 (currently 50% off at $10) with a 30-day money-back guarantee.
 
 - You get your license key when you download
 - Enter it in the About tab of the plugin

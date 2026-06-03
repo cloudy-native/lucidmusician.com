@@ -161,7 +161,7 @@ Visit [lucidmusician.com](https://lucidmusician.com) and click the Gumroad link 
 
 ### Licensing
 
-LucidHarmony uses a simple, hassle-free licensing system. Pay what you like with a 30-day money-back guarantee. You'll get your license key when you download—just enter it in the plugin interface. **If you don't enter a license key, the plugin will show a friendly nag, but we will never block or disable any features or functionality.** You can install as many times as you like without restriction.
+LucidHarmony uses a simple, hassle-free licensing system. The full price is $20 (currently 50% off at $10) with a 30-day money-back guarantee. You'll get your license key when you download—just enter it in the plugin interface. **If you don't enter a license key, the plugin will show a friendly nag, but we will never block or disable any features or functionality.** You can install as many times as you like without restriction.
 
 Works offline once installed, although we check the license and whether there's an upgrade available about once a week. This will not block any features or operation.
 

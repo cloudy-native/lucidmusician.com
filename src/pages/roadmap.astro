@@ -1,0 +1,11 @@
+---
+import { getEntry, render } from "astro:content";
+import Markdown from "../layouts/Markdown.astro";
+
+const page = await getEntry("pages", "roadmap");
+const { Content } = await render(page);
+---
+
+<Markdown title={page.data.title} description={page.data.description}>
+  <Content />
+</Markdown>

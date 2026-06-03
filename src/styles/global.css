@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Montserrat", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* lite-youtube-embed: fill parent container */
+lite-youtube {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+lite-youtube::after {
+  display: none !important;
+}
+
+lite-youtube {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}

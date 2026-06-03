@@ -1,0 +1,72 @@
+---
+import Page from "../layouts/Page.astro";
+import betaData from "../data/beta-downloads.json";
+
+const products = betaData.products;
+---
+
+<Page
+  title="Beta Downloads - LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring"
+  description="Download beta versions of LucidHarmony to try the latest features before release."
+>
+  <section class="py-10 max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">Beta Downloads</h1>
+      <p class="text-gray-600 mt-4">Try the latest features before they're officially released.</p>
+    </div>
+
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 mb-8">
+      <div class="flex items-center gap-2 text-amber-400 font-semibold text-sm">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.27 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
+        Beta Software
+      </div>
+      <p class="text-gray-600 text-sm mt-2">These builds may contain bugs. Use at your own risk and please report any issues.</p>
+    </div>
+
+    {products.map((product) => (
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">{product.productName}</h2>
+        <p class="text-gray-600 mb-6">{product.description}</p>
+
+        {product.versions.map((version) => (
+          <div class="mb-8 rounded-xl border border-gray-200 bg-gray-50 p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-lg font-bold text-violet-400">v{version.version}</span>
+            </div>
+
+            {version.changelog.length > 0 && (
+              <div class="mb-4">
+                <h4 class="text-sm font-semibold text-gray-600 mb-2">What's new:</h4>
+                <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                  {version.changelog.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
+            )}
+
+            <div class="grid gap-4">
+              {version.downloads.map((dl) => (
+                <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-100 p-4">
+                  <div>
+                    <div class="font-semibold text-gray-700">{dl.name}</div>
+                    <div class="text-xs text-gray-500 mt-1">{dl.requirements} • Released {dl.releaseDate}</div>
+                    {dl.installationInstructions && (
+                      <div class="text-xs text-gray-500 mt-1">{dl.installationInstructions}</div>
+                    )}
+                  </div>
+                  <a
+                    href={`/data/${dl.fileName}`}
+                    class="inline-flex items-center gap-2 rounded-full bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-500 transition-colors"
+                    download
+                  >
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    Download
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    ))}
+  </section>
+</Page>

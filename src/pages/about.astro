@@ -1,0 +1,78 @@
+---
+import Page from "../layouts/Page.astro";
+
+const teamMembers = [
+  {
+    name: 'Stephen "SJ" Harrison',
+    jobTitle: "Chief Executive Officer",
+    motto: "Always delegate",
+    bio: '"SJ" keeps Lucid Musician pointed at the right problems and away from the wrong meetings. He studied computer science, then promptly used it to build music tools instead of sensible things.',
+    imageSrc: "/images/headshots/ceo.jpeg",
+  },
+  {
+    name: 'Stephen "James Roger" Harrison',
+    jobTitle: "Chief Music Officer",
+    motto: "You pay extra for black notes",
+    bio: '"James Roger" keeps the musical side honest: the chords need to sound good, not just look good on paper. He defines musical goals and tests every feature like it\'s going into a real session.',
+    imageSrc: "/images/headshots/musician.jpeg",
+  },
+  {
+    name: "S. James Roger Harrison",
+    jobTitle: "Lead Software Engineer",
+    motto: "It builds, it ships",
+    bio: "S. James builds both the LucidHarmony plugin and the website. He owns implementation, integration, and release readiness.",
+    imageSrc: "/images/headshots/developer.jpeg",
+  },
+  {
+    name: "Stephen James Roger H. Harrison",
+    jobTitle: "Brand & Visual Designer",
+    motto: "I don't do pixels or RGB",
+    bio: "H. Harrison keeps the visuals clean, consistent, and quietly confident. He owns brand, layout, UI polish, and the gentle removal of anything that looks like it was done at 2 a.m.",
+    imageSrc: "/images/headshots/design.jpeg",
+  },
+  {
+    name: "Stephen J. Roger Harrison",
+    jobTitle: "Chief Content Officer",
+    motto: "As long as the lighting's good",
+    bio: "Stephen J. runs content with one rule: clarity beats hype. He owns documentation, tutorials, screenshots, and release notes.",
+    imageSrc: "/images/headshots/content.jpeg",
+  },
+  {
+    name: "Stephen James R. Harrison",
+    jobTitle: "CFO (and Head of Accounting)",
+    motto: "No such thing as a rounding error",
+    bio: 'James R. runs finance with the calm precision of a metronome at 60 BPM. He keeps the books clean and ensures "pay-what-you-want" still adds up to "keep-building-the-plugin".',
+    imageSrc: "/images/headshots/cfo.jpeg",
+  },
+];
+---
+
+<Page
+  title="About - LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring"
+  description="Meet the team behind LucidHarmony, the AI-powered chord progression generator for ambient music and film scoring."
+>
+  <section class="py-10">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">The Team</h1>
+      <p class="text-gray-600 mt-4 max-w-3xl mx-auto">
+        A dedicated and eclectic team of specialists, who are not at all the same person really.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      {teamMembers.map((member) => (
+        <div class="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+          <div class="aspect-square w-full bg-gray-100">
+            <img src={member.imageSrc} alt={member.name} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-6">
+            <div class="text-xs font-semibold tracking-wide text-gray-500">{member.jobTitle}</div>
+            <div class="mt-1 text-xl font-semibold text-gray-900">{member.name}</div>
+            <div class="mt-3 text-sm text-gray-600 italic">"{member.motto}"</div>
+            <p class="mt-4 text-sm leading-relaxed text-gray-600">{member.bio}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Page>

@@ -3,7 +3,7 @@ title: "Release Notes"
 description: "Latest updates and changelog for LucidHarmony."
 ---
 
-# LucidHarmony: Release Notes
+# LucidHarmony Release Notes
 
 ## 1.2.5: April 27, 2026
 

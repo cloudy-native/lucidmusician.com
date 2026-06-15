@@ -11,16 +11,44 @@ const products = betaData.products;
 >
   <section class="py-10 max-w-4xl mx-auto">
     <div class="text-center mb-10">
-      <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">Beta Downloads</h1>
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-600 to-cyan-600 bg-clip-text text-transparent">Beta Downloads</h1>
       <p class="text-gray-600 mt-4">Try the latest features before they're officially released.</p>
     </div>
 
-    <div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 mb-8">
-      <div class="flex items-center gap-2 text-amber-400 font-semibold text-sm">
+    <div class="rounded-xl border border-amber-300 bg-amber-50 p-4 mb-8">
+      <div class="flex items-center gap-2 text-amber-700 font-semibold text-sm">
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.27 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
         Beta Software
       </div>
       <p class="text-gray-600 text-sm mt-2">These builds may contain bugs. Use at your own risk and please report any issues.</p>
+    </div>
+
+    <!-- Feedback plea + support options -->
+    <div class="mb-10 rounded-xl border border-violet-200 bg-violet-50 p-6">
+      <h3 class="font-bold text-gray-900 mb-2">We need your feedback 🙏</h3>
+      <p class="text-gray-700 text-sm mb-4">
+        If something feels off — a tiny glitch, a confusing label, a crash you can't reproduce, or even just "this button felt weird" — please tell us. No issue is too small or too insignificant. Beta feedback is how we make LucidHarmony better for everyone, and we genuinely appreciate every single report.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="https://lucidmusician.zohodesk.com/portal/en/newticket" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md transition-shadow">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-600 shrink-0">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-gray-900 text-sm">Support Ticket</div>
+            <div class="text-xs text-gray-500">File a ticket for beta bugs, regressions, confusing or missing documentation, or feature requests</div>
+          </div>
+        </a>
+        <a href="mailto:support@lucidmusician.com" class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md transition-shadow">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 shrink-0">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-gray-900 text-sm">Email Us</div>
+            <div class="text-xs text-gray-500">support@lucidmusician.com</div>
+          </div>
+        </a>
+      </div>
     </div>
 
     {products.map((product) => (
@@ -31,7 +59,7 @@ const products = betaData.products;
         {product.versions.map((version) => (
           <div class="mb-8 rounded-xl border border-gray-200 bg-gray-50 p-6">
             <div class="flex items-center gap-3 mb-4">
-              <span class="text-lg font-bold text-violet-400">v{version.version}</span>
+              <span class="text-lg font-bold text-violet-600">v{version.version}</span>
             </div>
 
             {version.changelog.length > 0 && (
@@ -45,9 +73,9 @@ const products = betaData.products;
 
             <div class="grid gap-4">
               {version.downloads.map((dl) => (
-                <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-100 p-4">
+                <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4">
                   <div>
-                    <div class="font-semibold text-gray-700">{dl.name}</div>
+                    <div class="font-semibold text-gray-900">{dl.name}</div>
                     <div class="text-xs text-gray-500 mt-1">{dl.requirements} • Released {dl.releaseDate}</div>
                     {dl.installationInstructions && (
                       <div class="text-xs text-gray-500 mt-1">{dl.installationInstructions}</div>
@@ -55,7 +83,7 @@ const products = betaData.products;
                   </div>
                   <a
                     href={`/data/${dl.fileName}`}
-                    class="inline-flex items-center gap-2 rounded-full bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-500 transition-colors"
+                    class="inline-flex items-center gap-2 rounded-full bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700 transition-colors"
                     download
                   >
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Markdown from "../../layouts/Markdown.astro";
+import StructuredData from "../../components/StructuredData.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -12,8 +13,31 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const postUrl = `https://lucidmusician.com/blog/${post.id}`;
+
+const article = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "datePublished": post.data.date,
+  "author": {
+    "@type": "Organization",
+    "name": "Lucid Musician",
+    "url": "https://lucidmusician.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lucid Musician",
+    "url": "https://lucidmusician.com"
+  },
+  "mainEntityOfPage": postUrl
+};
 ---
 
 <Markdown title={post.data.title} description={post.data.description} showCta={true}>
   <Content />
 </Markdown>
+
+<StructuredData data={article} />

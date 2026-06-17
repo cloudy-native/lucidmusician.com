@@ -6,7 +6,6 @@ readTime: "10 min read"
 tags: ["tech","architecture","plugin","machine-learning","web"]
 ---
 
-# The LucidHarmony Tech Stack: Modeling, Plugin, and Website
 *Published: December 17, 2025 • 10 min read*
 
 LucidHarmony is built as a full pipeline: we **train models offline**, run **real-time inference inside a JUCE audio plugin**, and support it all with a **website + infrastructure** for shipping updates and documentation.

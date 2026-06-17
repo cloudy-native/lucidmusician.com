@@ -6,8 +6,6 @@ readTime: "12 min read"
 tags: ["development","audio","plugin","github-actions","build"]
 ---
 
-# Building an Audio Plugin with GitHub Actions (macOS + Linux, multi-arch)
-
 This post walks through a practical GitHub Actions setup for building an audio plugin across:
 
 - **Linux x86_64** (GitHub-hosted runner)

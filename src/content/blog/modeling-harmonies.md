@@ -6,7 +6,6 @@ readTime: "12 min read"
 tags: ["machine-learning","music-theory","lstm","harmony"]
 ---
 
-# Modeling Harmonies: From Scores of the Masters to Real-Time AI
 *Published: December 11, 2025 • 12 min read*
 
 How do you teach a machine to understand harmony? Not just to recognize chords, but to grasp the deep patterns that composers use to create musical coherence? This article explores the complete pipeline behind LucidHarmony's AI-powered harmonic generation system, from extracting knowledge from historical scores to deploying a lightweight neural network inside an audio plugin.

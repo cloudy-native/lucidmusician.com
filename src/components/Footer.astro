@@ -1,7 +1,54 @@
 ---
 const year = new Date().getFullYear();
+const gumroad = 'https://lucidmusician.gumroad.com/l/lucid-harmony';
+const ticket = 'https://lucidmusician.zohodesk.com/portal/en/newticket';
 ---
 
-<footer class="w-full border-t border-gray-200 py-6 text-center text-sm text-gray-500">
-  <p>Copyright &copy; {year} Lucid Musician, all rights reserved</p>
+<footer class="w-full border-t border-gray-200 py-10 text-sm text-gray-600">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 gap-y-10 md:grid-cols-3 md:gap-x-8">
+      <!-- Brand -->
+      <div>
+        <div class="font-semibold text-gray-900">Lucid Musician</div>
+        <p class="mt-2 text-gray-500">Gorgeous infinite harmony for ambient and scoring.</p>
+      </div>
+
+      <!-- Explore -->
+      <div>
+        <div class="font-semibold text-gray-900 mb-3">Explore</div>
+        <ul class="space-y-1.5">
+          <li><a href="/about" class="hover:text-gray-900 transition-colors">About</a></li>
+          <li><a href="/blog" class="hover:text-gray-900 transition-colors">Blog</a></li>
+          <li><a href="/docs" class="hover:text-gray-900 transition-colors">Documentation</a></li>
+          <li><a href="/release-notes" class="hover:text-gray-900 transition-colors">Release Notes</a></li>
+          <li><a href="/roadmap" class="hover:text-gray-900 transition-colors">Roadmap</a></li>
+          <li><a href="/support" class="hover:text-gray-900 transition-colors">Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Get &amp; Support -->
+      <div>
+        <div class="font-semibold text-gray-900 mb-3">Get &amp; Support</div>
+        <ul class="space-y-1.5">
+          <li>
+            <a href={gumroad} target="_blank" rel="noopener noreferrer" class="hover:text-gray-900 transition-colors font-medium text-violet-600">
+              Get LucidHarmony
+            </a>
+          </li>
+          <li><a href="/docs" class="hover:text-gray-900 transition-colors">Read the docs</a></li>
+          <li><a href="/support" class="hover:text-gray-900 transition-colors">Support &amp; FAQs</a></li>
+          <li>
+            <a href={ticket} target="_blank" rel="noopener noreferrer" class="hover:text-gray-900 transition-colors">Submit a ticket</a>
+          </li>
+          <li>
+            <a href="mailto:support@lucidmusician.com" class="hover:text-gray-900 transition-colors">support@lucidmusician.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-gray-200 text-xs text-gray-500 text-center md:text-left">
+      Copyright &copy; {year} Lucid Musician. All rights reserved.
+    </div>
+  </div>
 </footer>

@@ -3,8 +3,6 @@ title: "Release Notes"
 description: "Latest updates and changelog for LucidHarmony."
 ---
 
-# LucidHarmony Release Notes
-
 ## 1.2.5: April 27, 2026
 
 _Always improving the AI model, chord sequence editing, and a new lick of paint_

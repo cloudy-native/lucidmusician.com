@@ -6,8 +6,6 @@ readTime: "8 min read"
 tags: ["plugin","daw","harmony"]
 ---
 
-# Harmonic Generators for DAWs: State of the Union
-
 *Published: December 15, 2025 • 12 min read*
 
 Here is a curated, comprehensive list of known AU (Audio Units) plugins specifically designed for generating MIDI chords or chord progressions. We focus on tools that output MIDI data (e.g., for drag-and-drop into DAWs like Logic Pro), emphasizing harmonic generation, progression building, and related features. We prioritized plugins with explicit AU compatibility based on developer specs and DAW integrations (e.g., Logic Pro support). The list draws from recent 2025 reviews and avoids non-plugin tools (e.g., standalone apps or browser-based generators like Hookpad's Aria or AIVA).

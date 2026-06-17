@@ -1,5 +1,7 @@
 ---
 import Page from "../layouts/Page.astro";
+import { Image } from 'astro:assets';
+import sadNote from '../assets/images/sad-music-note.png';
 ---
 
 <Page
@@ -8,7 +10,7 @@ import Page from "../layouts/Page.astro";
 >
   <section class="flex flex-col items-center justify-center py-20 text-center">
     <div class="mx-auto mb-8 w-48 md:w-64">
-      <img src="/images/sad-music-note.png" alt="Sad music note" class="h-auto w-full" />
+      <Image src={sadNote} alt="Sad music note" class="h-auto w-full" widths={[240, 320, 400]} sizes="200px" />
     </div>
     <div class="text-7xl md:text-8xl font-bold tracking-tight text-gray-700">404</div>
     <h1 class="mt-4 text-3xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">

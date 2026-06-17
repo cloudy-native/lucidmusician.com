@@ -2,6 +2,17 @@
 import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import StructuredData from "../components/StructuredData.astro";
+import { Image } from 'astro:assets';
+
+import hero from '../assets/images/lucid-harmony-hero.com.png';
+import fourChord from '../assets/images/four-chord-harmony.png';
+import beautifullyVoiced from '../assets/images/beautifully-voiced.png';
+import setHarmonic from '../assets/images/set-harmonic-foundation.png';
+import generateSeq from '../assets/images/generate-sequence.png';
+import refineVoicing from '../assets/images/refine-voicing.png';
+import exportMidi from '../assets/images/export-midi.png';
+import editMode from '../assets/images/edit-mode.png';
 
 const features = [
   { title: "50% Off — Limited Time", description: "$10 today (regular price $20). 30-day money-back guarantee and free lifetime updates included.", colorClass: "text-emerald-600" },
@@ -21,6 +32,14 @@ const steps = [
 ];
 
 const ctaHref = "https://lucidmusician.gumroad.com/l/lucid-harmony";
+
+const stepImages: Record<string, ImageMetadata> = {
+  "set-harmonic-foundation.png": setHarmonic,
+  "generate-sequence.png": generateSeq,
+  "refine-voicing.png": refineVoicing,
+  "export-midi.png": exportMidi,
+  "edit-mode.png": editMode,
+};
 ---
 
 <Base
@@ -34,7 +53,7 @@ const ctaHref = "https://lucidmusician.gumroad.com/l/lucid-harmony";
       <div class="absolute inset-0 -z-10 bg-gradient-to-b from-violet-100 via-white to-white"></div>
 
       <div class="max-w-5xl text-center">
-        <h1 class="bg-gradient-to-r from-violet-600 to-cyan-600 bg-clip-text text-transparent text-5xl md:text-7xl lg:text-8xl font-bold">
+        <h1 class="bg-gradient-to-r from-violet-600 to-cyan-600 bg-clip-text text-transparent text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] pb-1.5">
           Gorgeous Infinite Harmony
         </h1>
         <p class="mt-6 text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
@@ -93,7 +112,14 @@ const ctaHref = "https://lucidmusician.gumroad.com/l/lucid-harmony";
 
       <!-- Hero Image -->
       <div class="w-full max-w-5xl">
-        <img src="/lucid-harmony-hero.com.png" alt="LucidHarmony plugin interface showing AI-generated chord progressions" class="w-full h-auto rounded-2xl shadow-xl border border-gray-200" />
+        <Image
+          src={hero}
+          alt="LucidHarmony plugin interface showing AI-generated chord progressions"
+          class="w-full h-auto rounded-2xl shadow-xl border border-gray-200"
+          widths={[640, 960, 1280, 1600, 1920]}
+          sizes="(max-width: 768px) 100vw, 1024px"
+          loading="eager"
+        />
       </div>
 
       <div class="h-8"></div>
@@ -189,14 +215,26 @@ const ctaHref = "https://lucidmusician.gumroad.com/l/lucid-harmony";
               <h3 class="text-2xl font-bold text-violet-600">1. Generate</h3>
               <p class="text-sm text-gray-600 mt-2">Pick an AI model, starting chord and key. Click "Generate". Get a random, harmonically-interesting story with any number of chords.</p>
             </div>
-            <img src="/images/four-chord-harmony.png" alt="LucidHarmony generating a four-chord ambient progression with AI" class="w-full h-auto rounded-2xl shadow-lg object-cover lg:h-[320px]" />
+            <Image
+              src={fourChord}
+              alt="LucidHarmony generating a four-chord ambient progression with AI"
+              class="w-full h-auto rounded-2xl shadow-lg object-cover lg:h-[320px]"
+              widths={[480, 768, 1024]}
+              sizes="(max-width: 1024px) 50vw, 512px"
+            />
           </div>
           <div class="flex flex-col gap-4">
             <div class="text-center lg:text-left lg:min-h-[140px]">
               <h3 class="text-2xl font-bold text-violet-600">2. Drag MIDI</h3>
               <p class="text-sm text-gray-600 mt-2">Drop it into Logic. Everything is beautifully voiced, including that stepwise bass line you've always wanted.</p>
             </div>
-            <img src="/images/beautifully-voiced.png" alt="Beautifully voiced MIDI chord voicings exported to a DAW piano roll" class="w-full h-auto rounded-2xl shadow-lg object-cover lg:h-[320px]" />
+            <Image
+              src={beautifullyVoiced}
+              alt="Beautifully voiced MIDI chord voicings exported to a DAW piano roll"
+              class="w-full h-auto rounded-2xl shadow-lg object-cover lg:h-[320px]"
+              widths={[480, 768, 1024]}
+              sizes="(max-width: 1024px) 50vw, 512px"
+            />
           </div>
           <div class="flex flex-col gap-4">
             <div class="text-center lg:text-left lg:min-h-[140px]">
@@ -245,7 +283,14 @@ const ctaHref = "https://lucidmusician.gumroad.com/l/lucid-harmony";
             <div class={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} gap-8 items-center`}>
               <div class="flex-1 w-full">
                 <div class="aspect-video rounded-xl shadow-md bg-white border border-gray-200 overflow-hidden">
-                  <img src={`/${step.image}`} alt={step.title} class="h-full w-full object-contain" loading="lazy" />
+                  <Image
+                    src={stepImages[step.image]}
+                    alt={step.title}
+                    class="h-full w-full object-contain"
+                    widths={[480, 768, 1024]}
+                    sizes="(max-width: 768px) 100vw, 480px"
+                    loading="lazy"
+                  />
                 </div>
               </div>
               <div class="flex-1">
@@ -307,8 +352,7 @@ const ctaHref = "https://lucidmusician.gumroad.com/l/lucid-harmony";
   <script is:inline src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.4/src/lite-yt-embed.min.js"></script>
 
   <!-- Structured Data -->
-  <script type="application/ld+json" is:inline>
-  {
+  <StructuredData data={{
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "LucidHarmony",
@@ -336,8 +380,7 @@ const ctaHref = "https://lucidmusician.gumroad.com/l/lucid-harmony";
       "Configurable voicing, key, tempo, and note length",
       "Works in any DAW"
     ]
-  }
-  </script>
+  }} />
 
   <!-- Conversion tracking -->
   <script is:inline>

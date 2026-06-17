@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import StructuredData from "../components/StructuredData.astro";
 
 interface Props {
   title: string;
@@ -9,6 +10,14 @@ interface Props {
 
 const { title, description, canonical } = Astro.props;
 const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href;
+
+const organization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Lucid Musician",
+  "url": "https://lucidmusician.com",
+  "logo": "https://lucidmusician.com/images/LH-logo.jpg"
+};
 ---
 
 <!doctype html>
@@ -67,5 +76,8 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href;
       s.src="https://salesiq.zoho.com/widget?wc=siqdf47e495f388af9ebb6313380d12b6d6e4ddba171f75f59d971f83f9c8b6d9ad";
       d.body.appendChild(s);
     </script>
+
+    <!-- Organization structured data (site-wide) -->
+    <StructuredData data={organization} />
   </body>
 </html>

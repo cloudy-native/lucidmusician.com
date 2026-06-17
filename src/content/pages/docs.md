@@ -3,8 +3,6 @@ title: "Documentation"
 description: "Complete documentation for LucidHarmony, the AI-powered chord progression generator for ambient music and film scoring."
 ---
 
-# LucidHarmony Documentation
-
 **LucidHarmony** is an AI-powered chord progression generator and harmonic editor for your DAW. Our custom AI model is trained on centuries of music theory and 3,700+ compositions from master composers, delivering musically intelligent chord progressions instantly.
 
 ### LucidHarmony is for _all_ kinds of music

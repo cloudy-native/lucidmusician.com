@@ -6,8 +6,6 @@ readTime: "12 min read"
 tags: ["machine-learning","music-theory","harmony","data-structures"]
 ---
 
-# Precomputed Music-Theory Metadata: Packed JSON Formats for Fast, Reliable Harmony
-
 Audio software often wants sophisticated harmonic intelligence—Roman numerals, chord spelling, chord reduction, and voice-leading—yet it must remain fast, deterministic, and easy to validate. A practical way to achieve that is **precomputation**: compute music-theory facts offline using a trusted theory engine, then ship compact lookup tables that runtime code can load quickly and rely on.
 
 This post explains a set of **packed JSON formats** designed for that approach: how they’re used, why they beat hard-coded rules, and the trade-offs involved.

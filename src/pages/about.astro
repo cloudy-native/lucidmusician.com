@@ -1,5 +1,14 @@
 ---
 import Page from "../layouts/Page.astro";
+import { Image } from 'astro:assets';
+
+const headshotModules = import.meta.glob('../assets/images/headshots/*.jpeg', { eager: true, import: 'default' }) as Record<string, ImageMetadata>;
+
+function getHeadshot(name: string) {
+  const key = `../assets/images/headshots/${name}`;
+  return headshotModules[key];
+}
+
 
 const teamMembers = [
   {
@@ -53,7 +62,7 @@ const teamMembers = [
 >
   <section class="py-10">
     <div class="text-center mb-10">
-      <h1 class="text-4xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">The Team</h1>
+      <h1 class="text-4xl font-bold text-gray-900">The Lucid Musician Team</h1>
       <p class="text-gray-600 mt-4 max-w-3xl mx-auto">
         A dedicated and eclectic team of specialists, who are not at all the same person really.
       </p>
@@ -63,7 +72,14 @@ const teamMembers = [
       {teamMembers.map((member) => (
         <div class="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
           <div class="aspect-square w-full bg-gray-100">
-            <img src={member.imageSrc} alt={member.name} class="h-full w-full object-cover" loading="lazy" />
+            <Image
+              src={getHeadshot(member.imageSrc.split('/').pop()!)}
+              alt={member.name}
+              class="h-full w-full object-cover"
+              widths={[320, 480, 640]}
+              sizes="320px"
+              loading="lazy"
+            />
           </div>
           <div class="p-6">
             <div class="text-xs font-semibold tracking-wide text-gray-500">{member.jobTitle}</div>

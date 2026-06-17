@@ -6,8 +6,6 @@ readTime: "14 min read"
 tags: ["ai","machine-learning","lstm","transformers","markov","decoding"]
 ---
 
-# How is this AI?
-
 *Published: December 17, 2025 • 14 min read*
 
 When people say “AI” they often mean “a model that writes plausible sequences.” In practice, that could mean anything from a 2‑gram Markov chain to a GPT‑style Transformer. They’re all **probabilistic sequence models**, but they differ radically in:

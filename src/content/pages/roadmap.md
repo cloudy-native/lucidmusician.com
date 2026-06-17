@@ -3,8 +3,6 @@ title: "Roadmap"
 description: "See what's coming next for LucidHarmony. Planned features and improvements."
 ---
 
-# LucidHarmony Product Roadmap
-
 ## Version Overview
 
 | Version | Theme | Status |

@@ -3,8 +3,6 @@ title: "Support"
 description: "Get help with LucidHarmony. FAQs, troubleshooting, and contact information."
 ---
 
-# LucidHarmony Support
-
 Having trouble? This page covers the most common issues and how to resolve them. If you can't find what you need here, contact us directly.
 
 ---

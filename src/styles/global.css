@@ -7,10 +7,53 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Prose: prevent overflow on mobile */
+article.prose {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
+article.prose pre {
+  overflow-x: auto;
+  max-width: calc(100vw - 3rem);
+}
+
+article.prose code {
+  word-break: break-all;
+}
+
+article.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+article.prose h1,
+article.prose h2,
+article.prose h3,
+article.prose h4 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+article.prose table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+article.prose p,
+article.prose li {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* lite-youtube-embed: fill parent container */

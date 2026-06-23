@@ -1,11 +1,39 @@
 ---
 import { getEntry, render } from "astro:content";
-import Markdown from "../layouts/Markdown.astro";
+import Page from "../layouts/Page.astro";
+import BuyButton from "../components/BuyButton.astro";
 
 const page = await getEntry("pages", "release-notes");
 const { Content } = await render(page);
+const fullTitle = `${page.data.title} - LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring`;
 ---
 
-<Markdown title={page.data.title} description={page.data.description}>
-  <Content />
-</Markdown>
+<Page title={fullTitle} description={page.data.description}>
+  <!-- Download prompt -->
+  <div
+    class="max-w-4xl mx-auto mt-8 mb-6 rounded-xl border border-violet-200 bg-violet-50 p-6"
+  >
+    <h3 class="font-bold text-gray-900 mb-2">Get the latest version</h3>
+    <p class="text-gray-700 text-sm mb-4">
+      Each release builds on the last. If you're running an older version, we
+      recommend updating to get the latest improvements and bug fixes.
+    </p>
+    <p class="text-gray-700 text-sm mb-4">
+      Check the version you have in the About tab of the plugin.
+    </p>
+  </div>
+  <div
+    class="max-w-4xl mx-auto mt-8 mb-6 rounded-xl border border-red-200 bg-red-50 p-6"
+  >
+    <h3 class="font-bold text-gray-900 mb-2">A note on Apple Intel support</h3>
+    <p class="text-gray-700 text-sm mb-4">
+      v1.2.5 is the last version built for Mac/Intel. It will continue to work
+      until Apple breaks it. We rely heavily on some third-party libraries, and
+      they are simply not available on the legacy architecture.
+    </p>
+  </div>
+
+  <article class="prose prose-lg max-w-4xl mx-auto py-10">
+    <Content />
+  </article>
+</Page>

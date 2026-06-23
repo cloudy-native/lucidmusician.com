@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import BuyButton from "../components/BuyButton.astro";
 import StructuredData from "../components/StructuredData.astro";
 import { Image } from 'astro:assets';
 
@@ -124,12 +125,7 @@ const stepImages: Record<string, ImageMetadata> = {
 
       <div class="h-8"></div>
 
-      <a href={ctaHref} target="_blank" rel="noopener noreferrer" class="gumroad-button inline-flex items-center rounded-full bg-violet-600 hover:bg-violet-700 text-white font-semibold text-lg px-8 py-4 shadow-md hover:shadow-lg transition-all">
-        Get LucidHarmony for $10 🎉
-      </a>
-      <p class="mt-4 text-center text-base md:text-lg text-gray-500">
-        🔥 50% off — was $20 · 🛡️ 30-day money-back guarantee
-      </p>
+      <BuyButton />
     </section>
 
     <!-- Testimonials -->
@@ -338,10 +334,7 @@ const stepImages: Record<string, ImageMetadata> = {
         <div class="h-4"></div>
         <p class="text-lg text-gray-600">Join musicians and composers using LucidHarmony to create beautiful, sophisticated harmonies in seconds.</p>
         <div class="h-8"></div>
-        <a href={ctaHref} target="_blank" rel="noopener noreferrer" class="gumroad-button inline-flex items-center rounded-full bg-violet-600 hover:bg-violet-700 text-white font-semibold text-lg px-8 py-4 shadow-md hover:shadow-lg transition-all">
-          Get LucidHarmony for $10 🎉
-        </a>
-        <p class="mt-4 text-sm text-gray-500">🔥 50% off — was $20 · 🛡️ 30-day money-back guarantee</p>
+        <BuyButton />
       </div>
     </section>
   </main>

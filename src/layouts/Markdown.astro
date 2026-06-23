@@ -12,13 +12,13 @@ const fullTitle = `${title} - LucidHarmony | Gorgeous Infinite Harmony for Ambie
 ---
 
 <Page title={fullTitle} description={description}>
-  <div class="py-10">
+  <div class="py-10 w-full min-w-0">
     <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-gray-900">{title}</h1>
-      <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">{description}</p>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 break-words">{title}</h1>
+      <p class="text-base md:text-lg text-gray-600 mt-4 max-w-3xl mx-auto">{description}</p>
     </div>
 
-    <article class="prose prose-lg max-w-4xl mx-auto">
+    <article class="prose prose-lg max-w-4xl mx-auto overflow-x-hidden [&>*]:max-w-full">
       <slot />
     </article>
   </div>

@@ -219,7 +219,7 @@ LucidHarmony uses a simple, hassle-free licensing system through Gumroad. The fu
 
 | Platform | Minimum OS | Architectures | Plugin Formats |
 |----------|-----------|---------------|----------------|
-| **macOS** | 11.0 (Big Sur) | Intel, Apple Silicon (M1/M2/...) | AU, AUv3, VST3, CLAP |
+| **macOS** | 11.0 (Big Sur) | Apple Silicon (M1/M2/M3/M4) — v1.3.x+. Intel supported in v1.2.x. | AU, AUv3, VST3, CLAP |
 | **Windows** | 10 (64-bit) | Intel/AMD x64, ARM64 | VST3, CLAP |
 | **Linux** | 64-bit | Intel/AMD x64, ARM64 | VST3, CLAP |
 

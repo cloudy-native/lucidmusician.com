@@ -9,14 +9,6 @@ description: "Complete documentation for LucidHarmony, the AI-powered chord prog
 
 While our AI models are trained on historical master composers, these foundational harmonic principles underpin all modern music—from contemporary pop and ambient to cinematic and experimental genres. LucidHarmony lets you dial in exactly how adventurous you want to be, with controls to embrace modern, unexpected harmonies and extended chords like 7ths, 9ths, and sus chords. Start with timeless foundations, then push into uncharted territory.
 
-## What's New in 1.2.5
-
-- **Chord Tape Editing**: Right-click any chord to replace, insert, delete, or duplicate. Drag chords to rearrange. Full undo/redo support. See [Chord Tape Editing](#chord-tape-editing).
-- **Harmonic Function Colors**: Chords are now color-coded by harmonic function (tonic, predominant, dominant) in both the chord tape and Harmonic Explorer. Color saturation reflects chord complexity.
-- **Rich Tooltips**: Hover over any chord to see its harmonic role, modifier tags, and contextual description of how it relates to neighboring chords.
-- **Improved Voicing**: Smarter voicing for augmented 6th chords (tighter spacing), Neapolitan chords (strict bass), and consonant triads (close voicing).
-- **Longer Infinite Mode**: Infinite mode now generates up to 100 chords per batch for longer, more flowing sequences.
-
 ---
 
 ## Why LucidHarmony?
@@ -27,7 +19,7 @@ Then start to generate sequences with longer chords that let lush pads play out.
 
 ### Platform Availability
 
-Available for **Mac** (Intel and Apple Silicon), **Linux** (Intel and ARM64), and **Windows** (Intel and ARM64). Mac supports AU, AUv3, VST3, and CLAP formats. Windows and Linux support VST3 and CLAP.
+Available for **Mac** (Apple Silicon only as of v1.3.x; Intel supported in v1.2.x), **Linux** (Intel and ARM64), and **Windows** (Intel, ZIP and installer). Mac supports AU, AUv3, VST3, and CLAP formats. Windows and Linux support VST3 and CLAP.
 
 ### Tested DAWs
 
@@ -97,7 +89,7 @@ Six blue dials control how the chords are voiced across the four parts:
 
 ### System Requirements
 
-**macOS** requires macOS 11.0 (Big Sur) or later, works on both Apple Silicon (M1/M2/M3) and Intel processors, and needs a DAW compatible with AU, AUv3, VST3, or CLAP.
+**macOS** requires macOS 11.0 (Big Sur) or later. Version 1.3.x and above requires Apple Silicon (M1/M2/M3/M4). Intel Mac users can continue using version 1.2.x with all existing features. Needs a DAW compatible with AU, AUv3, VST3, or CLAP.
 
 **Windows** requires Windows 10 or later (64-bit) with a VST3- or CLAP-compatible DAW.
 

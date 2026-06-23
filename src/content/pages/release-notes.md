@@ -1,7 +1,17 @@
 ---
 title: "Release Notes"
-description: "Latest updates and changelog for LucidHarmony."
+description: "Latest updates and changelog for the LucidHarmony MIDI plugin."
 ---
+
+## 1.3.0: June 19, 2026
+
+_Complete rewrite of the AI training and inference & a new non-chord tones feature_
+
+| Feature | Description |
+| --- | --- |
+| _Transformer AI architecture_ | We kept enhancements to harmonic analysis we made a month or two back, but rewrote the training and inference to use a transformer AI architecture instead of the legacy LSTM. We conducted double-blind tests and can show this is objectively more interesting and pleasing. |
+| _Non-chord tones_ | We enhanced the voicing generator to let you configure non-chord tones in MIDI output. If you use suspension NCT with the Corelli AI model, for example, you might be surprised by how authentic it can feel. We hope you like it. | 
+| _Relentless bug fixing_ | We got valuable feedback from you all as always on missing features and broken things. Thanks especially to Frank for some excellent bug reports and beta testing on Windows Reaper. |
 
 ## 1.2.5: April 27, 2026
 

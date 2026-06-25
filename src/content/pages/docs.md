@@ -7,7 +7,7 @@ description: "Complete documentation for LucidHarmony, the AI-powered chord prog
 
 ### LucidHarmony is for _all_ kinds of music
 
-While our AI models are trained on historical master composers, these foundational harmonic principles underpin all modern music—from contemporary pop and ambient to cinematic and experimental genres. LucidHarmony lets you dial in exactly how adventurous you want to be, with controls to embrace modern, unexpected harmonies and extended chords like 7ths, 9ths, and sus chords. Start with timeless foundations, then push into uncharted territory.
+While our AI models are trained on historical master composers, these foundational harmonic principles underpin all modern music — from contemporary pop and ambient to cinematic and experimental genres. LucidHarmony lets you dial in exactly how adventurous you want to be, with controls to embrace modern, unexpected harmonies and extended chords like 7ths, 9ths, and sus chords. Start with timeless foundations, then push into uncharted territory.
 
 ---
 
@@ -19,7 +19,7 @@ Then start to generate sequences with longer chords that let lush pads play out.
 
 ### Platform Availability
 
-Available for **Mac** (Apple Silicon only as of v1.3.x; Intel supported in v1.2.x), **Linux** (Intel and ARM64), and **Windows** (Intel, ZIP and installer). Mac supports AU, AUv3, VST3, and CLAP formats. Windows and Linux support VST3 and CLAP.
+Available for **Mac** (Apple Silicon only as of v1.3.x; Intel supported in v1.2.x), **Linux** (Intel and ARM64), and **Windows** (Intel, ZIP, and installer). Mac supports AU, AUv3, VST3, and CLAP formats. Windows and Linux support VST3 and CLAP.
 
 ### Tested DAWs
 
@@ -39,25 +39,21 @@ LucidHarmony's interface is organized into three main tabs: **Generate**, **Harm
 
 ### AI Generator Section
 
-| | Control | Description |
-| --- | ---------|-------------|
-| **1** | **Key** | Select the tonal center for your progression (C, D, E♭, etc.). Works with both Major and Minor modes. |
-| **2** | **Start Chord** | Choose the first chord of your progression in two parts: a Roman numeral (I–VII or i–vii in minor) and a Variant dropdown that combines inversions and extensions (e.g., root position, 1st inversion, 7th, maj7, dim, aug, sus4, add9). The Variant dropdown is dynamically populated based on the selected AI model's vocabulary. |
-| **3** | **AI Model** | Select which composer's harmonic style to emulate: Bach, Corelli, Monteverdi, Palestrina, or Trecento. Each has distinct characteristics, detailed in the Getting Started section. |
-| **4** | **Time Signature & Note Length** | Set the meter for the generated progression. Options: 4/4, 3/4, 2/4, 6/8, 12/8, 5/4, 7/8. Affects how the generated MIDI is rhythmically organized. Note Length controls how many bars each chord lasts. Options: 1/8, 1/4, 1/2, 1, 2, 4, 8, 16. Shorter values for fast-moving progressions, longer values for ambient pads. |
-| **5** | **Predictability** | Red dial controlling how familiar or surprising the progressions feel. Five levels: Very Familiar, Familiar, Balanced, Surprising, Very Surprising. |
-| **6** | **Richness & Extension Bias** | Red dial controlling chord complexity. Five levels: Simple, Some Color, Colorful, Rich, Very Rich. Higher levels add 7ths, 9ths, and extended harmonies. Four toggles (7ths, 9ths, Aug 6ths, Others) appear next to the Richness dial. When Richness is above Simple, these control which chord extension types are biased in generation. "Others" biases toward remaining extended chords (sus, add9, etc.) independently from the other three. |
-| **7** | **Bars** | Slider setting the total number of chords to generate. |
-| **8** | **Infinite Mode** | Checkbox to enable continuous generation. When enabled with "Reset on Play," LucidHarmony generates new progressions each time you press play in your DAW. |
-| **9** | **Generate Button** | Click to create a new chord progression based on your settings. You can click this as many times as you want. |
-| **10** | **Undo/Redo** | Step backward or forward through your generation history. |
+- **1. Key** — Select the tonal center for your progression (C, D, E♭, etc.). Works with both Major and Minor modes.
+- **2. Start Chord** — Choose the first chord of your progression in two parts: a Roman numeral (I–VII or i–vii in minor) and a Variant dropdown that combines inversions and extensions (e.g., root position, 1st inversion, 7th, maj7, dim, aug, sus4, add9). The Variant dropdown is dynamically populated based on the selected AI model's vocabulary.
+- **3. AI Model** — Select which composer's harmonic style to emulate: Bach, Corelli, Monteverdi, Palestrina, or Trecento. Each has distinct characteristics, detailed in the Getting Started section.
+- **4. Time Signature & Note Length** — Set the meter for the generated progression. Options: 4/4, 3/4, 2/4, 6/8, 12/8, 5/4, 7/8. Affects how the generated MIDI is rhythmically organized. Note Length controls how many bars each chord lasts. Options: 1/8, 1/4, 1/2, 1, 2, 4, 8, 16. Shorter values for fast-moving progressions, longer values for ambient pads.
+- **5. Predictability** — Red dial controlling how familiar or surprising the progressions feel. Five levels: Very Familiar, Familiar, Balanced, Surprising, Very Surprising.
+- **6. Richness & Extension Bias** — Red dial controlling chord complexity. Five levels: Simple, Some Color, Colorful, Rich, Very Rich. Higher levels add 7ths, 9ths, and extended harmonies. Four toggles (7ths, 9ths, Aug 6ths, Others) appear next to the Richness dial. When Richness is above Simple, these control which chord extension types are biased in generation. "Others" biases toward remaining extended chords (sus, add9, etc.) independently from the other three.
+- **7. Bars** — Slider setting the total number of chords to generate.
+- **8. Infinite Mode** — Checkbox to enable continuous generation. When enabled with "Reset on Play," LucidHarmony generates new progressions each time you press play in your DAW.
+- **9. Generate Button** — Click to create a new chord progression based on your settings. You can click this as many times as you want.
+- **10. Undo/Redo** — Step backward or forward through your generation history.
 
 ### MIDI Export
 
-| | Control | Description |
-| --- | ---------|-------------|
-| **11** | **Drag MIDI (Single)** | Drag this to export all four voices on a single MIDI track. Perfect for choir, pad, or piano sounds. |
-| **12** | **Drag MIDI (Multi)** | Drag this to export each voice on a separate MIDI track. Ideal for assigning different instruments to each voice. |
+- **11. Drag MIDI (Single)** — Drag this to export all four voices on a single MIDI track. Perfect for choir, pad, or piano sounds.
+- **12. Drag MIDI (Multi)** — Drag this to export each voice on a separate MIDI track. Ideal for assigning different instruments to each voice.
 
 **MIDI Metadata:** Exported MIDI files include chord symbol text markers (MIDI meta event type 6) and cue points (type 7) at each chord change. These appear as markers in DAWs that support MIDI meta events, making it easy to see chord names in your arrangement.
 
@@ -65,23 +61,19 @@ LucidHarmony's interface is organized into three main tabs: **Generate**, **Harm
 
 Six blue dials control how the chords are voiced across the four parts:
 
-| | Control | Description |
-| --- | ---------|-------------|
-| **13** | **Avoid Parallel** | Reduces parallel fifths and octaves between voices for smoother, more traditional voice leading. |
-| **14** | **Contrary Motion** | Encourages voices to move in opposite directions, creating independence between parts. |
-| **15** | **Stepwise Motion** | Prefers small intervals (seconds and thirds) over large leaps for smooth melodic lines. |
-| **16** | **Open Chords** | Controls spacing between voices. Higher values create wider, more spacious voicing. |
-| **17** | **Common Tones** | Extends MIDI notes across chord changes where voices share the same pitch, creating smoother transitions. |
-| **18** | **Center Voices** | Keeps each voice part around the middle of its range rather than wandering too high or low. |
-| **19** | **Extend MIDI** | Checkbox to extend MIDI note lengths across chord boundaries where common tones occur. |
-| **20** | **Reset Voicing** | Button to return all voicing parameters to default balanced settings. |
+- **13. Avoid Parallel** — Reduces parallel fifths and octaves between voices for smoother, more traditional voice leading.
+- **14. Contrary Motion** — Encourages voices to move in opposite directions, creating independence between parts.
+- **15. Stepwise Motion** — Prefers small intervals (seconds and thirds) over large leaps for smooth melodic lines.
+- **16. Open Chords** — Controls spacing between voices. Higher values create wider, more spacious voicing.
+- **17. Common Tones** — Extends MIDI notes across chord changes where voices share the same pitch, creating smoother transitions.
+- **18. Center Voices** — Keeps each voice part around the middle of its range rather than wandering too high or low.
+- **19. Extend MIDI** — Checkbox to extend MIDI note lengths across chord boundaries where common tones occur.
+- **20. Reset Voicing** — Button to return all voicing parameters to default balanced settings.
 
 ### Utility Controls
 
-| | Control | Description |
-| --- | ---------|-------------|
-| **21** | **Reset** | Reset the chord tape to a single start chord. |
-| **22** | **Chord Tape** | Generated chords appear here. Click to select, right-click to edit, drag to rearrange. Chords play with DAW transport or drag to an instrument track. See [Chord Tape Editing](#chord-tape-editing) for details. |
+- **21. Reset** — Reset the chord tape to a single start chord.
+- **22. Chord Tape** — Generated chords appear here. Click to select, right-click to edit, drag to rearrange. Chords play with DAW transport or drag to an instrument track. See [Chord Tape Editing](#chord-tape-editing) for details.
 
 ---
 
@@ -97,15 +89,15 @@ Six blue dials control how the chords are voiced across the four parts:
 
 ### Download
 
-Visit [lucidmusician.com](https://lucidmusician.com) and click the Gumroad link to download the latest version for your platform. You will get an email with download details and can download as many times as needed. No installation limits—install on multiple computers.
+Visit [lucidmusician.com](https://lucidmusician.com) and click the Gumroad link to download the latest version for your platform. You will get an email with download details and can download as many times as needed. No installation limits — install on multiple computers.
 
 ### Installation Steps
 
 **macOS**
 
 1. Download the `.pkg` file for macOS
-2. Run the installer—double-click the downloaded package
-3. Follow the installation wizard—plugins install automatically to:
+2. Run the installer — double-click the downloaded package
+3. Follow the installation wizard — plugins install automatically to:
    - AU: `~/Library/Audio/Plug-Ins/Components/`
    - AUv3: `~/Library/Audio/Plug-Ins/Components/` (same location, AUv3 variant)
    - VST3: `~/Library/Audio/Plug-Ins/VST3/`
@@ -120,7 +112,7 @@ Visit [lucidmusician.com](https://lucidmusician.com) and click the Gumroad link 
 **Option 1: EXE Installer (Recommended)**
 
 1. Download the `.exe` installer for Windows
-2. Run the installer—double-click the downloaded file
+2. Run the installer — double-click the downloaded file
 3. Choose installation location (default recommended):
    - VST3: `C:\Program Files\Common Files\VST3\`
    - CLAP: `C:\Program Files\Common Files\CLAP\`
@@ -151,7 +143,7 @@ Visit [lucidmusician.com](https://lucidmusician.com) and click the Gumroad link 
 
 ### Licensing
 
-LucidHarmony uses a simple, hassle-free licensing system. The full price is $20 (currently 50% off at $10) with a 30-day money-back guarantee. You'll get your license key when you download—just enter it in the plugin interface. **If you don't enter a license key, the plugin will show a friendly nag, but we will never block or disable any features or functionality.** You can install as many times as you like without restriction.
+LucidHarmony uses a simple, hassle-free licensing system. The full price is $20 (currently 50% off at $10) with a 30-day money-back guarantee. You'll get your license key when you download — just enter it in the plugin interface. **If you don't enter a license key, the plugin will show a friendly nag, but we will never block or disable any features or functionality.** You can install as many times as you like without restriction.
 
 Works offline once installed, although we check the license and whether there's an upgrade available about once a week. This will not block any features or operation.
 
@@ -159,7 +151,7 @@ Works offline once installed, although we check the license and whether there's 
 
 ## Setting Up the Plugin
 
-LucidHarmony is a **MIDI FX plugin** that generates MIDI data only—it does not produce audio directly. You need to route the generated MIDI to a software instrument (synth, piano, strings, etc.) to hear sound.
+LucidHarmony is a **MIDI FX plugin** that generates MIDI data only — it does not produce audio directly. You need to route the generated MIDI to a software instrument (synth, piano, strings, etc.) to hear sound.
 
 ### Logic Pro
 
@@ -224,7 +216,7 @@ Reaper offers flexible routing similar to Ableton but with its own approach.
 
 ## Getting Started: Your First Chord Progression
 
-LucidHarmony's AI does the heavy lifting—you just need to set a few simple parameters and click Generate. No music theory knowledge required.
+LucidHarmony's AI does the heavy lifting — you just need to set a few simple parameters and click Generate. No music theory knowledge required.
 
 ### Step 1: Set Your Key and Start Chord
 
@@ -235,7 +227,7 @@ The key determines the tonal center of your progression. Start with something fa
 - **Key**: Select a key from the dropdown and major/minor
 - **Start Chord**: Choose where your progression begins in two parts. First, select the Roman numeral (I–VII in major, i–vii in minor). Then choose a Variant from the dropdown, which combines inversions and extensions (e.g., root position, 1st inversion, 7th, maj7, dim, aug, sus4, add9). The Variant list updates dynamically based on the selected AI model's vocabulary — different models know different chord types. Experiment with this to discover where different chords can lead.
 
-**Why this matters:** The key ensures all generated chords work together harmonically. You can't go wrong—any key will produce musical results.
+**Why this matters:** The key ensures all generated chords work together harmonically. You can't go wrong — any key will produce musical results.
 
 ### Step 2: Configure Generation Settings
 
@@ -286,7 +278,7 @@ Press play in your DAW or use LucidHarmony's built-in playback. The current chor
 
 Drag the MIDI directly into your DAW:
 
-1. **Drag MIDI (Single)**: All 4 voices on one track—perfect for:
+1. **Drag MIDI (Single)**: All 4 voices on one track — perfect for:
    - Choir sounds
    - Pad synths
    - Piano
@@ -294,7 +286,7 @@ Drag the MIDI directly into your DAW:
 
 ![Drag single MIDI](/images/drag-single-midi.png)
 
-2. **Drag MIDI (Multi)**: Each voice on a separate track—ideal for:
+2. **Drag MIDI (Multi)**: Each voice on a separate track — ideal for:
    - Independent instrument assignments
    - Bass + melody + harmony splits
    - Advanced mixing and processing
@@ -307,14 +299,14 @@ Drag the MIDI directly into your DAW:
 
 ## Infinite Mode
 
-Infinite Mode is designed for creating very long MIDI sequences—perfect for ambient music, evolving soundscapes, or background harmony that plays while you work on other parts of your track.
+Infinite Mode is designed for creating very long MIDI sequences — perfect for ambient music, evolving soundscapes, or background harmony that plays while you work on other parts of your track.
 
 ### How It Works
 
 When you enable **Infinite Mode**, LucidHarmony generates continuously evolving chord progressions. You can use it in two ways:
 
 **1. Generate Long Sequences**  
-Click Generate with Infinite Mode enabled to create extended progressions. Each generation recreates the entire sequence with fresh harmonic content. Don't worry about regenerating multiple times—LucidHarmony's custom AI is extremely fast: creating 100 chords takes about 1/10th of a second.
+Click Generate with Infinite Mode enabled to create extended progressions. Each generation recreates the entire sequence with fresh harmonic content. Don't worry about regenerating multiple times — LucidHarmony's custom AI is extremely fast: creating 100 chords takes about 1/10th of a second.
 
 **2. Live Background Harmony**  
 Add LucidHarmony to an instrument track in your DAW and enable Infinite Mode with "Reset on Play." Now when you press play, it generates new harmonic MIDI sequences in real-time while you work on other elements of your production.
@@ -332,7 +324,7 @@ Add LucidHarmony to an instrument track in your DAW and enable Infinite Mode wit
 
 ## Undo/Redo
 
-LucidHarmony maintains a complete history of up to **100 undo steps**, saving both your chord progressions and all configuration settings. This means you can freely experiment with different generations, voicing parameters, and settings—then step backward through your entire creative process.
+LucidHarmony maintains a complete history of up to **100 undo steps**, saving both your chord progressions and all configuration settings. This means you can freely experiment with different generations, voicing parameters, and settings — then step backward through your entire creative process.
 
 **How to use:**
 - **Undo**: Cmd+Z (Mac) / Ctrl+Z (Windows) or click the Undo button
@@ -354,7 +346,7 @@ LucidHarmony has three main tabs: **AI Generator** for creating progressions aut
 
 LucidHarmony separates **generation** from **voicing**—a powerful approach that gives you maximum control:
 
-**Stage 1: Generate the Progression** — Focus on harmonic content (which chords, in what order). The AI handles music theory and progression logic. Experiment freely—generation is instant.
+**Stage 1: Generate the Progression** — Focus on harmonic content (which chords, in what order). The AI handles music theory and progression logic. Experiment freely — generation is instant.
 
 **Stage 2: Voice the Chords** — Transform the same progression into different textures. Adjust voice leading, spacing, and range. One progression, infinite sonic possibilities.
 
@@ -392,7 +384,7 @@ LucidHarmony includes a contextual help panel that displays information about an
 
 ## Music Theory Primer
 
-You don't need to know music theory to use LucidHarmony—we're hoping this plugin give you the freedom to delegate a lot of that to us—but understanding a few concepts will help you get more out of it. This section explains the terms you'll see in the plugin and how they relate to the music you're creating.
+You don't need to know music theory to use LucidHarmony — we're hoping this plugin give you the freedom to delegate a lot of that to us — but understanding a few concepts will help you get more out of it. This section explains the terms you'll see in the plugin and how they relate to the music you're creating.
 
 ### Keys and Modes
 
@@ -407,15 +399,13 @@ The key and mode together define the palette of chords the AI draws from. Changi
 
 LucidHarmony displays chords as **Roman numerals** (I, ii, V, etc.) rather than note names (C, Dm, G). This is standard music theory notation that describes a chord's role in the key, not its absolute pitch.
 
-| Numeral | Name | Role | Example in C Major |
-|---------|------|------|--------------------|
-| **I** | Tonic | Home base, stability | C major |
-| **ii** | Supertonic | Gentle motion, leads to V | D minor |
-| **iii** | Mediant | Soft color, related to I | E minor |
-| **IV** | Subdominant | Warmth, approach chord | F major |
-| **V** | Dominant | Tension, wants to resolve to I | G major |
-| **vi** | Submediant | Emotional, relative minor | A minor |
-| **vii°** | Leading tone | Strong pull toward I | B diminished |
+- **I** (Tonic) — Home base, stability. Example in C Major: C major
+- **ii** (Supertonic) — Gentle motion, leads to V. Example in C Major: D minor
+- **iii** (Mediant) — Soft color, related to I. Example in C Major: E minor
+- **IV** (Subdominant) — Warmth, approach chord. Example in C Major: F major
+- **V** (Dominant) — Tension, wants to resolve to I. Example in C Major: G major
+- **vi** (Submediant) — Emotional, relative minor. Example in C Major: A minor
+- **vii°** (Leading tone) — Strong pull toward I. Example in C Major: B diminished
 
 Uppercase numerals (I, IV, V) indicate major chords. Lowercase (ii, iii, vi) indicate minor chords. This is why the same progression (say, I-IV-V-I) works in any key: the relationships stay the same.
 
@@ -467,13 +457,11 @@ LucidHarmony's AI is not a generic large language model. Each composer model is 
 
 Each model is trained on chord progressions extracted from real compositions using computational musicology tools. The training data is Roman numeral analysis, not audio or MIDI. This means the AI learns harmonic relationships and tendencies, not melodies or rhythms.
 
-| Model | Training Source | Vocabulary |
-|-------|----------------|------------|
-| **Bach** | 371 chorale harmonizations (Riemenschneider collection) | 632 chord types |
-| **Palestrina** | Sacred vocal works and masses | 717 chord types |
-| **Monteverdi** | Madrigals and early opera | 586 chord types |
-| **Corelli** | Trio sonatas and concerti grossi | 429 chord types |
-| **Trecento** | 14th-century Italian secular music (Landini, etc.) | 605 chord types |
+- **Bach** — 371 chorale harmonizations (Riemenschneider collection) *(632 chord types)*
+- **Palestrina** — Sacred vocal works and masses *(717 chord types)*
+- **Monteverdi** — Madrigals and early opera *(586 chord types)*
+- **Corelli** — Trio sonatas and concerti grossi *(429 chord types)*
+- **Trecento** — 14th-century Italian secular music (Landini, etc.) *(605 chord types)*
 
 The vocabulary size reflects the harmonic diversity of each composer's style. Palestrina's larger vocabulary comes from the rich modal language of Renaissance polyphony. Corelli's smaller vocabulary reflects the more standardized tonal language of the High Baroque.
 
@@ -518,18 +506,16 @@ Voicing transforms the feel of the harmony. You can tweak voicing heuristics ind
 
 ### Voicing Parameters
 
-| Control | Description | Recommended Range |
-|---------|-------------|-------------------|
-| **Avoid Parallel** | Reduces parallel fifths and octaves between voices for smoother, more traditional voice leading. | 80-95% for strict classical style |
-| **Contrary Motion** | Encourages voices to move in opposite directions, creating independence between parts. | 60-80% for independent parts |
-| **Stepwise Motion** | Makes voices prefer small intervals (seconds and thirds) over large leaps for smooth melodic lines. | 80-100% for very smooth voice leading |
-| **Open Chords** | Controls spacing between voices. Higher values create wider, more spacious voicings. | 70-100% for wide, spacious texture; 10-30% for tight voicings |
-| **Common Tones** | Extends MIDI notes across chord changes where voices share the same pitch, creating smoother transitions. | 70-90% for smooth, connected sound |
-| **Center Voices** | Keeps each voice part around the middle of its range rather than wandering too high or low. | 60-80% for balanced range |
+- **Avoid Parallel** — Reduces parallel fifths and octaves between voices for smoother, more traditional voice leading. *(80-95% for strict classical style)*
+- **Contrary Motion** — Encourages voices to move in opposite directions, creating independence between parts. *(60-80% for independent parts)*
+- **Stepwise Motion** — Makes voices prefer small intervals (seconds and thirds) over large leaps for smooth melodic lines. *(80-100% for very smooth voice leading)*
+- **Open Chords** — Controls spacing between voices. Higher values create wider, more spacious voicings. *(70-100% for wide, spacious texture; 10-30% for tight voicings)*
+- **Common Tones** — Extends MIDI notes across chord changes where voices share the same pitch, creating smoother transitions. *(70-90% for smooth, connected sound)*
+- **Center Voices** — Keeps each voice part around the middle of its range rather than wandering too high or low. *(60-80% for balanced range)*
 
 ### Voicing Examples
 
-Here you can see two distinct voicings of the same harmonic sequence. Don't worry if it's a bit hard to appreciate what's going on from the screenshots—just know that the best way to understand it is to try two variations and listen for the differences. A good parameter to test is **Open Chords**. 
+Here you can see two distinct voicings of the same harmonic sequence. Don't worry if it's a bit hard to appreciate what's going on from the screenshots — just know that the best way to understand it is to try two variations and listen for the differences. A good parameter to test is **Open Chords**. 
 
 In the DAW:
 
@@ -577,13 +563,11 @@ Right-click any chord to open the editing context menu:
 
 ![Chord Context Menu](/images/harmonic-explorer-2.png)
 
-| Action | Description |
-|--------|-------------|
-| **Replace with...** | Opens the Harmonic Explorer with alternatives for this position. Click a bubble to replace the chord. |
-| **Insert Before** | Opens the Harmonic Explorer to insert a new chord before this position. |
-| **Insert After** | Opens the Harmonic Explorer to insert a new chord after this position. |
-| **Delete** | Removes this chord from the progression. Selection moves to the previous chord. |
-| **Duplicate** | Inserts a copy of this chord immediately after it. |
+- **Replace with...** — Opens the Harmonic Explorer with alternatives for this position. Click a bubble to replace the chord.
+- **Insert Before** — Opens the Harmonic Explorer to insert a new chord before this position.
+- **Insert After** — Opens the Harmonic Explorer to insert a new chord after this position.
+- **Delete** — Removes this chord from the progression. Selection moves to the previous chord.
+- **Duplicate** — Inserts a copy of this chord immediately after it.
 
 ### Drag to Rearrange
 
@@ -593,11 +577,9 @@ Click and drag a chord to move it to a different position in the tape. A drop in
 
 ### Keyboard Shortcuts
 
-| Key | Action |
-|-----|--------|
-| **Left/Right Arrow** | Move selection |
-| **Delete / Backspace** | Delete selected chord |
-| **Escape** | Clear selection |
+- **Left/Right Arrow** — Move selection
+- **Delete / Backspace** — Delete selected chord
+- **Escape** — Clear selection
 
 ### Editing with the Harmonic Explorer
 
@@ -666,15 +648,15 @@ Every edit operation (replace, insert, delete, duplicate, rearrange) is captured
 
 ### No Sound / Silent Output
 
-1. Check MIDI input—LucidHarmony requires MIDI to trigger playback
+1. Check MIDI input — LucidHarmony requires MIDI to trigger playback
 2. Verify track is armed/enabled and not muted
 3. Check plugin output routing
-4. Generate a progression first—click Generate to create chords
+4. Generate a progression first — click Generate to create chords
 
 ### Crackling or Distorted Audio
 
 1. Increase buffer size in your DAW's audio preferences (try 512 or 1024 samples)
-2. Check CPU usage—close other applications
+2. Check CPU usage — close other applications
 3. Update audio drivers
 4. Disable other plugins temporarily to isolate the issue
 
@@ -688,11 +670,11 @@ Every edit operation (replace, insert, delete, duplicate, rearrange) is captured
 
 ### Generated Progressions Sound "Wrong"
 
-1. Adjust Predictability—lower for more familiar, raise for more surprising
-2. Try different AI models—each has distinct character
-3. Generate more options—click Generate 20-30 times
+1. Adjust Predictability — lower for more familiar, raise for more surprising
+2. Try different AI models — each has distinct character
+3. Generate more options — click Generate 20-30 times
 4. Check your key and mode selection
-5. Adjust voicing—same progression can sound very different with different voicing
+5. Adjust voicing — same progression can sound very different with different voicing
 
 ### Can't Export MIDI to DAW
 

@@ -6,7 +6,7 @@ readTime: "12 min read"
 tags: ["machine-learning","music-theory","harmony","data-structures"]
 ---
 
-Audio software often wants sophisticated harmonic intelligence—Roman numerals, chord spelling, chord reduction, and voice-leading—yet it must remain fast, deterministic, and easy to validate. A practical way to achieve that is **precomputation**: compute music-theory facts offline using a trusted theory engine, then ship compact lookup tables that runtime code can load quickly and rely on.
+Audio software often wants sophisticated harmonic intelligence — Roman numerals, chord spelling, chord reduction, and voice-leading — yet it must remain fast, deterministic, and easy to validate. A practical way to achieve that is **precomputation**: compute music-theory facts offline using a trusted theory engine, then ship compact lookup tables that runtime code can load quickly and rely on.
 
 This post explains a set of **packed JSON formats** designed for that approach: how they’re used, why they beat hard-coded rules, and the trade-offs involved.
 
@@ -169,7 +169,7 @@ Lookup returns `s[si]`.
 
 ### Interesting nuance: real harmonic vocabularies are messy
 
-A “major-mode record” can legitimately reference a token that is only present in the minor “truth” format (and vice versa), due to borrowed/chromatic usage. That’s not a defect—just a reminder that “mode” is contextual, and consistency checks should reflect musical reality.
+A “major-mode record” can legitimately reference a token that is only present in the minor “truth” format (and vice versa), due to borrowed/chromatic usage. That’s not a defect — just a reminder that “mode” is contextual, and consistency checks should reflect musical reality.
 
 ---
 

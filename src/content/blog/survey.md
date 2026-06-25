@@ -93,7 +93,7 @@ Key and scale detection automatically analyzes input (MIDI or audio) to suggest 
 - **World Chord Generator**: Supports 57 scales/modes for global locking.
 
 ### Voicings/Inversions Controls
-Voicings refer to note spacing and density within a chord (e.g., open vs. close), while inversions reorder notes for smoother bass lines or transitions. These controls allow fine-tuning for emotional nuance—dense for tension, sparse for airiness—enhancing playability on instruments and voice-leading in arrangements.
+Voicings refer to note spacing and density within a chord (e.g., open vs. close), while inversions reorder notes for smoother bass lines or transitions. These controls allow fine-tuning for emotional nuance — dense for tension, sparse for airiness — enhancing playability on instruments and voice-leading in arrangements.
 
 - **Scaler 3**: Progression builder includes detailed voicings and inversions.
 - **Captain Chords**: Rhythm/voicing controls for customizable chord spreads.
@@ -189,7 +189,7 @@ Editing tools like piano rolls or note editors allow post-generation tweaks to v
 - **dBdone AI Chords**: Editable voicings and variations.
 
 ## So where does that leave LucidHarmony?  
-LucidHarmony is as much about what it *doesn't* do as it is about the features it *does*. We don't pretend to be a DAW. We don't have banks of curated chord sequences, and we don't have genre presets, arpeggiators, or audio integration. We feel those are best handled by the software you're already using—especially your DAW.  
+LucidHarmony is as much about what it *doesn't* do as it is about the features it *does*. We don't pretend to be a DAW. We don't have banks of curated chord sequences, and we don't have genre presets, arpeggiators, or audio integration. We feel those are best handled by the software you're already using — especially your DAW.  
 
 Our niche is the deep learning AI modeling of chord sequences from the masters. That's enhanced by the configurable voicing options that are rooted in established music theory. We've invested in features that aren't already covered by your tools and workflow.
 

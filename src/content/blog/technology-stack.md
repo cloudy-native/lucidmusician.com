@@ -8,7 +8,7 @@ tags: ["tech","architecture","plugin","machine-learning","web"]
 
 *Published: December 17, 2025 • 10 min read*
 
-LucidHarmony is built as a full pipeline: we **train models offline**, run **real-time inference inside a JUCE audio plugin**, and support it all with a **website + infrastructure** for shipping updates and documentation.
+LucidHarmony is built as a full pipeline: we **train transformer models offline**, run **real-time inference inside a JUCE audio plugin via ONNX Runtime**, and support it all with a **static website + infrastructure** for shipping updates and documentation.
 
 This post is a living inventory of the technologies we use across the three layers.
 
@@ -26,13 +26,16 @@ This post is a living inventory of the technologies we use across the three laye
 
 ### Machine learning
 
-- **LSTM (Long Short-Term Memory)** — sequence model used to learn harmonic progressions.
-  - https://en.wikipedia.org/wiki/Long_short-term_memory
+- **Transformer (attention-based sequence model)** — the primary architecture for learning harmonic progressions as of v1.3.0. Replaced the earlier LSTM approach for richer, more expressive output.
+  - https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)
+
+- **ONNX** — models are exported from PyTorch to ONNX format for cross-platform inference.
+  - https://onnx.ai/
 
 - **Temperature sampling** — controls randomness during generation.
   - https://en.wikipedia.org/wiki/Softmax_function#Temperature
 
-- **Top‑K sampling** — restricts sampling to the K most likely tokens.
+- **Top-K sampling** — restricts sampling to the K most likely tokens.
   - https://huggingface.co/blog/how-to-generate
 
 ### Music representation
@@ -62,12 +65,15 @@ This post is a living inventory of the technologies we use across the three laye
 - **VST3**
   - https://steinbergmedia.github.io/vst3_doc/
 
-### Inference runtime (dependency-free)
+- **CLAP**
+  - https://cleveraudio.org/
 
-- **Custom LSTM inference in C++** — the plugin loads model weights from JSON and runs forward passes without external ML runtimes.
-  - https://github.com/juce-framework/JUCE (for JSON parsing utilities used by the plugin)
+### Inference runtime
 
-- **Softmax + sampling** — generation uses softmax probabilities, temperature scaling, and top‑K style filtering.
+- **ONNX Runtime** — the plugin loads trained models exported to ONNX format and runs inference via the ONNX Runtime C++ API. This replaced a custom LSTM implementation in v1.3.0.
+  - https://onnxruntime.ai/
+
+- **Softmax + sampling** — generation uses softmax probabilities, temperature scaling, and top-K style filtering.
   - https://en.wikipedia.org/wiki/Softmax_function
 
 ### Voicing / musical constraints
@@ -87,60 +93,40 @@ This post is a living inventory of the technologies we use across the three laye
 
 ## Website (lucidmusician.com)
 
-### Languages & tooling
+### Framework
 
-- **TypeScript**
-  - https://www.typescriptlang.org/
+- **Astro** — static site generator. All pages are pre-rendered HTML at build time with zero client-side JavaScript by default.
+  - https://astro.build/
 
-- **React**
-  - https://react.dev/
+### Styling
 
-- **Vite** (build tool / dev server)
-  - https://vitejs.dev/
-
-### UI + styling
-
-- **HeroUI** (component library)
-  - https://www.heroui.com/
-
-- **Tailwind CSS**
+- **Tailwind CSS 4**
   - https://tailwindcss.com/
 
-- **Tailwind Typography** (prose styling)
+- **Tailwind Typography** (prose styling for markdown content)
   - https://github.com/tailwindlabs/tailwindcss-typography
 
-- **Framer Motion** (animation)
-  - https://www.framer.com/motion/
+### Content
 
-- **Lucide** (icons)
-  - https://lucide.dev/
+- **Astro Content Collections** — blog posts and docs pages are authored in Markdown with typed frontmatter schemas.
+  - https://docs.astro.build/en/guides/content-collections/
 
-### Content rendering
+- **@astrojs/sitemap** — auto-generated sitemap at build time.
+  - https://docs.astro.build/en/guides/integrations-guide/sitemap/
 
-- **react-markdown**
-  - https://github.com/remarkjs/react-markdown
+### Performance
 
-- **remark-gfm** (GitHub-flavored Markdown)
-  - https://github.com/remarkjs/remark-gfm
+- **lite-youtube-embed** — lightweight YouTube facade that loads the real player only on click.
+  - https://github.com/nicoulaj/lite-youtube-embed
 
-- **remark-math** + **KaTeX** (math rendering)
-  - https://github.com/remarkjs/remark-math
-  - https://katex.org/
+### Infrastructure / deployment
 
-- **Mermaid** (diagrams)
-  - https://mermaid.js.org/
-
-- **react-router** (client-side routing)
-  - https://reactrouter.com/
-
-## Infrastructure / Deployment
-
-### IaC
+#### IaC
 
 - **AWS CDK (TypeScript)**
   - https://aws.amazon.com/cdk/
 
-### Hosting + CDN
+#### Hosting + CDN
 
 - **Amazon S3** (static assets)
   - https://aws.amazon.com/s3/
@@ -148,7 +134,7 @@ This post is a living inventory of the technologies we use across the three laye
 - **Amazon CloudFront** (CDN)
   - https://aws.amazon.com/cloudfront/
 
-### DNS / certificates
+#### DNS / certificates
 
 - **Amazon Route 53**
   - https://aws.amazon.com/route53/

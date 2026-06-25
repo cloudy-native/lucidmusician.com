@@ -32,7 +32,7 @@ _Enhanced harmonic richness tools & chord identification by harmonic role_
 - **Harmonic extraction improvements** — The way figured basses are extracted from the source MIDI has been improved. This lets us use more accurate harmonic modeling. The AI models have been retrained on the enhanced harmonic analysis. You can see the benefits in generated sequences because stepwise bass lines are significantly more fluid.
 - **Voice leading improvements** — We built in more music theory about chord voicing. This means that the roles of notes in a chord are used more effectively in voice leading.
 - **Chord notation is more consistent** — We devised a method of chord aliasing, which lets us use simpler chord names in four-part harmony. This makes the chord tape less cluttered.
-- **No automatic harmony generation** — We removed the option to regenerate the sequence on DAW transport play. Now, all actions—like changing the starting chord—highlight the Generate button. It's always up to you when you want to create a new sequence.
+- **No automatic harmony generation** — We removed the option to regenerate the sequence on DAW transport play. Now, all actions — like changing the starting chord — highlight the Generate button. It's always up to you when you want to create a new sequence.
 
 Known issues:
 - There is a redraw bug in the CLAP version that prevents you entering your license key. Don't worry: Nothing stops working.

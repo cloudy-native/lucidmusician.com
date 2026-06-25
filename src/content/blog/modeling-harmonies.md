@@ -13,7 +13,7 @@ How do you teach a machine to understand harmony? Not just to recognize chords, 
 > **Note:** This post contains code and music theory. But you can safely skip over code blocks and harmonic notation and still get the gist of what's happening in the pipeline. We think it's pretty interesting in any case.
 
 ## Introduction
-LucidHarmony's approach to harmonic modeling is built on a three-stage pipeline that transforms centuries of musical knowledge into an AI model that can be used in the real-time harmonic inference engine. The system learns from the masters—analyzing thousands of Renaissance and Baroque compositions—and distills this knowledge into a compact model that can generate stylistically authentic chord progressions on the fly.
+LucidHarmony's approach to harmonic modeling is built on a three-stage pipeline that transforms centuries of musical knowledge into an AI model that can be used in the real-time harmonic inference engine. The system learns from the masters — analyzing thousands of Renaissance and Baroque compositions — and distills this knowledge into a compact model that can generate stylistically authentic chord progressions on the fly.
 
 Why Renaissance and Baroque and not pop songs? Because the harmonic language of composers like [Bach](https://en.wikipedia.org/wiki/Johann_Sebastian_Bach), [Palestrina](https://en.wikipedia.org/wiki/Giovanni_Palestrina), and [Monteverdi](https://en.wikipedia.org/wiki/Claudio_Monteverdi) in that time period set the harmonic foundation of Western music. By learning from the masters, LucidHarmony can generate harmonic progressions that are both musically coherent and stylistically authentic. You can use this know-how to create harmonies with this foundation that **sound** robust and beautiful in any context from classical through ambient to pop.
 
@@ -152,7 +152,7 @@ Typical training results:
 Epoch 50 | Train Loss: 2.1234 (PPL: 8.36) |
           Val Loss: 2.3456 (PPL: 10.44) | LR: 0.000125
 ```
-A perplexity of ~10 means the model is effectively choosing from about 10 plausible next chords at each step—a reasonable level of uncertainty that allows for creative variation while maintaining stylistic coherence.
+A perplexity of ~10 means the model is effectively choosing from about 10 plausible next chords at each step — a reasonable level of uncertainty that allows for creative variation while maintaining stylistic coherence.
 
 ### Model Checkpoint
 The final model is saved as a PyTorch checkpoint containing:
@@ -171,7 +171,7 @@ The final model is saved as a PyTorch checkpoint containing:
 This checkpoint contains everything needed to reconstruct the model and perform inference.
 
 ## Stage 3: Export to C++ Inference Engine
-The final stage is perhaps the most technically challenging: deploying the trained PyTorch model inside a real-time audio plugin. Audio plugins operate under strict constraints—they must process audio in small buffers (typically 512 samples) with minimal latency, and they cannot rely on heavy dependencies like PyTorch.
+The final stage is perhaps the most technically challenging: deploying the trained PyTorch model inside a real-time audio plugin. Audio plugins operate under strict constraints — they must process audio in small buffers (typically 512 samples) with minimal latency, and they cannot rely on heavy dependencies like PyTorch.
 
 The solution is to convert the PyTorch model into a pure JSON format that can be loaded by a custom C++ inference engine embedded in the plugin
 
@@ -307,7 +307,7 @@ def calculate_cost(prev_voicing, curr_voicing):
         cost += abs(v2 - v1)  # Penalize movement
     return cost
 ```
-This produces voicings that sound natural and follow traditional voice-leading principles, even though the model never explicitly learned these rules—they emerge from the optimization process.
+This produces voicings that sound natural and follow traditional voice-leading principles, even though the model never explicitly learned these rules — they emerge from the optimization process.
 
 ## The Complete Pipeline in Action
 Let's trace a single chord through the entire pipeline:
@@ -334,10 +334,10 @@ Let's trace a single chord through the entire pipeline:
 Building this pipeline revealed several key insights:
 
 ### 1. Simplification is Essential
-Early versions captured every detail of the original scores—figured bass symbols, chromatic alterations, complex suspensions. This created a vocabulary of thousands of tokens, leading to severe overfitting. The simplified token system (200-500 tokens) strikes the right balance between expressiveness and generalization.
+Early versions captured every detail of the original scores — figured bass symbols, chromatic alterations, complex suspensions. This created a vocabulary of thousands of tokens, leading to severe overfitting. The simplified token system (200-500 tokens) strikes the right balance between expressiveness and generalization.
 
 ### 2. Inversions are Musical Decisions
-Treating inversions as distinct tokens was initially controversial—why not let the voicing engine decide? But inversions are compositional choices that affect harmonic function, not just voice-leading details. A `V6` chord has a different character than a `V` chord, and the model needs to learn when each is appropriate.
+Treating inversions as distinct tokens was initially controversial — why not let the voicing engine decide? But inversions are compositional choices that affect harmonic function, not just voice-leading details. A `V6` chord has a different character than a `V` chord, and the model needs to learn when each is appropriate.
 
 ### 3. Strong Beat Filtering is Critical
 Capturing every vertical sonority produced noisy, unmusical training data. The strong beat rule dramatically improved model quality by focusing on structurally significant harmonies.
@@ -354,7 +354,7 @@ The current pipeline opens several exciting research directions:
 
 ## Conclusion
 
-Modeling harmony is a bridge between music theory and machine learning, between centuries of compositional practice and modern AI techniques. By carefully designing each stage of the pipeline—from extraction that preserves musical meaning, through training that captures long-range dependencies, to deployment that runs in real-time—LucidHarmony demonstrates that AI can be a creative partner in music composition.
+Modeling harmony is a bridge between music theory and machine learning, between centuries of compositional practice and modern AI techniques. By carefully designing each stage of the pipeline — from extraction that preserves musical meaning, through training that captures long-range dependencies, to deployment that runs in real-time — LucidHarmony demonstrates that AI can be a creative partner in music composition.
 
 The system doesn't replace musical knowledge; it encodes it. The model learned from Bach, Palestrina, and Monteverdi, distilling their harmonic language into a compact neural network. When you use LucidHarmony to generate a chord progression, you're tapping into centuries of musical wisdom, translated into the language of tensors and gradients.
 

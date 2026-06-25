@@ -519,7 +519,7 @@ The combination of a matrix build plus self-hosted runners gives you a clean pat
 - what the workflow installs
 - what is signed vs notarized vs stapled
 
-Once those contracts are clear (and secrets are correct), the pipeline becomes boring—in the best possible way.
+Once those contracts are clear (and secrets are correct), the pipeline becomes boring — in the best possible way.
 
 ---
 

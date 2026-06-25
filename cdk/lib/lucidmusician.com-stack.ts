@@ -81,15 +81,15 @@ export class LucidMusicianStack extends Stack {
 			errorResponses: [
 				{
 					httpStatus: 403,
-					responseHttpStatus: 200,
-					responsePagePath: "/index.html",
-					ttl: Duration.seconds(0),
+					responseHttpStatus: 404,
+					responsePagePath: "/404.html",
+					ttl: Duration.seconds(10),
 				},
 				{
 					httpStatus: 404,
-					responseHttpStatus: 200,
-					responsePagePath: "/index.html",
-					ttl: Duration.seconds(0),
+					responseHttpStatus: 404,
+					responsePagePath: "/404.html",
+					ttl: Duration.seconds(10),
 				},
 			],
 		});

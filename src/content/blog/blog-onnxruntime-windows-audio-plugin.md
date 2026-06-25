@@ -139,10 +139,12 @@ We host the result as a GitHub Release and download it via CPM during CMake conf
 CPMAddPackage(
     NAME onnxruntime_static_win_x64
     VERSION 1.26.0
-    URL "https://github.com/your-org/ort-builder/releases/download/v1.26.0-static/onnxruntime-static-win-x64.zip"
+    URL "https://github.com/cloudy-native/ort-builder/releases/download/v1.26.0-static/onnxruntime-static-win-x64.zip"
     DOWNLOAD_ONLY YES
 )
 ```
+
+[This](https://github.com/cloudy-native/ort-builder/releases/download/v1.26.0-static/onnxruntime-static-win-x64.zip) is the live URL if you need it.
 
 The plugin binary grows from ~40MB to ~60MB, but there's no DLL. No DLL conflicts. No DAW scanning issues. No PATH contamination. It just works.
 
@@ -305,4 +307,4 @@ For anyone facing the same problem:
 
 The entire ordeal took roughly 12 hours of engineering time across two days. The fix is 4 lines of CMake and a 160MB zip file. The journey to get there required understanding Windows DLL loading at a level most developers never encounter, discovering MSVC-specific static initialization quirks that don't exist on other platforms, and accepting that sometimes the only winning move is to inline everything into one fat binary.
 
-Audio plugin development on Windows is not for the faint of heart. However, I want to acknowledge just how grateful I am to my patient beta testers (especially Frank—you know who you are) and all my wonderful Windows users. You're exactly the reason we went down this path. Thank you!
+Audio plugin development on Windows is not for the faint of heart. However, I want to acknowledge just how grateful I am to my patient beta testers (especially Frank — you know who you are) and all my wonderful Windows users. You're exactly the reason we went down this path. You make it all worth it. Thank you!

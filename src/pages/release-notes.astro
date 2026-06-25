@@ -9,6 +9,12 @@ const fullTitle = `${page.data.title} - LucidHarmony | Gorgeous Infinite Harmony
 ---
 
 <Page title={fullTitle} description={page.data.description}>
+  <div class="py-10">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900">{page.data.title}</h1>
+      <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">{page.data.description}</p>
+    </div>
+
   <!-- Download prompt -->
   <div
     class="max-w-4xl mx-auto mt-8 mb-6 rounded-xl border border-violet-200 bg-violet-50 p-6"
@@ -34,8 +40,8 @@ const fullTitle = `${page.data.title} - LucidHarmony | Gorgeous Infinite Harmony
     </p>
     <p class="text-gray-700 text-sm mb-4">
       We use some third-party libraries that are simply not available on the
-      Intel architecture as Apple phases out support. Golden Gate—the latest
-      version of macOS—does not run on Intel Macs and all DAWs we know of are
+      Intel architecture as Apple phases out support. Golden Gate — the latest
+      version of macOS — does not run on Intel Macs and all DAWs we know of are
       available on Apple Silicon.
     </p>
     <p class="text-gray-700 text-sm mb-4">
@@ -48,4 +54,5 @@ const fullTitle = `${page.data.title} - LucidHarmony | Gorgeous Infinite Harmony
   <article class="prose prose-lg max-w-4xl mx-auto py-10">
     <Content />
   </article>
+  </div>
 </Page>

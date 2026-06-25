@@ -7,35 +7,32 @@ description: "Latest updates and changelog for the LucidHarmony MIDI plugin."
 
 _Complete rewrite of the AI training and inference & a new non-chord tones feature_
 
-| Feature | Description |
-| --- | --- |
-| _Transformer AI architecture_ | We kept enhancements to harmonic analysis we made a month or two back, but rewrote the training and inference to use a transformer AI architecture instead of the legacy LSTM. We conducted double-blind tests and can show this is objectively more interesting and pleasing. |
-| _Non-chord tones_ | We enhanced the voicing generator to let you configure non-chord tones in MIDI output. If you use suspension NCT with the Corelli AI model, for example, you might be surprised by how authentic it can feel. We hope you like it. | 
-| _Relentless bug fixing_ | We got valuable feedback from you all as always on missing features and broken things. Thanks especially to Frank for some excellent bug reports and beta testing on Windows Reaper. |
+- **Transformer AI architecture** — We kept enhancements to harmonic analysis we made a month or two back, but rewrote the training and inference to use a transformer AI architecture instead of the legacy LSTM. We conducted double-blind tests and can show this is objectively more interesting and pleasing.
+- **Non-chord tones** — We enhanced the voicing generator to let you configure non-chord tones in MIDI output. If you use suspension NCT with the Corelli AI model, for example, you might be surprised by how authentic it can feel. We hope you like it.
+- **Relentless bug fixing** — We got valuable feedback from you all as always on missing features and broken things. Thanks especially to Frank for some truly outstanding bug reports and beta testing on Windows Reaper.
+
+Known issues:
+- In Reaper on Windows, pressing DAW transport with LucidHarmony in an instrument track can cause a crash. We are actively investigating. The solution is to drag MIDI from a dedicated instance of LucidHarmony in a separate track. Apologies for the inconvenience.
 
 ## 1.2.5: April 27, 2026
 
 _Always improving the AI model, chord sequence editing, and a new lick of paint_
 
-| Feature | Description |
-| --- | --- |
-| _AI Model improvements._ | We extract chords with more fidelity when non-chord tones (passing notes, suspensions, and so on) and present. |
-| _Harmony editor_ | You can now drag chords around in the chord sequence, delete them, insert new ones, and use the Harmony Explorer to change chords. |
-| _UI tweaks._ | We designed a different look and updated UI components to use it. |
-| _Bug elves hard at work._ | We got a lot of feedback about bugs including things that were completely broken to minor typos. We believe we fixed everything except that annoying CLAP graphics issue, which prevents users from entering a license key. We just can't reproduce it! You have our profuse apologies. (You know who you are.)|
+- **AI Model improvements** — We extract chords with more fidelity when non-chord tones (passing notes, suspensions, and so on) are present.
+- **Harmony editor** — You can now drag chords around in the chord sequence, delete them, insert new ones, and use the Harmony Explorer to change chords.
+- **UI tweaks** — We designed a different look and updated UI components to use it.
+- **Bug elves hard at work** — We got a lot of feedback about bugs including things that were completely broken to minor typos. We believe we fixed everything except that annoying CLAP graphics issue, which prevents users from entering a license key. We just can't reproduce it! You have our profuse apologies. (You know who you are.)
 
 ## 1.2.4: April 12, 2026 
 
 _Enhanced harmonic richness tools & chord identification by harmonic role_
 
-| Feature | Description |
-|---------|-------------|
-| _The **Richness** dial has been enhanced._ | Now you can specify which extended chords you want the richness bias to generate more of. |
-| _We have added annotations to generated chords._ | The role of the chord and inversion in the scale is identified by color and descriptive tooltip. |
-| _Harmonic extraction improvements._ | The way figured basses are extracted from the source MIDI has been improved. This lets us use more accurate harmonic modeling. The AI models have been retrained on the enhanced harmonic analysis. You can see the benefits in generated sequences because stepwise bass lines are significantly more fluid. |
-| _Voice leading improvements._ | We built in more music theory about chord voicing. This means that the roles of notes in a chord are used more effectively in voice leading. |
-| _Chord notation is more consistent._ | We devised a method of _chord aliasing_, which lets us use simpler chord names in four-part harmony. This makes the chord tape less cluttered. |
-| _No automatic harmony generation._ | We removed the option to regenerate the sequence on DAW transport play. Now, all actions—like changing the starting chord—highlight the **Generate** button. It's always up to you when you want to create a new sequence. |
+- **The Richness dial has been enhanced** — Now you can specify which extended chords you want the richness bias to generate more of.
+- **Chord annotations** — The role of the chord and inversion in the scale is identified by color and descriptive tooltip.
+- **Harmonic extraction improvements** — The way figured basses are extracted from the source MIDI has been improved. This lets us use more accurate harmonic modeling. The AI models have been retrained on the enhanced harmonic analysis. You can see the benefits in generated sequences because stepwise bass lines are significantly more fluid.
+- **Voice leading improvements** — We built in more music theory about chord voicing. This means that the roles of notes in a chord are used more effectively in voice leading.
+- **Chord notation is more consistent** — We devised a method of chord aliasing, which lets us use simpler chord names in four-part harmony. This makes the chord tape less cluttered.
+- **No automatic harmony generation** — We removed the option to regenerate the sequence on DAW transport play. Now, all actions—like changing the starting chord—highlight the Generate button. It's always up to you when you want to create a new sequence.
 
 Known issues:
 - There is a redraw bug in the CLAP version that prevents you entering your license key. Don't worry: Nothing stops working.

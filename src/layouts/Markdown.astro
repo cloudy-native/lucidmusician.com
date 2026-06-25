@@ -5,22 +5,49 @@ interface Props {
   title: string;
   description: string;
   showCta?: boolean;
+  ogType?: "website" | "article";
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, showCta = false } = Astro.props;
-const fullTitle = `${title} - LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring`;
+const {
+  title,
+  description,
+  showCta = false,
+  ogType,
+  articlePublishedTime,
+  articleModifiedTime,
+  structuredData,
+} = Astro.props;
+const fullTitle = `${title} | LucidHarmony`;
 ---
 
-<Page title={fullTitle} description={description}>
+<Page
+  title={fullTitle}
+  description={description}
+  ogType={ogType}
+  articlePublishedTime={articlePublishedTime}
+  articleModifiedTime={articleModifiedTime}
+  structuredData={structuredData}
+>
   <div class="py-10 w-full min-w-0">
     <div class="text-center mb-12">
       <h1 class="text-3xl md:text-4xl font-bold text-gray-900 break-words">{title}</h1>
       <p class="text-base md:text-lg text-gray-600 mt-4 max-w-3xl mx-auto">{description}</p>
     </div>
 
+    {Astro.slots.has("prepend") && (
+      <slot name="prepend" />
+    )}
+
     <article class="prose prose-lg max-w-4xl mx-auto overflow-x-hidden [&>*]:max-w-full">
       <slot />
     </article>
+
+    {Astro.slots.has("append") && (
+      <slot name="append" />
+    )}
   </div>
 
   {showCta && (

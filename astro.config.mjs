@@ -5,7 +5,15 @@ import mdx from "@astrojs/mdx";
 
 export default defineConfig({
   site: "https://lucidmusician.com",
-  integrations: [sitemap(), mdx()],
+  redirects: {
+    "/blog/survey": "/blog/harmonic-generator-plugins-comparison",
+  },
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes("/beta"),
+    }),
+    mdx(),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

@@ -2,20 +2,52 @@
 import Base from "./Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import StructuredData from "../components/StructuredData.astro";
 
 interface Props {
   title: string;
   description: string;
   canonical?: string;
+  noindex?: boolean;
+  ogType?: "website" | "article";
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, canonical } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  noindex,
+  ogType,
+  articlePublishedTime,
+  articleModifiedTime,
+  structuredData,
+} = Astro.props;
+
+const structuredDataItems = structuredData
+  ? Array.isArray(structuredData)
+    ? structuredData
+    : [structuredData]
+  : [];
 ---
 
-<Base title={title} description={description} canonical={canonical}>
+<Base
+  title={title}
+  description={description}
+  canonical={canonical}
+  noindex={noindex}
+  ogType={ogType}
+  articlePublishedTime={articlePublishedTime}
+  articleModifiedTime={articleModifiedTime}
+>
   <Navbar />
   <main class="mx-auto max-w-7xl flex-grow px-6 pt-8 overflow-hidden">
     <slot />
   </main>
   <Footer />
+  {structuredDataItems.map((data) => (
+    <StructuredData data={data} />
+  ))}
 </Base>

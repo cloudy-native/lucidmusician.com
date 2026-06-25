@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import BuyButton from "../components/BuyButton.astro";
 import StructuredData from "../components/StructuredData.astro";
+import { PLUGIN_COMPARISON_PATH } from "../lib/blog";
+import { HERO_IMAGE, SITE_URL, publisher } from "../lib/schema";
 import { Image } from "astro:assets";
 
 import hero from "../assets/images/lucid-harmony-hero.com.png";
@@ -100,7 +102,7 @@ const stepImages: Record<string, ImageMetadata> = {
 
 <Base
   title="LucidHarmony - Gorgeous Infinite Harmony for Ambient and Scoring"
-  description="LucidHarmony generates gorgeous, infinite chord progressions for ambient music and film scoring. AI-powered MIDI plugin for any DAW on Windows, Mac, and Linux."
+  description="LucidHarmony generates gorgeous, infinite chord progressions for ambient music and film scoring. AI-powered VST3, AU, and CLAP plugin for any DAW on Windows, Mac, and Linux."
 >
   <Navbar />
   <main>
@@ -153,11 +155,16 @@ const stepImages: Record<string, ImageMetadata> = {
         <h1
           class="bg-gradient-to-r from-violet-600 to-cyan-600 bg-clip-text text-transparent text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] pb-1.5"
         >
-          Gorgeous Infinite Harmony
+          LucidHarmony
         </h1>
+        <p
+          class="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800"
+        >
+          Gorgeous Infinite Harmony
+        </p>
         <p class="mt-6 text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
-          AI-powered chord progressions for ambient music and film scoring. Any
-          DAW, any platform.
+          AI-powered chord progressions for ambient music and film scoring. VST3,
+          AU, and CLAP plugin for any DAW on Windows, Mac, and Linux.
         </p>
 
         <div class="h-10"></div>
@@ -515,6 +522,23 @@ const stepImages: Record<string, ImageMetadata> = {
             ))
           }
         </div>
+
+        <div class="mt-12 max-w-3xl mx-auto rounded-2xl border border-violet-200 bg-violet-50 p-6 text-center">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">
+            How does LucidHarmony compare?
+          </h3>
+          <p class="text-gray-700 text-sm mb-4">
+            See our survey of harmonic generator plugins — Scaler, Captain
+            Chords, ChordJam, and more — with an objective feature and pricing
+            breakdown.
+          </p>
+          <a
+            href={PLUGIN_COMPARISON_PATH}
+            class="inline-flex items-center font-semibold text-violet-600 hover:text-violet-700 transition-colors"
+          >
+            Read the plugin comparison →
+          </a>
+        </div>
       </div>
     </section>
 
@@ -626,21 +650,18 @@ const stepImages: Record<string, ImageMetadata> = {
       name: "LucidHarmony",
       description:
         "AI-powered MIDI chord progression generator that creates gorgeous, infinite harmony for ambient music and film scoring.",
-      url: "https://lucidmusician.com",
+      url: SITE_URL,
       applicationCategory: "MultimediaApplication",
       operatingSystem: "Windows, macOS, Linux",
+      softwareVersion: "1.3.0",
       offers: {
         "@type": "Offer",
         price: "10",
         priceCurrency: "USD",
         description: "50% off - regular price $20",
       },
-      author: {
-        "@type": "Organization",
-        name: "Lucid Musician",
-        url: "https://lucidmusician.com",
-      },
-      screenshot: "https://lucidmusician.com/lucid-harmony-hero.com.png",
+      author: publisher,
+      screenshot: HERO_IMAGE,
       featureList: [
         "AI-powered chord progression generation",
         "Infinite unique sequences",
@@ -649,16 +670,67 @@ const stepImages: Record<string, ImageMetadata> = {
         "Configurable voicing, key, tempo, and note length",
         "Works in any DAW",
       ],
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "5",
+        reviewCount: "3",
+        bestRating: "5",
+        worstRating: "1",
+      },
+      review: [
+        {
+          "@type": "Review",
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: "5",
+            bestRating: "5",
+          },
+          author: {
+            "@type": "Person",
+            name: "Verified purchase",
+          },
+          reviewBody:
+            "This is amazing. I use it every day, sometimes just for fun. I can create compelling ambient tracks super easily.",
+        },
+        {
+          "@type": "Review",
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: "5",
+            bestRating: "5",
+          },
+          author: {
+            "@type": "Person",
+            name: "だいすけ",
+          },
+          reviewBody:
+            "Beautiful chord progressions perfect for ambient music are easily created simply by playing them slowly. It's an ultimate tool that lets even beginners intuitively learn the magic of harmony.",
+        },
+        {
+          "@type": "Review",
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: "5",
+            bestRating: "5",
+          },
+          author: {
+            "@type": "Person",
+            name: "Verified purchase",
+          },
+          reviewBody:
+            "I saw this on Apple. I definitely see it's potential. So glad to see it offered for Windows. Thank you.",
+        },
+      ],
     }}
   />
 
   <!-- Conversion tracking -->
-  <script is:inline>
+  <script is:inline define:vars={{ conversionId: import.meta.env.PUBLIC_GOOGLE_ADS_CONVERSION_ID || "" }}>
     document.querySelectorAll(".gumroad-button").forEach((btn) => {
       btn.addEventListener("click", () => {
-        if (typeof gtag === "function") {
+        if (typeof gtag === "function" && conversionId) {
           gtag("event", "conversion", {
-            send_to: "AW-951228427/rn08CMKM5PECEIuwysUD",
+            send_to: conversionId,
           });
         }
       });

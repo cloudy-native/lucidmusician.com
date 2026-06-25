@@ -1,11 +1,29 @@
 ---
 import { getEntry, render } from "astro:content";
 import Markdown from "../layouts/Markdown.astro";
+import { PLUGIN_COMPARISON_PATH } from "../lib/blog";
 
 const page = await getEntry("pages", "docs");
 const { Content } = await render(page);
 ---
 
 <Markdown title={page.data.title} description={page.data.description}>
+  <div
+    slot="prepend"
+    class="max-w-4xl mx-auto mb-12 rounded-xl border border-violet-200 bg-violet-50 p-6"
+  >
+    <h2 class="font-bold text-gray-900 mb-2">How does LucidHarmony compare?</h2>
+    <p class="text-gray-700 text-sm mb-4">
+      We surveyed harmonic generator plugins for DAWs — Scaler, Captain Chords,
+      ChordJam, Spacewalk, and more — with an honest feature and pricing
+      breakdown.
+    </p>
+    <a
+      href={PLUGIN_COMPARISON_PATH}
+      class="inline-flex items-center font-semibold text-violet-600 hover:text-violet-700 transition-colors"
+    >
+      Read the plugin comparison →
+    </a>
+  </div>
   <Content />
 </Markdown>

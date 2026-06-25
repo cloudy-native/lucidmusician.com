@@ -5,7 +5,7 @@ import BuyButton from "../components/BuyButton.astro";
 
 const page = await getEntry("pages", "release-notes");
 const { Content } = await render(page);
-const fullTitle = `${page.data.title} - LucidHarmony | Gorgeous Infinite Harmony for Ambient and Scoring`;
+const fullTitle = `${page.data.title} | LucidHarmony`;
 ---
 
 <Page title={fullTitle} description={page.data.description}>

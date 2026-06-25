@@ -165,4 +165,4 @@ At a high level it:
 
 - [Modeling Harmonies: From Scores of the Masters to Real-Time AI](/blog/modeling-harmonies)
 
-- [Harmonic Generators for DAWs: State of the Union](/blog/survey)
+- [Harmonic Generators for DAWs: State of the Union](/blog/harmonic-generator-plugins-comparison)

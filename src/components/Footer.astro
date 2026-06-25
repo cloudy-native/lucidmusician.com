@@ -1,4 +1,6 @@
 ---
+import { PLUGIN_COMPARISON_PATH } from "../lib/blog";
+
 const year = new Date().getFullYear();
 const gumroad = 'https://lucidmusician.gumroad.com/l/lucid-harmony';
 const ticket = 'https://lucidmusician.zohodesk.com/portal/en/newticket';
@@ -19,9 +21,9 @@ const ticket = 'https://lucidmusician.zohodesk.com/portal/en/newticket';
         <ul class="space-y-1.5">
           <li><a href="/about" class="hover:text-gray-900 transition-colors">About</a></li>
           <li><a href="/blog" class="hover:text-gray-900 transition-colors">Blog</a></li>
+          <li><a href={PLUGIN_COMPARISON_PATH} class="hover:text-gray-900 transition-colors">Plugin Comparison</a></li>
           <li><a href="/docs" class="hover:text-gray-900 transition-colors">Documentation</a></li>
           <li><a href="/release-notes" class="hover:text-gray-900 transition-colors">Release Notes</a></li>
-          <li><a href="/roadmap" class="hover:text-gray-900 transition-colors">Roadmap</a></li>
           <li><a href="/support" class="hover:text-gray-900 transition-colors">Support</a></li>
         </ul>
       </div>

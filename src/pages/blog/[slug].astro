@@ -1,43 +1,51 @@
 ---
 import { getCollection, render } from "astro:content";
+import RelatedArticles from "../../components/RelatedArticles.astro";
 import Markdown from "../../layouts/Markdown.astro";
-import StructuredData from "../../components/StructuredData.astro";
+import { getRelatedPosts } from "../../lib/related-posts";
+import { HERO_IMAGE, SITE_URL, publisher, toIsoDate } from "../../lib/schema";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await render(post);
 
-const postUrl = `https://lucidmusician.com/blog/${post.id}`;
+const postUrl = `${SITE_URL}/blog/${post.id}/`;
+const published = toIsoDate(post.data.date);
+const relatedPosts = getRelatedPosts(post, allPosts);
 
 const article = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": post.data.title,
-  "description": post.data.description,
-  "datePublished": post.data.date,
-  "author": {
-    "@type": "Organization",
-    "name": "Lucid Musician",
-    "url": "https://lucidmusician.com"
+  headline: post.data.title,
+  description: post.data.description,
+  image: HERO_IMAGE,
+  datePublished: published,
+  dateModified: published,
+  author: publisher,
+  publisher,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": postUrl,
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Lucid Musician",
-    "url": "https://lucidmusician.com"
-  },
-  "mainEntityOfPage": postUrl
 };
 ---
 
-<Markdown title={post.data.title} description={post.data.description} showCta={true}>
+<Markdown
+  title={post.data.title}
+  description={post.data.description}
+  showCta={true}
+  ogType="article"
+  articlePublishedTime={published}
+  articleModifiedTime={published}
+  structuredData={article}
+>
   <Content />
+  <RelatedArticles posts={relatedPosts} slot="append" />
 </Markdown>
-
-<StructuredData data={article} />

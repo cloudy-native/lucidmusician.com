@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import logo from '../assets/images/LH-logo-small-cropped.jpg';
 
 const navItems = [
@@ -35,9 +36,7 @@ const navItems = [
       aria-label="Toggle menu"
       id="mobile-menu-toggle"
     >
-      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
+      <Icon name="lucide:menu" class="h-6 w-6" />
     </button>
   </div>
 

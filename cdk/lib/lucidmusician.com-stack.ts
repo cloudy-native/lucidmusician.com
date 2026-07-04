@@ -13,7 +13,13 @@ import {
 import {
 	CachePolicy,
 	Distribution,
+	Function,
+	FunctionCode,
+	FunctionEventType,
+	HeadersFrameOption,
+	HeadersReferrerPolicy,
 	OriginAccessIdentity,
+	ResponseHeadersPolicy,
 	ViewerProtocolPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
@@ -33,16 +39,14 @@ export class LucidMusicianStack extends Stack {
 
 		const { domainName } = props;
 
-		// Create S3 bucket for website hosting
+		// Create S3 bucket for website hosting (private; served only via CloudFront)
 		const websiteBucket = new Bucket(this, "WebsiteBucket", {
-			websiteIndexDocument: "index.html",
-			websiteErrorDocument: "index.html",
-			publicReadAccess: true,
-			blockPublicAccess: BlockPublicAccess.BLOCK_ACLS,
+			blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
 			removalPolicy: RemovalPolicy.DESTROY,
+			autoDeleteObjects: true,
 		});
 
-		// Deploy website files from ../public to S3 bucket
+		// Deploy built website files (from ../dist) to S3 bucket
 		new BucketDeployment(this, "WebsiteDeployment", {
 			sources: [Source.asset("../dist")],
 			destinationBucket: websiteBucket,
@@ -55,9 +59,10 @@ export class LucidMusicianStack extends Stack {
 			domainName,
 		});
 
-		// Create single SSL certificate for all domains
+		// Create SSL certificate covering apex + www
 		const certificate = new Certificate(this, "Certificate", {
 			domainName,
+			subjectAlternativeNames: [`www.${domainName}`],
 			validation: CertificateValidation.fromDns(hostedZone),
 		});
 
@@ -68,15 +73,77 @@ export class LucidMusicianStack extends Stack {
 		);
 		websiteBucket.grantRead(originAccessIdentity);
 
+		// CloudFront Function: redirect www -> apex + ensure https (defense in depth)
+		const normalizeHostFunction = new Function(this, "NormalizeHostFunction", {
+			comment: "Redirect www to apex and enforce https",
+			code: FunctionCode.fromInline(`
+function handler(event) {
+  var request = event.request;
+  var headers = request.headers;
+  var hostHeader = headers.host ? headers.host.value : '';
+  var uri = request.uri || '/';
+
+  // Redirect www to non-www (apex)
+  if (hostHeader.startsWith('www.')) {
+    var apexHost = hostHeader.slice(4);
+    var location = 'https://' + apexHost + uri;
+    return {
+      statusCode: 301,
+      statusDescription: 'Moved Permanently',
+      headers: {
+        'location': { value: location },
+        'cache-control': { value: 'max-age=3600' }
+      }
+    };
+  }
+
+  // If somehow http reached here, force https (viewer policy usually handles this)
+  // We do not inspect scheme here; CloudFront adds cloudfront-viewer-https or similar in some events.
+  return request;
+}
+			`),
+		});
+
+		// Security headers policy including HSTS (helps Google/browsers prefer HTTPS)
+		const securityHeadersPolicy = new ResponseHeadersPolicy(this, "SecurityHeadersPolicy", {
+			comment: "Security headers + HSTS for lucidmusician.com",
+			securityHeadersBehavior: {
+				strictTransportSecurity: {
+					override: true,
+					accessControlMaxAge: Duration.days(365),
+					includeSubdomains: true,
+					preload: true,
+				},
+				contentTypeOptions: {
+					override: true,
+				},
+				frameOptions: {
+					override: true,
+					frameOption: HeadersFrameOption.DENY,
+				},
+				referrerPolicy: {
+					override: true,
+					referrerPolicy: HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
+				},
+			},
+		});
+
 		// Create CloudFront distribution for website
 		const websiteDistribution = new Distribution(this, "WebsiteDistribution", {
 			certificate: certificate,
-			domainNames: [domainName],
+			domainNames: [domainName, `www.${domainName}`],
 			defaultRootObject: "index.html",
 			defaultBehavior: {
 				origin: new S3Origin(websiteBucket, { originAccessIdentity }),
 				viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
 				cachePolicy: CachePolicy.CACHING_OPTIMIZED,
+				functionAssociations: [
+					{
+						function: normalizeHostFunction,
+						eventType: FunctionEventType.VIEWER_REQUEST,
+					},
+				],
+				responseHeadersPolicy: securityHeadersPolicy,
 			},
 			errorResponses: [
 				{

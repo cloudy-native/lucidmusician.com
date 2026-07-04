@@ -32,7 +32,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $99 (upgrades from Scaler 2 $49) · **Platforms:** Mac, Windows (AU, VST3, CLAP, AAX)
 
----
 
 ### Captain Chords (Mixed In Key)
 
@@ -44,7 +43,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $99 (standalone); $249 (full Epic bundle) · **Platforms:** Mac, Windows (AU, VST3, AAX)
 
----
 
 ### ChordJam (Audiomodern)
 
@@ -56,7 +54,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $49 · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### Cthulhu (Xfer Records)
 
@@ -68,7 +65,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $39 · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### Spacewalk (Higher Plane)
 
@@ -80,7 +76,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** £15 ($19) one-time · **Platforms:** Mac (AU, VST3)
 
----
 
 ### Chordz (CodeFN42)
 
@@ -92,7 +87,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** Free · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### Ripchord (Trackbout)
 
@@ -104,7 +98,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** Free · **Platforms:** Mac, Windows (VST3, standalone)
 
----
 
 ### Tonespace (Mucoder)
 
@@ -116,7 +109,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** Free · **Platforms:** Mac, Windows, Linux (AU, VST3, standalone)
 
----
 
 ### AudioCipher MIDI Vault
 
@@ -128,7 +120,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $59.99 · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### MIDI Wizard 2.0 (Unison Audio)
 
@@ -140,7 +131,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $347 (bundle often discounted) · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### LANDR Composer
 
@@ -152,7 +142,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $12/month (or $99/year) · **Platforms:** Mac, Windows (AU, VST3, AAX)
 
----
 
 ### InstaComposer 2 (W.A. Production)
 
@@ -164,7 +153,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $99 (often $39 on sale) · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### Liquid Music (WaveDNA)
 
@@ -176,7 +164,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $149 · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### Fluid Chords (Pitch Innovations)
 
@@ -188,7 +175,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $99 · **Platforms:** Mac, Windows (AU, VST3, AAX)
 
----
 
 ### ChordConverter (FeelYourSound)
 
@@ -200,7 +186,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $49 · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### World Chord Generator (Mario Nieto)
 
@@ -212,7 +197,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $49 · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### Pentacom ChordBloom
 
@@ -224,7 +208,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $29 · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### dBdone AI Chords
 
@@ -236,7 +219,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** $49 · **Platforms:** Mac, Windows (AU, VST3)
 
----
 
 ### Harvest Mini
 
@@ -248,7 +230,6 @@ We built LucidHarmony because we saw a gap in this space. We've done our best to
 
 **Pricing:** Free · **Platforms:** Mac (AU)
 
----
 
 
 ## Quick picks
@@ -263,7 +244,6 @@ If you're short on time, here's who to look at based on what you need:
 - **Best for full song sketching:** InstaComposer 2. Multi-track output (chords + melody + bass) in one click.
 - **Most unique workflow:** AudioCipher (text-to-chord), Liquid Music (shape-drawing), or Fluid Chords (pitch bending).
 
----
 
 ## So where does that leave LucidHarmony?
 

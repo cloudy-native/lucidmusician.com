@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import Page from "../layouts/Page.astro";
 import betaData from "../data/beta-downloads.json";
 
@@ -18,7 +19,7 @@ const products = betaData.products;
 
     <div class="rounded-xl border border-amber-300 bg-amber-50 p-4 mb-8">
       <div class="flex items-center gap-2 text-amber-700 font-semibold text-sm">
-        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.27 16.5c-.77.833.192 2.5 1.732 2.5z" /></svg>
+        <Icon name="lucide:triangle-alert" class="h-5 w-5" />
         Beta Software
       </div>
       <p class="text-gray-600 text-sm mt-2">These builds may contain bugs. Use at your own risk and please report any issues.</p>
@@ -33,7 +34,7 @@ const products = betaData.products;
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <a href="https://lucidmusician.zohodesk.com/portal/en/newticket" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md transition-shadow">
           <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-600 shrink-0">
-            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            <Icon name="lucide:file-text" class="h-5 w-5" />
           </div>
           <div>
             <div class="font-semibold text-gray-900 text-sm">Support Ticket</div>
@@ -42,7 +43,7 @@ const products = betaData.products;
         </a>
         <a href="mailto:support@lucidmusician.com" class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md transition-shadow">
           <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 shrink-0">
-            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            <Icon name="lucide:mail" class="h-5 w-5" />
           </div>
           <div>
             <div class="font-semibold text-gray-900 text-sm">Email Us</div>
@@ -87,7 +88,7 @@ const products = betaData.products;
                     class="inline-flex items-center gap-2 rounded-full bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700 transition-colors"
                     download
                   >
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    <Icon name="lucide:download" class="h-4 w-4" />
                     Download
                   </a>
                 </div>

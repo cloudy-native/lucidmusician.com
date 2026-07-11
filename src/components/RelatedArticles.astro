@@ -16,7 +16,8 @@ const { posts } = Astro.props;
     >
       <h2
         id="related-articles-heading"
-        class="text-2xl font-bold text-gray-900 mb-6"
+        class="text-2xl font-bold mb-6"
+        style="color: var(--color-text);"
       >
         Related Articles
       </h2>
@@ -24,9 +25,10 @@ const { posts } = Astro.props;
         {posts.map((post) => (
           <a
             href={`/blog/${post.id}`}
-            class="group block rounded-xl border border-gray-200 bg-gray-50 p-5 hover:border-violet-300 hover:bg-white hover:shadow-sm transition-all"
+            class="group block rounded-xl p-5 transition-all hover:shadow-sm"
+            style="border: 1px solid var(--color-border); background-color: var(--color-bg-card);"
           >
-            <div class="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-2">
+            <div class="flex flex-wrap items-center gap-2 text-sm mb-2" style="color: var(--color-text-subtle);">
               <span>
                 {new Date(post.data.date).toLocaleDateString("en-US", {
                   year: "numeric",
@@ -37,10 +39,10 @@ const { posts } = Astro.props;
               <span>•</span>
               <span>{post.data.readTime}</span>
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-violet-600 transition-colors">
+            <h3 class="text-lg font-semibold transition-colors" style="color: var(--color-text);">
               {post.data.title}
             </h3>
-            <p class="mt-2 text-gray-600 text-sm">{post.data.description}</p>
+            <p class="mt-2 text-sm" style="color: var(--color-text-muted);">{post.data.description}</p>
           </a>
         ))}
       </div>

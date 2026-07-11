@@ -46,6 +46,11 @@ const article = {
   articleModifiedTime={published}
   structuredData={article}
 >
+  <div class="flex flex-wrap gap-2 max-w-4xl mx-auto mb-8 not-prose">
+    {post.data.tags.map((tag) => (
+      <span class="text-xs px-2.5 py-1 rounded-full" style="background-color: var(--color-badge-bg); color: var(--color-badge-text);">#{tag}</span>
+    ))}
+  </div>
   <Content />
   <RelatedArticles posts={relatedPosts} slot="append" />
 </Markdown>

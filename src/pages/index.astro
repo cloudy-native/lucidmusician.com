@@ -112,25 +112,25 @@ const stepImages: Record<string, ImageMetadata> = {
       class="relative flex flex-col items-center justify-center gap-4 py-16 md:py-24 px-4"
     >
       <div
-        class="absolute inset-0 -z-10 bg-gradient-to-b from-violet-100 via-white to-white"
+        class="absolute inset-0 -z-10 bg-gradient-to-b from-violet-900/30 via-transparent to-transparent"
       >
       </div>
 
       <div class="max-w-5xl text-center">
         <!-- v1.3.0 announcement -->
         <div
-          class="max-w-2xl mx-auto mb-10 rounded-2xl border border-violet-300 bg-gradient-to-r from-violet-50 to-cyan-50 p-6 shadow-md"
+          class="max-w-2xl mx-auto mb-10 rounded-2xl border border-[var(--color-border)] bg-gradient-to-r from-violet-900/20 to-cyan-900/20 p-6 shadow-md"
         >
           <div class="flex items-center justify-center gap-2 mb-2">
             <span
               class="inline-block px-3 py-1 rounded-full bg-violet-600 text-white text-xs font-bold uppercase tracking-wide"
               >New</span
             >
-            <span class="text-xl font-bold text-gray-900"
+            <span class="text-xl font-bold text-[var(--color-text)]"
               >v1.3.0 is here 🚀</span
             >
           </div>
-          <p class="text-gray-700 text-base">
+          <p class="text-[var(--color-text)] text-base">
             Complete refresh of the AI algorithm with a <strong
               >transformer architecture</strong
             > —richer, more expressive harmony. Think ChatGPT for harmony, but it
@@ -143,12 +143,12 @@ const stepImages: Record<string, ImageMetadata> = {
               href="https://lucidmusician.gumroad.com/l/lucid-harmony"
               target="_blank"
               rel="noopener noreferrer"
-              class="gumroad-button inline-flex items-center rounded-full bg-violet-600 hover:bg-violet-700 text-white font-semibold text-sm px-5 py-2.5 shadow-sm hover:shadow-md transition-all"
+              class="gumroad-button inline-flex items-center rounded-full bg-[var(--color-button-bg)] hover:bg-[var(--color-button-bg-hover)] text-white font-semibold text-sm px-5 py-2.5 shadow-sm hover:shadow-md transition-all"
             >
               Get LucidHarmony for $10 🎉
             </a>
           </div>
-          <p class="text-gray-700 text-base">
+          <p class="text-[var(--color-text)] text-base">
             50% off for limited time — was $20
           </p>
         </div>
@@ -159,11 +159,11 @@ const stepImages: Record<string, ImageMetadata> = {
           LucidHarmony
         </h1>
         <p
-          class="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-800"
+          class="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold text-[var(--color-text-muted)]"
         >
           Gorgeous Infinite Harmony
         </p>
-        <p class="mt-6 text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+        <p class="mt-6 text-xl md:text-2xl text-[var(--color-text-muted)] max-w-3xl mx-auto">
           AI-powered chord progressions for ambient music and film scoring. VST3,
           AU, and CLAP plugin for any DAW on Windows, Mac, and Linux.
         </p>
@@ -173,51 +173,51 @@ const stepImages: Record<string, ImageMetadata> = {
         <!-- Feature Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <div
-            class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm"
+            class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-8 shadow-sm"
           >
             <div
-              class="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-100 text-violet-600"
+              class="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-900/30 text-violet-400"
             >
               <Icon name="lucide:sparkles" class="h-7 w-7" />
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-3">
+            <h3 class="text-2xl font-bold text-[var(--color-text)] mb-3">
               Infinite Variety
             </h3>
-            <p class="text-lg text-gray-600 leading-relaxed">
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
               Every sequence unique. Clever voicing, always configurable. Any
               key, tempo, note length.
             </p>
           </div>
 
           <div
-            class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm"
+            class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-8 shadow-sm"
           >
             <div
-              class="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-100 text-cyan-600"
+              class="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-900/30 text-cyan-400"
             >
               <Icon name="lucide:lightbulb" class="h-7 w-7" />
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-3">
+            <h3 class="text-2xl font-bold text-[var(--color-text)] mb-3">
               Theory Built-In
             </h3>
-            <p class="text-lg text-gray-600 leading-relaxed">
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
               Steeped in music theory, so you don't have to be. From drifting
               ambient to choral to cinematic.
             </p>
           </div>
 
           <div
-            class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm"
+            class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-8 shadow-sm"
           >
             <div
-              class="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100 text-green-600"
+              class="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-green-900/30 text-green-400"
             >
               <Icon name="lucide:circle-dollar-sign" class="h-7 w-7" />
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-3">
+            <h3 class="text-2xl font-bold text-[var(--color-text)] mb-3">
               Fair & Forever
             </h3>
-            <p class="text-lg text-gray-600 leading-relaxed">
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
               50% off right now — just $10. No-risk 30-day guarantee. Free
               updates forever.
             </p>
@@ -229,22 +229,22 @@ const stepImages: Record<string, ImageMetadata> = {
         <!-- Platform badges -->
         <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
           <div
-            class="flex items-center gap-2 px-5 py-2 rounded-full bg-gray-100 border border-gray-200"
+            class="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--color-bg-muted)] border border-[var(--color-border)]"
           >
             <span class="text-xl">🪟</span>
-            <span class="text-base font-medium text-gray-700">Windows</span>
+            <span class="text-base font-medium text-[var(--color-text)]">Windows</span>
           </div>
           <div
-            class="flex items-center gap-2 px-5 py-2 rounded-full bg-gray-100 border border-gray-200"
+            class="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--color-bg-muted)] border border-[var(--color-border)]"
           >
             <span class="text-xl">🍎</span>
-            <span class="text-base font-medium text-gray-700">Mac</span>
+            <span class="text-base font-medium text-[var(--color-text)]">Mac</span>
           </div>
           <div
-            class="flex items-center gap-2 px-5 py-2 rounded-full bg-gray-100 border border-gray-200"
+            class="flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--color-bg-muted)] border border-[var(--color-border)]"
           >
             <span class="text-xl">🐧</span>
-            <span class="text-base font-medium text-gray-700">Linux</span>
+            <span class="text-base font-medium text-[var(--color-text)]">Linux</span>
           </div>
         </div>
       </div>
@@ -256,7 +256,7 @@ const stepImages: Record<string, ImageMetadata> = {
         <Image
           src={hero}
           alt="LucidHarmony plugin interface showing AI-generated chord progressions"
-          class="w-full h-auto rounded-2xl shadow-xl border border-gray-200"
+          class="w-full h-auto rounded-2xl shadow-xl border border-[var(--color-border)]"
           widths={[640, 960, 1280, 1600, 1920]}
           sizes="(max-width: 768px) 100vw, 1024px"
           loading="eager"
@@ -264,7 +264,7 @@ const stepImages: Record<string, ImageMetadata> = {
       </div>
 
       <div class="h-2"></div>
-      <p class="text-gray-600">
+      <p class="text-[var(--color-text-muted)]">
         Click <strong>Generate</strong> for unique harmony, drag MIDI, hit play. Adjust
         key, richness, voicing as necessary. It's that easy.
       </p>
@@ -274,42 +274,42 @@ const stepImages: Record<string, ImageMetadata> = {
     </section>
 
     <!-- Testimonials -->
-    <section class="py-16 px-4 border-t border-gray-100">
+    <section class="py-16 px-4" style="border-top: 1px solid var(--color-border-muted);">
       <div class="max-w-5xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="text-center">
             <div class="text-2xl mb-3">⭐⭐⭐⭐⭐</div>
-            <p class="text-gray-600 italic">
+            <p class="text-[var(--color-text-muted)] italic">
               "This is amazing. I use it every day, sometimes just for fun. I
               can create compelling ambient tracks super easily."
             </p>
-            <p class="mt-3 text-sm font-semibold text-gray-900">
+            <p class="mt-3 text-sm font-semibold text-[var(--color-text)]">
               — Verified purchase
             </p>
-            <p class="text-xs text-gray-500">Ambient Producer</p>
+            <p class="text-xs text-[var(--color-text-subtle)]">Ambient Producer</p>
           </div>
           <div class="text-center">
             <div class="text-2xl mb-3">⭐⭐⭐⭐⭐</div>
-            <p class="text-gray-600 italic">
+            <p class="text-[var(--color-text-muted)] italic">
               "Beautiful chord progressions perfect for ambient music are easily
               created simply by playing them slowly. It's an ultimate tool that
               lets even beginners intuitively learn the magic of harmony, giving
               you the inspiring experience of collaborating across time with
               history's greatest musicians!"
             </p>
-            <p class="mt-3 text-sm font-semibold text-gray-900">— だいすけ</p>
-            <p class="text-xs text-gray-500">Music Student</p>
+            <p class="mt-3 text-sm font-semibold text-[var(--color-text)]">— だいすけ</p>
+            <p class="text-xs text-[var(--color-text-subtle)]">Music Student</p>
           </div>
           <div class="text-center">
             <div class="text-2xl mb-3">⭐⭐⭐⭐⭐</div>
-            <p class="text-gray-600 italic">
+            <p class="text-[var(--color-text-muted)] italic">
               "I saw this on Apple. I definitely see it's potential. So glad to
               see it offered for Windows. Thank you.."
             </p>
-            <p class="mt-3 text-sm font-semibold text-gray-900">
+            <p class="mt-3 text-sm font-semibold text-[var(--color-text)]">
               — Verified purchase
             </p>
-            <p class="text-xs text-gray-500">Sound Designer</p>
+            <p class="text-xs text-[var(--color-text-subtle)]">Sound Designer</p>
           </div>
         </div>
       </div>
@@ -329,7 +329,7 @@ const stepImages: Record<string, ImageMetadata> = {
         <!-- Main demo video -->
         <div class="w-full max-w-5xl mx-auto mb-16">
           <div
-            class="aspect-video overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 shadow-xl relative"
+            class="aspect-video overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] shadow-xl relative"
           >
             <lite-youtube
               videoid="zZXODsd1zlY"
@@ -345,7 +345,7 @@ const stepImages: Record<string, ImageMetadata> = {
             </lite-youtube>
           </div>
           <p
-            class="mt-6 text-center text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed"
+            class="mt-6 text-center text-lg text-[var(--color-text-muted)] max-w-4xl mx-auto leading-relaxed"
           >
             🎹 Drag MIDI straight from the plugin · 🌊 Pads, bass & windchimes ·
             ⏱️ 60 BPM · ♾️ Infinite mode · 🚫 No MIDI controller · ✋ Zero hand
@@ -356,11 +356,11 @@ const stepImages: Record<string, ImageMetadata> = {
         <!-- Side by side: 30 seconds & 5 minutes -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">
+            <h3 class="text-xl font-bold text-[var(--color-text)] mb-4 text-center">
               In 30 seconds
             </h3>
             <div
-              class="aspect-video overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 shadow-md relative"
+              class="aspect-video overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] shadow-md relative"
             >
               <lite-youtube
                 videoid="sSWSHgycSkk"
@@ -374,16 +374,16 @@ const stepImages: Record<string, ImageMetadata> = {
                 >
               </lite-youtube>
             </div>
-            <p class="mt-3 text-sm text-gray-500 text-center">
+            <p class="mt-3 text-sm text-[var(--color-text-subtle)] text-center">
               Quick overview of the core workflow
             </p>
           </div>
           <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">
+            <h3 class="text-xl font-bold text-[var(--color-text)] mb-4 text-center">
               In 5 minutes
             </h3>
             <div
-              class="aspect-video overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 shadow-md relative"
+              class="aspect-video overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] shadow-md relative"
             >
               <lite-youtube
                 videoid="HgQNWbGRb7M"
@@ -397,7 +397,7 @@ const stepImages: Record<string, ImageMetadata> = {
                 >
               </lite-youtube>
             </div>
-            <p class="mt-3 text-sm text-gray-500 text-center">
+            <p class="mt-3 text-sm text-[var(--color-text-subtle)] text-center">
               Full walkthrough with voicing and export
             </p>
           </div>
@@ -406,16 +406,16 @@ const stepImages: Record<string, ImageMetadata> = {
     </section>
 
     <!-- 3 Step Demo -->
-    <section class="py-20 px-4 bg-gray-50">
+    <section class="py-20 px-4 bg-[var(--color-bg-subtle)]">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">
+        <h2 class="text-3xl font-bold text-center text-[var(--color-text)] mb-12">
           Three steps to beautiful harmony
         </h2>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div class="flex flex-col gap-4">
             <div class="text-center lg:text-left lg:min-h-[140px]">
-              <h3 class="text-2xl font-bold text-violet-600">1. Generate</h3>
-              <p class="text-sm text-gray-600 mt-2">
+              <h3 class="text-2xl font-bold text-violet-400">1. Generate</h3>
+              <p class="text-sm text-[var(--color-text-muted)] mt-2">
                 Pick an AI model, starting chord and key. Click "Generate". Get
                 a random, harmonically-interesting story with any number of
                 chords.
@@ -431,8 +431,8 @@ const stepImages: Record<string, ImageMetadata> = {
           </div>
           <div class="flex flex-col gap-4">
             <div class="text-center lg:text-left lg:min-h-[140px]">
-              <h3 class="text-2xl font-bold text-violet-600">2. Drag MIDI</h3>
-              <p class="text-sm text-gray-600 mt-2">
+              <h3 class="text-2xl font-bold text-violet-400">2. Drag MIDI</h3>
+              <p class="text-sm text-[var(--color-text-muted)] mt-2">
                 Drop it into Logic. Everything is beautifully voiced, including
                 that stepwise bass line you've always wanted.
               </p>
@@ -447,10 +447,10 @@ const stepImages: Record<string, ImageMetadata> = {
           </div>
           <div class="flex flex-col gap-4">
             <div class="text-center lg:text-left lg:min-h-[140px]">
-              <h3 class="text-2xl font-bold text-violet-600">
+              <h3 class="text-2xl font-bold text-violet-400">
                 3. Any Instrument!
               </h3>
-              <p class="text-sm text-gray-600 mt-2">
+              <p class="text-sm text-[var(--color-text-muted)] mt-2">
                 Assign your favorite instrument for lush pads, choir, or ear
                 candy. Here is a quick sketch from one generated progression.
               </p>
@@ -463,7 +463,7 @@ const stepImages: Record<string, ImageMetadata> = {
               allow="autoplay"
               loading="lazy"
               title="SoundCloud player"
-              class="w-full overflow-hidden rounded-2xl border border-gray-200 shadow-lg h-[220px] sm:h-[260px] lg:h-[320px]"
+              class="w-full overflow-hidden rounded-2xl border border-[var(--color-border)] shadow-lg h-[220px] sm:h-[260px] lg:h-[320px]"
               src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F2234115233&color=%230066cc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
             ></iframe>
           </div>
@@ -474,35 +474,35 @@ const stepImages: Record<string, ImageMetadata> = {
     <!-- Features Section -->
     <section class="py-20 px-4">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center text-gray-900">
+        <h2 class="text-3xl font-bold text-center text-[var(--color-text)]">
           Key Features
         </h2>
         <div class="h-12"></div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {
             features.map((feature) => (
-              <div class="p-6 rounded-xl bg-white border border-gray-200 hover:shadow-md transition-shadow">
+              <div class="p-6 rounded-xl bg-[var(--color-bg-card)] border border-[var(--color-border)] hover:shadow-md transition-shadow">
                 <h3 class:list={["text-xl font-bold mb-3", feature.colorClass]}>
                   {feature.title}
                 </h3>
-                <p class="text-gray-600">{feature.description}</p>
+                <p class="text-[var(--color-text-muted)]">{feature.description}</p>
               </div>
             ))
           }
         </div>
 
-        <div class="mt-12 max-w-3xl mx-auto rounded-2xl border border-violet-200 bg-violet-50 p-6 text-center">
-          <h3 class="text-lg font-bold text-gray-900 mb-2">
+        <div class="mt-12 max-w-3xl mx-auto rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 text-center">
+          <h3 class="text-lg font-bold text-[var(--color-text)] mb-2">
             How does LucidHarmony compare?
           </h3>
-          <p class="text-gray-700 text-sm mb-4">
+          <p class="text-[var(--color-text)] text-sm mb-4">
             See our survey of harmonic generator plugins — Scaler, Captain
             Chords, ChordJam, and more — with an objective feature and pricing
             breakdown.
           </p>
           <a
             href={PLUGIN_COMPARISON_PATH}
-            class="inline-flex items-center font-semibold text-violet-600 hover:text-violet-700 transition-colors"
+            class="inline-flex items-center font-semibold text-violet-400 hover:text-violet-700 transition-colors"
           >
             Read the plugin comparison →
           </a>
@@ -511,9 +511,9 @@ const stepImages: Record<string, ImageMetadata> = {
     </section>
 
     <!-- How It Works Section -->
-    <section class="py-20 px-4 bg-gray-50">
+    <section class="py-20 px-4 bg-[var(--color-bg-subtle)]">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center text-gray-900">
+        <h2 class="text-3xl font-bold text-center text-[var(--color-text)]">
           How It Works
         </h2>
         <div class="h-12"></div>
@@ -524,7 +524,7 @@ const stepImages: Record<string, ImageMetadata> = {
                 class={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} gap-8 items-center`}
               >
                 <div class="flex-1 w-full">
-                  <div class="aspect-video rounded-xl shadow-md bg-white border border-gray-200 overflow-hidden">
+                  <div class="aspect-video rounded-xl shadow-md bg-[var(--color-bg-card)] border border-[var(--color-border)] overflow-hidden">
                     <Image
                       src={stepImages[step.image]}
                       alt={step.title}
@@ -536,11 +536,11 @@ const stepImages: Record<string, ImageMetadata> = {
                   </div>
                 </div>
                 <div class="flex-1">
-                  <h3 class="text-2xl font-bold text-violet-600">
+                  <h3 class="text-2xl font-bold text-violet-400">
                     {step.title}
                   </h3>
                   <div class="h-4" />
-                  <p class="text-lg text-gray-600">{step.description}</p>
+                  <p class="text-lg text-[var(--color-text-muted)]">{step.description}</p>
                 </div>
               </div>
             ))
@@ -552,17 +552,17 @@ const stepImages: Record<string, ImageMetadata> = {
     <!-- Audio Samples Section -->
     <section class="py-20 px-4">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center text-gray-900">
+        <h2 class="text-3xl font-bold text-center text-[var(--color-text)]">
           Listen to more samples
         </h2>
         <div class="h-12"></div>
         <div class="w-full max-w-4xl mx-auto">
-          <p class="text-lg text-gray-600 mb-4">
+          <p class="text-lg text-[var(--color-text-muted)] mb-4">
             All samples in this album were created using LucidHarmony. MIDI was
             exported unedited into DAW tracks. No keyboards, no editing, no
             tweaking.
           </p>
-          <p class="text-lg text-gray-600 mb-8">
+          <p class="text-lg text-[var(--color-text-muted)] mb-8">
             The instruments are Omnisphere 3, Pigments 7, and Ashlight 2 in
             Kontakt 8 by Native Instruments. All this in Logic Pro, but works in
             any DAW.
@@ -575,7 +575,7 @@ const stepImages: Record<string, ImageMetadata> = {
             allow="autoplay"
             loading="lazy"
             title="SoundCloud album player"
-            class="w-full overflow-hidden rounded-xl border border-gray-200"
+            class="w-full overflow-hidden rounded-xl border border-[var(--color-border)]"
             src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2Fsoundcloud%3Aplaylists%3A2162448524&color=%230066cc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
           ></iframe>
         </div>
@@ -585,11 +585,11 @@ const stepImages: Record<string, ImageMetadata> = {
     <!-- CTA Section -->
     <section class="py-20 px-4">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-bold text-gray-900">
+        <h2 class="text-3xl font-bold text-[var(--color-text)]">
           Ready to Transform Your Workflow?
         </h2>
         <div class="h-4"></div>
-        <p class="text-lg text-gray-600">
+        <p class="text-lg text-[var(--color-text-muted)]">
           Join musicians and composers using LucidHarmony to create beautiful,
           sophisticated harmonies in seconds.
         </p>

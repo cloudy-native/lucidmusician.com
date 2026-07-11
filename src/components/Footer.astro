@@ -6,50 +6,50 @@ const gumroad = 'https://lucidmusician.gumroad.com/l/lucid-harmony';
 const ticket = 'https://lucidmusician.zohodesk.com/portal/en/newticket';
 ---
 
-<footer class="w-full border-t border-gray-200 py-10 text-sm text-gray-600">
+<footer class="w-full py-10 text-sm" style="border-top: 1px solid var(--color-border); color: var(--color-text-muted);">
   <div class="mx-auto max-w-7xl px-6">
     <div class="grid grid-cols-1 gap-y-10 md:grid-cols-3 md:gap-x-8">
       <!-- Brand -->
       <div>
-        <div class="font-semibold text-gray-900">Lucid Musician</div>
-        <p class="mt-2 text-gray-500">Gorgeous infinite harmony for ambient and scoring.</p>
+        <div class="font-semibold" style="color: var(--color-text);">Lucid Musician</div>
+        <p class="mt-2" style="color: var(--color-text-subtle);">Gorgeous infinite harmony for ambient and scoring.</p>
       </div>
 
       <!-- Explore -->
       <div>
-        <div class="font-semibold text-gray-900 mb-3">Explore</div>
+        <div class="font-semibold mb-3" style="color: var(--color-text);">Explore</div>
         <ul class="space-y-1.5">
-          <li><a href="/about" class="hover:text-gray-900 transition-colors">About</a></li>
-          <li><a href="/blog" class="hover:text-gray-900 transition-colors">Blog</a></li>
-          <li><a href={PLUGIN_COMPARISON_PATH} class="hover:text-gray-900 transition-colors">Plugin Comparison</a></li>
-          <li><a href="/docs" class="hover:text-gray-900 transition-colors">Documentation</a></li>
-          <li><a href="/release-notes" class="hover:text-gray-900 transition-colors">Release Notes</a></li>
-          <li><a href="/support" class="hover:text-gray-900 transition-colors">Support</a></li>
+          <li><a href="/about" class="transition-colors hover:underline">About</a></li>
+          <li><a href="/blog" class="transition-colors hover:underline">Blog</a></li>
+          <li><a href={PLUGIN_COMPARISON_PATH} class="transition-colors hover:underline">Plugin Comparison</a></li>
+          <li><a href="/docs" class="transition-colors hover:underline">Documentation</a></li>
+          <li><a href="/release-notes" class="transition-colors hover:underline">Release Notes</a></li>
+          <li><a href="/support" class="transition-colors hover:underline">Support</a></li>
         </ul>
       </div>
 
-      <!-- Get &amp; Support -->
+      <!-- Get & Support -->
       <div>
-        <div class="font-semibold text-gray-900 mb-3">Get &amp; Support</div>
+        <div class="font-semibold mb-3" style="color: var(--color-text);">Get &amp; Support</div>
         <ul class="space-y-1.5">
           <li>
-            <a href={gumroad} target="_blank" rel="noopener noreferrer" class="hover:text-gray-900 transition-colors font-medium text-violet-600">
+            <a href={gumroad} target="_blank" rel="noopener noreferrer" class="transition-colors hover:underline font-medium" style="color: var(--color-accent-light);">
               Get LucidHarmony
             </a>
           </li>
-          <li><a href="/docs" class="hover:text-gray-900 transition-colors">Read the docs</a></li>
-          <li><a href="/support" class="hover:text-gray-900 transition-colors">Support &amp; FAQs</a></li>
+          <li><a href="/docs" class="transition-colors hover:underline">Read the docs</a></li>
+          <li><a href="/support" class="transition-colors hover:underline">Support &amp; FAQs</a></li>
           <li>
-            <a href={ticket} target="_blank" rel="noopener noreferrer" class="hover:text-gray-900 transition-colors">Submit a ticket</a>
+            <a href={ticket} target="_blank" rel="noopener noreferrer" class="transition-colors hover:underline">Submit a ticket</a>
           </li>
           <li>
-            <a href="mailto:support@lucidmusician.com" class="hover:text-gray-900 transition-colors">support@lucidmusician.com</a>
+            <a href="mailto:support@lucidmusician.com" class="transition-colors hover:underline">support@lucidmusician.com</a>
           </li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-10 pt-6 border-t border-gray-200 text-xs text-gray-500 text-center md:text-left">
+    <div class="mt-10 pt-6 text-xs text-center md:text-left" style="border-top: 1px solid var(--color-border-muted); color: var(--color-text-subtle);">
       Copyright &copy; {year} Lucid Musician. All rights reserved.
     </div>
   </div>

@@ -11,40 +11,42 @@ const fullTitle = `${page.data.title} | LucidHarmony`;
 <Page title={fullTitle} description={page.data.description}>
   <div class="py-10">
     <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-gray-900">{page.data.title}</h1>
-      <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">{page.data.description}</p>
+      <h1 class="text-4xl font-bold" style="color: var(--color-text);">{page.data.title}</h1>
+      <p class="text-lg mt-4 max-w-3xl mx-auto" style="color: var(--color-text-muted);">{page.data.description}</p>
     </div>
 
   <!-- Download prompt -->
   <div
-    class="max-w-4xl mx-auto mt-8 mb-6 rounded-xl border border-violet-200 bg-violet-50 p-6"
+    class="max-w-4xl mx-auto mt-8 mb-6 rounded-xl p-6"
+    style="border: 1px solid var(--color-border); background-color: var(--color-bg-card);"
   >
-    <h3 class="font-bold text-gray-900 mb-2">Get the latest version</h3>
-    <p class="text-gray-700 text-sm mb-4">
+    <h3 class="font-bold mb-2" style="color: var(--color-text);">Get the latest version</h3>
+    <p class="text-sm mb-4" style="color: var(--color-text-muted);">
       Each release builds on the last. If you're running an older version, we
       recommend updating to get the latest improvements and bug fixes.
     </p>
-    <p class="text-gray-700 text-sm mb-4">
+    <p class="text-sm mb-4" style="color: var(--color-text-muted);">
       Check the version you have in the About tab of the plugin.
     </p>
   </div>
   <div
-    class="max-w-4xl mx-auto mt-8 mb-6 rounded-xl border border-red-200 bg-red-50 p-6"
+    class="max-w-4xl mx-auto mt-8 mb-6 rounded-xl p-6"
+    style="border: 1px solid var(--color-border); background-color: var(--color-bg-card);"
   >
-    <h3 class="font-bold text-gray-900 mb-2">A note on Apple Intel support</h3>
-    <p class="text-gray-700 text-sm mb-4">
+    <h3 class="font-bold mb-2" style="color: var(--color-text);">A note on Apple Intel support</h3>
+    <p class="text-sm mb-4" style="color: var(--color-text-muted);">
       v1.2.5 is the last version built for Mac/Intel. It will continue to work
       until Apple breaks something it relies on. We have no plans to continue
       development on this Intel branch, unless it breaks for a reason that's
       easy to fix.
     </p>
-    <p class="text-gray-700 text-sm mb-4">
+    <p class="text-sm mb-4" style="color: var(--color-text-muted);">
       We use some third-party libraries that are simply not available on the
       Intel architecture as Apple phases out support. Golden Gate — the latest
       version of macOS — does not run on Intel Macs and all DAWs we know of are
       available on Apple Silicon.
     </p>
-    <p class="text-gray-700 text-sm mb-4">
+    <p class="text-sm mb-4" style="color: var(--color-text-muted);">
       We know this might sound harsh. But Lucid Musician is a single-person
       indie developer. We did not make the decision lightly and we're able to
       devote more time to our backlog of exciting features we're planning.

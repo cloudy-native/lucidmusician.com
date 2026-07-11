@@ -33,8 +33,8 @@ const fullTitle = `${title} | LucidHarmony`;
 >
   <div class="py-10 w-full min-w-0">
     <div class="text-center mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 break-words">{title}</h1>
-      <p class="text-base md:text-lg text-gray-600 mt-4 max-w-3xl mx-auto">{description}</p>
+      <h1 class="text-3xl md:text-4xl font-bold break-words" style="color: var(--color-text);">{title}</h1>
+      <p class="text-base md:text-lg mt-4 max-w-3xl mx-auto" style="color: var(--color-text-muted);">{description}</p>
     </div>
 
     {Astro.slots.has("prepend") && (
@@ -51,9 +51,9 @@ const fullTitle = `${title} | LucidHarmony`;
   </div>
 
   {showCta && (
-    <div class="mt-12 mb-16 max-w-4xl mx-auto rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-50 via-transparent to-transparent p-8 text-center">
-      <h3 class="text-xl font-bold text-gray-900 mb-3">Try LucidHarmony</h3>
-      <p class="text-gray-600 mb-5 max-w-lg mx-auto">
+    <div class="mt-12 mb-16 max-w-4xl mx-auto rounded-2xl p-8 text-center" style="border: 1px solid var(--color-border); background-color: var(--color-bg-card);">
+      <h3 class="text-xl font-bold mb-3" style="color: var(--color-text);">Try LucidHarmony</h3>
+      <p class="mb-5 max-w-lg mx-auto" style="color: var(--color-text-muted);">
         Gorgeous, infinite chord progressions for ambient and scoring — powered by the AI techniques discussed in this article.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-4">
@@ -61,14 +61,15 @@ const fullTitle = `${title} | LucidHarmony`;
           href="https://lucidmusician.gumroad.com/l/lucid-harmony"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow"
+          class="inline-flex items-center px-6 py-3 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transition-shadow"
+          style="background-color: var(--color-button-bg);"
         >
           Get LucidHarmony
         </a>
-        <a href="/docs" class="inline-flex items-center px-6 py-3 rounded-full border border-gray-300 text-gray-700 font-semibold hover:border-violet-500 transition-colors">
+        <a href="/docs" class="inline-flex items-center px-6 py-3 rounded-full font-semibold transition-colors" style="border: 1px solid var(--color-border); color: var(--color-text-muted);">
           Read the Docs
         </a>
-        <a href="/blog" class="inline-flex items-center px-6 py-3 rounded-full border border-gray-300 text-gray-700 font-semibold hover:border-violet-500 transition-colors">
+        <a href="/blog" class="inline-flex items-center px-6 py-3 rounded-full font-semibold transition-colors" style="border: 1px solid var(--color-border); color: var(--color-text-muted);">
           More Articles
         </a>
       </div>

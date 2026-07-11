@@ -13,41 +13,41 @@ const products = betaData.products;
 >
   <section class="py-10 max-w-4xl mx-auto">
     <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-gray-900">Beta Downloads</h1>
-      <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">Try the latest features before they're officially released.</p>
+      <h1 class="text-4xl font-bold text-[var(--color-text)]">Beta Downloads</h1>
+      <p class="text-lg text-[var(--color-text-muted)] mt-4 max-w-3xl mx-auto">Try the latest features before they're officially released.</p>
     </div>
 
-    <div class="rounded-xl border border-amber-300 bg-amber-50 p-4 mb-8">
-      <div class="flex items-center gap-2 text-amber-700 font-semibold text-sm">
+    <div class="rounded-xl border border-amber-700/50 bg-amber-900/20 p-4 mb-8">
+      <div class="flex items-center gap-2 text-amber-400 font-semibold text-sm">
         <Icon name="lucide:triangle-alert" class="h-5 w-5" />
         Beta Software
       </div>
-      <p class="text-gray-600 text-sm mt-2">These builds may contain bugs. Use at your own risk and please report any issues.</p>
+      <p class="text-[var(--color-text-muted)] text-sm mt-2">These builds may contain bugs. Use at your own risk and please report any issues.</p>
     </div>
 
     <!-- Feedback plea + support options -->
-    <div class="mb-10 rounded-xl border border-violet-200 bg-violet-50 p-6">
-      <h3 class="font-bold text-gray-900 mb-2">We need your feedback 🙏</h3>
-      <p class="text-gray-700 text-sm mb-4">
+    <div class="mb-10 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
+      <h3 class="font-bold text-[var(--color-text)] mb-2">We need your feedback 🙏</h3>
+      <p class="text-[var(--color-text-muted)] text-sm mb-4">
         If something feels off — a tiny glitch, a confusing label, a crash you can't reproduce, or even just "this button felt weird" — please tell us. No issue is too small or too insignificant. Beta feedback is how we make LucidHarmony better for everyone, and we genuinely appreciate every single report.
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <a href="https://lucidmusician.zohodesk.com/portal/en/newticket" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md transition-shadow">
-          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-600 shrink-0">
+        <a href="https://lucidmusician.zohodesk.com/portal/en/newticket" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4 hover:shadow-md transition-shadow">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-violet-900/30 text-violet-400 shrink-0">
             <Icon name="lucide:file-text" class="h-5 w-5" />
           </div>
           <div>
-            <div class="font-semibold text-gray-900 text-sm">Support Ticket</div>
-            <div class="text-xs text-gray-500">File a ticket for beta bugs, regressions, confusing or missing documentation, or feature requests</div>
+            <div class="font-semibold text-[var(--color-text)] text-sm">Support Ticket</div>
+            <div class="text-xs text-[var(--color-text-subtle)]">File a ticket for beta bugs, regressions, confusing or missing documentation, or feature requests</div>
           </div>
         </a>
-        <a href="mailto:support@lucidmusician.com" class="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 hover:shadow-md transition-shadow">
-          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 shrink-0">
+        <a href="mailto:support@lucidmusician.com" class="flex items-center gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4 hover:shadow-md transition-shadow">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-900/30 text-emerald-400 shrink-0">
             <Icon name="lucide:mail" class="h-5 w-5" />
           </div>
           <div>
-            <div class="font-semibold text-gray-900 text-sm">Email Us</div>
-            <div class="text-xs text-gray-500">support@lucidmusician.com</div>
+            <div class="font-semibold text-[var(--color-text)] text-sm">Email Us</div>
+            <div class="text-xs text-[var(--color-text-subtle)]">support@lucidmusician.com</div>
           </div>
         </a>
       </div>
@@ -55,19 +55,19 @@ const products = betaData.products;
 
     {products.map((product) => (
       <div class="mb-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-2">{product.productName}</h2>
-        <p class="text-gray-600 mb-6">{product.description}</p>
+        <h2 class="text-2xl font-bold text-[var(--color-text)] mb-2">{product.productName}</h2>
+        <p class="text-[var(--color-text-muted)] mb-6">{product.description}</p>
 
         {product.versions.map((version) => (
-          <div class="mb-8 rounded-xl border border-gray-200 bg-gray-50 p-6">
+          <div class="mb-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
             <div class="flex items-center gap-3 mb-4">
-              <span class="text-lg font-bold text-violet-600">v{version.version}</span>
+              <span class="text-lg font-bold text-violet-400">v{version.version}</span>
             </div>
 
             {version.changelog.length > 0 && (
               <div class="mb-4">
-                <h4 class="text-sm font-semibold text-gray-600 mb-2">What's new:</h4>
-                <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                <h4 class="text-sm font-semibold text-[var(--color-text-muted)] mb-2">What's new:</h4>
+                <ul class="list-disc list-inside text-sm text-[var(--color-text-muted)] space-y-1">
                   {version.changelog.map((item) => <li>{item}</li>)}
                 </ul>
               </div>
@@ -75,12 +75,12 @@ const products = betaData.products;
 
             <div class="grid gap-4">
               {version.downloads.map((dl) => (
-                <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4">
+                <div class="flex items-center justify-between rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4">
                   <div>
-                    <div class="font-semibold text-gray-900">{dl.name}</div>
-                    <div class="text-xs text-gray-500 mt-1">{dl.requirements} • Released {dl.releaseDate}</div>
+                    <div class="font-semibold text-[var(--color-text)]">{dl.name}</div>
+                    <div class="text-xs text-[var(--color-text-subtle)] mt-1">{dl.requirements} • Released {dl.releaseDate}</div>
                     {dl.installationInstructions && (
-                      <div class="text-xs text-gray-500 mt-1">{dl.installationInstructions}</div>
+                      <div class="text-xs text-[var(--color-text-subtle)] mt-1">{dl.installationInstructions}</div>
                     )}
                   </div>
                   <a

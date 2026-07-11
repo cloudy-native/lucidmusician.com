@@ -1,0 +1,49 @@
+/*
+ * Global Theme Variables
+ * 
+ * All colors used across the site are defined here as CSS custom properties.
+ * To switch themes, change the values below. Components reference these 
+ * variables via Tailwind arbitrary values or direct var() usage.
+ *
+ * Current theme: Dark
+ */
+
+:root {
+  /* Page backgrounds */
+  --color-bg: #0f0f14;
+  --color-bg-subtle: #16161e;
+  --color-bg-muted: #1c1c27;
+  --color-bg-card: #1a1a24;
+  --color-bg-card-hover: #22222e;
+
+  /* Text */
+  --color-text: #f0f0f3;
+  --color-text-muted: #a0a0b0;
+  --color-text-subtle: #6b6b80;
+
+  /* Borders */
+  --color-border: #2a2a3a;
+  --color-border-muted: #222233;
+
+  /* Accent (violet) */
+  --color-accent: #8b5cf6;
+  --color-accent-light: #a78bfa;
+  --color-accent-muted: rgba(139, 92, 246, 0.15);
+
+  /* Secondary accent (cyan) */
+  --color-accent2: #06b6d4;
+  --color-accent2-muted: rgba(6, 182, 212, 0.15);
+
+  /* Surfaces for specific elements */
+  --color-nav-bg: rgba(15, 15, 20, 0.85);
+  --color-nav-border: #1f1f2e;
+
+  /* Badge/tag backgrounds */
+  --color-badge-bg: #1f1f2e;
+  --color-badge-text: #a0a0b0;
+
+  /* Interactive states */
+  --color-button-bg: #7c3aed;
+  --color-button-bg-hover: #6d28d9;
+  --color-button-text: #ffffff;
+}

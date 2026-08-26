@@ -3,16 +3,16 @@ title: "It's 2026 and DLL Hell is Still a Thing"
 description: "How we almost lost the war against Windows DLL hell or how a 13MB DLL nearly destroyed a product."
 date: "2025-12-17"
 readTime: "14 min read"
-tags: ["ai","machine-learning","windows","transformers"]
+tags: ["ai","machine-learning","windows","transformers","onnx"]
 ---
 
-*Published: June 17, 2026 • 14 min read*
+*Published: June 17, 2026 · 14 min read*
 
 ---
 
 ## The Setup
 
-We ship an AI-powered MIDI effect plugin — VST3 and CLAP formats — built with JUCE and C++23. The AI component uses ONNX Runtime for transformer model inference. On macOS, you embed `libonnxruntime.dylib` in `Contents/Frameworks/`, set an `@rpath`, and move on with your life. It works. It's elegant. It's how Apple intended things to be.
+We ship an AI-powered MIDI effect plugin — VST3 and CLAP formats on Windows — built with JUCE, with domain logic increasingly in Rust. The AI component uses ONNX Runtime for transformer model inference. On macOS, you embed `libonnxruntime.dylib` in `Contents/Frameworks/`, set an `@rpath`, and move on with your life. It works. It's elegant. It's how Apple intended things to be.
 
 On Windows, we entered a dimension of suffering we were not prepared for.
 
@@ -262,14 +262,27 @@ There's no way to query this from the lib files. You just have to know (or try b
 
 ## What Actually Ships
 
-After all this, here's the Windows build:
+After all this, here's the Windows build shape that ended the DLL war:
 
-- **Plugin binary:** Single `.vst3` file (~60MB), statically linked, no DLL dependencies
-- **ORT static libs:** Downloaded once via CPM during CMake configure (~160MB compressed)
-- **Build time:** ~8 minutes from clean (excluding first ORT download)
-- **DAW compatibility:** Tested in Reaper, expected to work in all VST3/CLAP hosts
+- **Plugin binary:** Fat VST3/CLAP artefacts with ONNX Runtime **statically linked** on Windows where that path is used—no `onnxruntime.dll` for hosts to mis-scan or for PATH to hijack
+- **ORT static libs:** Downloaded once via CPM (or equivalent) during CMake configure (~160MB compressed archive)
+- **Build time:** on the order of minutes from clean once ORT is cached (first download dominates)
+- **DAW compatibility:** Validated in hosts such as Reaper; the point is *no sibling ORT DLL*
 
-macOS and Linux continue using shared libraries (no DLL hell on those platforms).
+macOS and Linux continue using shared libraries (no Windows-style DLL hell on those platforms).
+
+### Where this sits after the hybrid Rust migration
+
+Since this war story, the product’s **domain** (generation, metadata, logits, MIDI event construction, follow compute, etc.) lives in a Rust library behind a C ABI, while JUCE remains the plugin shell. Inference is driven from that domain stack using ONNX Runtime bindings on the Rust side as well.
+
+That does **not** make the Windows lessons obsolete:
+
+- You still must not leave a floating `onnxruntime.dll` for Reaper (or friends) to scan as a plugin.
+- You still lose if another module’s ORT is already mapped under the same name.
+- Static linking (or carefully owned, uniquely deployed runtimes) remains the portable answer on Windows.
+- CI still needs a Windows release path that packages installers without reintroducing DLL search chaos—see our [GitHub Actions write-up](/blog/github-actions-macos-linux-build).
+
+For the architecture story (strangler migration, cdylib, always-shippable main), read [Shipping Continuously: Moving a JUCE Plugin's Brain to Rust](/blog/blog-hybrid-rust-migration).
 
 ---
 
@@ -308,3 +321,16 @@ For anyone facing the same problem:
 The entire ordeal took roughly 12 hours of engineering time across two days. The fix is 4 lines of CMake and a 160MB zip file. The journey to get there required understanding Windows DLL loading at a level most developers never encounter, discovering MSVC-specific static initialization quirks that don't exist on other platforms, and accepting that sometimes the only winning move is to inline everything into one fat binary.
 
 Audio plugin development on Windows is not for the faint of heart. However, I want to acknowledge just how grateful I am to my patient beta testers (especially Frank — you know who you are) and all my wonderful Windows users. You're exactly the reason we went down this path. You make it all worth it. Thank you!
+
+## Related reading
+
+- [Shipping Continuously: Moving a JUCE Plugin's Brain to Rust](/blog/blog-hybrid-rust-migration)
+- [C++ vs Rust: Domain Brains and Framework Bodies](/blog/cpp-vs-rust-domain-and-shell)
+- [Building an Audio Plugin with GitHub Actions](/blog/github-actions-macos-linux-build)
+- [The LucidHarmony Tech Stack](/blog/technology-stack)
+
+**Updated**
+- 2026-07-12 — Clarified that this post is the Windows packaging war story; production now also uses a hybrid Rust domain for inference orchestration.
+- 2026-07-12 — Noted that static-link / no-DLL lessons still apply on Windows even after the Rust migration.
+- 2026-07-12 — Pointed readers at the hybrid migration post for the current architecture.
+- 2026-07-12 — Linked C++ vs Rust domain/shell comparison.

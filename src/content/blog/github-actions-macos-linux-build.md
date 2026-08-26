@@ -1,321 +1,244 @@
 ---
-title: "Building an Audio Plugin with GitHub Actions (macOS + Linux, multi-arch)"
-description: "The nitty-gritty details of building an audio plugin with GitHub Actions for macOS and Linux."
+title: "Building an Audio Plugin with GitHub Actions (macOS, Linux, Windows)"
+description: "Practical GitHub Actions setup for a multi-platform JUCE + Rust audio plugin: self-hosted runners, signing, notarization, and Windows installers."
 date: "2026-02-26"
 readTime: "12 min read"
-tags: ["development","audio","plugin","github-actions","build"]
+tags: ["development","audio","plugin","github-actions","build","rust"]
 ---
+
+*Published: February 26, 2026 · 12 min read*
 
 This post walks through a practical GitHub Actions setup for building an audio plugin across:
 
 - **Linux x86_64** (GitHub-hosted runner)
 - **Linux arm64** (**self-hosted runner required**)
-- **macOS universal** (arm64 + x86_64, **self-hosted runner**)
+- **macOS arm64** (**self-hosted runner**; codesign + notarization)
+- **Windows x64** (**self-hosted runner**; installer + optional cloud code signing)
 
-It also covers what you need for **Apple code signing + notarization**, what each step does, and how to run your own self-hosted runners.
+It also covers what you need for **Apple code signing + notarization**, **Windows packaging**, what each step does, and how to run your own self-hosted runners.
 
-The examples and naming conventions below mirror a real-world workflow, but the ideas apply to most JUCE/CMake-based plugins.
-
----
-
-## What the workflow does at a high level
-
-1. **Matrix build** across platforms/architectures.
-2. Install platform dependencies.
-3. Configure and build with **CMake**.
-4. Run tests via **CTest**.
-5. Optionally run **pluginval** validation.
-6. On macOS:
-   - import signing certs into a temporary keychain
-   - codesign plugin bundles
-   - produce signed installer packages
-   - notarize and staple
-7. Upload build artifacts, and optionally publish a GitHub Release on tags.
+The examples mirror a real-world multi-workflow layout for a JUCE/CMake plugin that also builds a **Rust domain library** as part of the same CMake graph. Ideas transfer to most CMake-based plugins.
 
 ---
 
-## Build matrix (multi-platform strategy)
+## What the workflows do at a high level
 
-A typical matrix might contain entries like:
+We use **separate workflows per platform** (dispatch-driven release builds), rather than one giant matrix that mixes macOS signing with Linux zips. Conceptually each workflow:
 
-- **Linux (x86_64)**
-  - Runs on `ubuntu-22.04` (GitHub-hosted)
-  - Uses `clang`
-  - Installs JUCE Linux dependencies
-  - Runs `pluginval`
-  - Uses `sccache` to speed up incremental CI builds
+1. Installs or verifies platform dependencies (and a **Rust stable toolchain**).
+2. Checks out the repo with submodules.
+3. Caches **Cargo** registry/git/target where helpful.
+4. Configures and builds with **CMake + Ninja** (Cargo is invoked from CMake for the domain library).
+5. Runs tests/benchmarks when enabled for that platform.
+6. Packages artifacts:
+   - **macOS:** codesign → pkgbuild → productbuild → notarize → staple
+   - **Linux:** zip plugin artefacts
+   - **Windows:** Inno Setup installer + zip; optional **Azure Trusted Signing**
+7. Uploads artifacts; on version tags, may attach them to a GitHub Release.
 
-- **Linux (arm64)**
-  - Runs on `runs-on: [self-hosted, Linux, ARM64]`
-  - Usually disables caching/pluginval by default
-  - Assumes you control the machine image and dependencies
+---
 
-- **macOS (universal)**
-  - Runs on `runs-on: [self-hosted, macOS]`
-  - Builds with `-DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"`
-  - Runs `pluginval`
-  - Codesigns, packages, notarizes, staples
+## Platform strategy (current)
+
+| Platform | Runner | What we ship from CI | Notes |
+|----------|--------|----------------------|--------|
+| **Linux x86_64** | `ubuntu-22.04` | Zip of VST3/CLAP | sccache optional; Xvfb for headless tests |
+| **Linux arm64** | `[self-hosted, Linux, ARM64]` | Zip of VST3/CLAP | You own the machine image |
+| **macOS arm64** | `[self-hosted, macOS]` | Notarized `.pkg` (AU + VST3 + CLAP) | Developer ID + notarytool |
+| **Windows x64** | `[self-hosted, Windows, X64]` | `.exe` installer + zip | Inno Setup; Azure signing when secrets set |
+
+Earlier revisions of this post described a **universal** macOS binary (`arm64;x86_64`) and **pluginval** in the same job. Current release CI builds **arm64 macOS** and does **not** run pluginval in these workflows—validate locally or in a separate job if you still want it.
 
 ---
 
 ## Required GitHub Actions environment variables
 
-These are typically set at the top of the workflow under `env:`.
+These are typically set at the top of each workflow under `env:`.
 
 ### Global CI env (set in the workflow)
 
-- `BUILD_TYPE`
-  - Example: `Release`
-  - Used by CMake config/build and for artifact directory naming.
-
-- `BUILD_DIR`
-  - Example: `Builds`
-  - CMake build directory (`cmake -B $BUILD_DIR ...`).
-
-- `DISPLAY`
-  - Example: `:0`
-  - Needed on Linux because `pluginval` (and some plugin UI/tooling) expects an X11 display.
-
-- `HOMEBREW_NO_INSTALL_CLEANUP=1`
-  - Prevents Homebrew from doing aggressive cleanup on macOS runners (saves time).
-
-- `SCCACHE_GHA_ENABLED=true`, `SCCACHE_CACHE_MULTIARCH=1`
-  - Enables sccache’s GitHub Actions cache integration and multi-arch behavior.
-
-- `LICENSE_API_KEY=${{ secrets.LICENSE_API_KEY }}`
-  - Optional: if your build embeds/uses a Gumroad licensing API key.
+- `BUILD_TYPE` — e.g. `Release`
+- `BUILD_DIR` — e.g. `Builds`
+- `DISPLAY` — e.g. `:0` on Linux for headless UI-related tests
+- `HOMEBREW_NO_INSTALL_CLEANUP=1` — macOS runners (saves time)
+- `SCCACHE_GHA_ENABLED` / `SCCACHE_CACHE_MULTIARCH` — when using sccache on Linux x86_64
+- `LICENSE_API_KEY` / `GUMROAD_PRODUCT_ID` — if the build embeds licensing configuration
 
 ### CI env generated by CMake (read from a `.env` file)
 
 A common pattern is to have CMake write a `.env` file when `CI` is set, then append it into `$GITHUB_ENV`. Example keys:
 
-- `PROJECT_NAME`
-- `PRODUCT_NAME`
-- `VERSION`
-- `MAJOR_VERSION`
-- `MINOR_VERSION`
-- `PATCH_LEVEL`
-- `BUNDLE_ID`
-- `COMPANY_NAME`
-
-These are then used to compute paths and artifact names.
+- `PROJECT_NAME`, `PRODUCT_NAME`, `VERSION`, `MAJOR_VERSION`, `MINOR_VERSION`, `PATCH_LEVEL`
+- `BUNDLE_ID`, `COMPANY_NAME`
 
 ### Derived env vars set during the workflow
 
-A follow-up step often defines paths like:
-
-- `ARTIFACTS_PATH`
-- `VST3_PATH`
-- `AU_PATH`
-- `AUV3_PATH` (if relevant)
-- `CLAP_PATH`
-- `ARTIFACT_NAME` (usually includes product + version + platform + arch)
-
-These are conveniences so subsequent steps don’t repeat path logic.
+- `ARTIFACTS_PATH`, `VST3_PATH`, `AU_PATH`, `CLAP_PATH`
+- `ARTIFACT_NAME` (product + version + platform + arch)
+- Windows: `INSTALLER_NAME` for Inno Setup output
 
 ---
 
-## Required GitHub Secrets (complete checklist)
+## Required GitHub Secrets (checklist)
 
 ### General
 
-- `LICENSE_API_KEY`
-  - Only required if your build/runtime needs it. LucidHarmony uses this to access the API for Gumroad license keys.
+- `LICENSE_API_KEY` — if runtime licensing needs it
+- `GUMROAD_PRODUCT_ID` — if the build embeds product identity
 
 ### macOS signing + notarization
 
-You need two kinds of credentials:
-
-1. **Signing identities** (certificates + their private keys)
-2. **Notarization credentials** (Apple ID/app-specific password + Team ID)
+1. **Signing identities** (certificates + private keys)
+2. **Notarization credentials** (Apple ID / app-specific password + Team ID)
 
 #### Certificates (imported into a temporary keychain)
 
-- `DEV_ID_APP_CERT`
-- `DEV_ID_APP_PASSWORD`
-- `DEV_ID_INSTALLER_CERT`
-- `DEV_ID_INSTALLER_PASSWORD`
+- `DEV_ID_APP_CERT` / `DEV_ID_APP_PASSWORD`
+- `DEV_ID_INSTALLER_CERT` / `DEV_ID_INSTALLER_PASSWORD`
 
-These are typically **exported Developer ID certificates** (often as `.p12`) plus the password used to decrypt them.
+Typically exported Developer ID certificates (often `.p12`) plus decrypt passwords.
 
-What they represent:
+- **Developer ID Application** — `codesign` for `.vst3`, `.component`, `.clap`
+- **Developer ID Installer** — `productbuild` for the final `.pkg`
 
-- **Developer ID Application certificate**
-  - Used by `codesign` to sign the plugin bundles (`.vst3`, `.component`, `.clap`).
-- **Developer ID Installer certificate**
-  - Used by `productbuild` to sign the final `.pkg` installer.
+#### Identity name strings
 
-#### Identity names (used by `codesign`/`productbuild`)
+- `DEVELOPER_ID_APPLICATION` — e.g. `Developer ID Application: Your Company (TEAMID)`
+- `DEVELOPER_ID_INSTALLER` — e.g. `Developer ID Installer: Your Company (TEAMID)`
 
-- `DEVELOPER_ID_APPLICATION`
-  - Example value (conceptual): `Developer ID Application: Your Company (TEAMID)`
-- `DEVELOPER_ID_INSTALLER`
-  - Example value (conceptual): `Developer ID Installer: Your Company (TEAMID)`
+#### Notarization
 
-These strings must match what `security find-identity -v -p codesigning` would show after import.
+- `NOTARIZATION_USERNAME` — Apple ID email
+- `NOTARIZATION_PASSWORD` — app-specific password
+- `TEAM_ID` — Apple Developer Team ID
 
-#### Notarization (Apple notarization service)
+### Windows code signing (optional but recommended)
 
-- `NOTARIZATION_USERNAME`
-  - Apple ID email used for notarization.
-- `NOTARIZATION_PASSWORD`
-  - **App-specific password** (recommended) for that Apple ID.
-- `TEAM_ID`
-  - Your Apple Developer Team ID.
+When present, the Windows workflow can sign the installer via **Azure Trusted Signing**:
+
+- `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`
+- `AZURE_ENDPOINT`, `AZURE_CODE_SIGNING_NAME`, `AZURE_CERT_PROFILE_NAME`
+
+If those env values are empty, packaging still produces unsigned artefacts.
 
 ---
 
-## Linux: dependencies and headless pluginval
+## Rust in CI (required for the hybrid plugin)
+
+The domain library is built with Cargo as part of CMake configure/build. Every platform job should:
+
+1. Install a **stable Rust toolchain** (e.g. `dtolnay/rust-toolchain@stable`).
+2. Ensure `cargo` / `rustc` are on `PATH` for the configure and build steps (especially on Windows self-hosted runners).
+3. Cache Cargo state, for example:
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: |
+      ~/.cargo/registry
+      ~/.cargo/git
+      .cargo-target
+    key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+```
+
+Without Rust on the runner, CMake fails at configure time when it cannot find `cargo`.
+
+---
+
+## Linux: dependencies and headless tests
 
 ### JUCE-related Linux packages
 
-A typical install step includes:
+Typical packages:
 
-- X11 + windowing headers
-- audio headers
-- OpenGL headers
-- WebKitGTK dev package (JUCE can require this for certain modules)
+- X11 + windowing headers, audio headers, OpenGL headers
+- WebKitGTK dev package (JUCE modules may require it)
 - `xvfb` for a fake display
-- `ninja-build` if using Ninja generator
+- `ninja-build` if using Ninja
 
 ### Why `DISPLAY` and `Xvfb` are used
 
-`pluginval` loads plugins and may exercise UI-related code paths. On Linux in CI, there’s no real display server, so you start Xvfb:
+Some tests or tools exercise UI-related paths. On Linux CI there is no real display, so start Xvfb and set `DISPLAY=:0`.
 
-- Set `DISPLAY=:0`
-- Start `/usr/bin/Xvfb :0 &`
+### ONNX Runtime pre-download (optional workaround)
 
-That provides an X11 display for tools that require one.
+Large ORT archives can stall mid-configure on flaky networks. A practical pattern is to curl the platform archive into a CPM/source cache directory *before* CMake runs, then point `CPM_SOURCE_CACHE` at that directory.
 
 ---
 
 ## Linux arm64: why it requires a self-hosted runner
 
-GitHub-hosted Linux runners are x86_64. If you need **native** Linux arm64 artifacts (common for ARM servers / devices / some Linux music environments), you typically need:
+GitHub-hosted Linux runners are x86_64. For **native** Linux arm64 artefacts you typically need:
 
-- a real ARM64 machine (or an ARM64 VM)
-- a **self-hosted GitHub Actions runner** installed on it
-
-In the workflow, this is usually expressed as:
+- a real ARM64 machine (or ARM64 VM)
+- a **self-hosted GitHub Actions runner** with labels matching the workflow, e.g.:
 
 ```yaml
 runs-on: ["self-hosted", "Linux", "ARM64"]
 ```
 
-### Practical notes
-
-- Your runner must have labels matching the `runs-on` list.
-- You control dependencies; the workflow can skip dependency install steps if your runner image already has them.
-- You may choose to skip pluginval on arm64 (it may not be readily available, or may require additional work).
+You control dependencies; the workflow may skip apt installs if the image already has them.
 
 ---
 
-## macOS: why a self-hosted runner is used
+## macOS: self-hosted runner + arm64 release builds
 
-For many plugin teams, macOS CI ends up self-hosted for a few reasons:
+Self-hosted macOS is common for plugins because:
 
-- You need Apple code signing identities available.
-- You may want a pinned Xcode version or custom toolchain.
-- You may want consistent access to signing/keychain tooling.
-- And in our case, we definitely can't afford the high price point of GitHub Action's macOS CI.
-
-In the workflow, this appears as:
+- Apple code signing identities and keychain tooling
+- Pinned Xcode / SDK control
+- Cost vs GitHub-hosted macOS minutes
 
 ```yaml
 runs-on: ["self-hosted", "macOS"]
 ```
 
-The build can produce a **universal** binary by setting:
+Current release CI targets **arm64**. Universal binaries are still possible with:
 
 ```bash
 -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
 ```
 
----
+…but that is an explicit product/packaging choice (and doubles some dependency work for libraries like ONNX Runtime). Do not assume CI is universal unless the workflow sets it.
 
-## How to run a self-hosted GitHub Actions runner (macOS)
+Self-hosted runners **persist state** between jobs—clean the CMake build directory at the start of each run.
 
-### 1) Create a runner in GitHub
+### How to run a self-hosted macOS runner
 
-In your repo:
-
-- `Settings` → `Actions` → `Runners` → `New self-hosted runner`
-- Choose **macOS**
-
-GitHub will show you exact commands to:
-
-- download the runner tarball
-- configure it with a one-time registration token
-
-### 2) Configure and start the runner
-
-On the Mac:
-
-- Run the `./config.sh ...` command GitHub provides
-- Start it with:
-
-```bash
-./run.sh
-```
-
-### 3) Run it as a background service (recommended)
-
-GitHub provides helper scripts to install the runner as a service:
+1. Repo → Settings → Actions → Runners → New self-hosted runner → macOS  
+2. Run GitHub’s `config.sh` with the registration token  
+3. Prefer the service install:
 
 ```bash
 sudo ./svc.sh install
 sudo ./svc.sh start
 ```
 
-This makes the runner survive reboots and user logouts.
-
-### 4) macOS prerequisites checklist
-
-- Xcode installed (and license accepted)
-- Command line tools available (`xcode-select -p`)
-- Homebrew (if your workflow uses `brew install`)
-- Enough disk space (build artifacts can be large)
+**Prerequisites:** Xcode + accepted license, CLI tools, Homebrew if used, disk space for artefacts and ORT downloads, **Rust via rustup**.
 
 ---
 
-## How to run a self-hosted GitHub Actions runner (Linux arm64)
+## Windows: self-hosted release path
 
-### 1) Create a runner in GitHub
-
-Same path:
-
-- `Settings` → `Actions` → `Runners` → `New self-hosted runner`
-- Choose **Linux** and your architecture
-
-### 2) Configure labels to match your workflow
-
-If your workflow uses:
+Windows release CI is a separate workflow on a labeled runner:
 
 ```yaml
-runs-on: ["self-hosted", "Linux", "ARM64"]
+runs-on: [self-hosted, Windows, X64]
 ```
 
-then ensure the runner is registered with labels:
+Typical steps:
 
-- `self-hosted`
-- `Linux`
-- `ARM64`
+- MSVC dev environment (`ilammy/msvc-dev-cmd` or equivalent)
+- Verify **CMake**, **Ninja**, **Inno Setup** (`iscc`)
+- Install **Rust** toolchain; put `%USERPROFILE%\.cargo\bin` on `PATH` for configure/build
+- CMake + Ninja build (Cargo domain library included)
+- Generate installer from an Inno Setup script; zip VST3/CLAP
+- Optionally **Azure Trusted Signing** on the `.exe`
+- Upload installer + zip; tag releases attach those files
 
-### 3) Run as a system service
+**Tests:** full automated test runs on Windows CI may be temporarily disabled if a host-specific crash (e.g. processor teardown) is under investigation. Don’t assume green Windows CI means the suite executed—check the workflow.
 
-GitHub’s runner also supports service install on Linux:
-
-```bash
-sudo ./svc.sh install
-sudo ./svc.sh start
-```
-
-### 4) Linux arm64 prerequisites checklist
-
-- CMake + Ninja (if you use Ninja)
-- Clang/GCC toolchain
-- Dependencies required by your plugin/framework
-- `7z`/`zip` tooling if you archive artifacts
+Static ONNX Runtime on Windows (no `onnxruntime.dll` next to the plugin) is a long story of its own; see [It's 2026 and DLL Hell is Still a Thing](/blog/blog-onnxruntime-windows-audio-plugin).
 
 ---
 
@@ -324,26 +247,16 @@ sudo ./svc.sh start
 A macOS distribution that doesn’t show warnings in Gatekeeper typically needs:
 
 - code signing with **Developer ID Application**
-- hardened runtime enabled
+- hardened runtime
 - timestamping
 - notarization by Apple
 - stapling the notarization ticket
 
-Below is what each step is doing conceptually.
+### Import certificates into a temporary keychain
 
-### Step 1: Import certificates into a temporary keychain
+Create an ephemeral keychain for the job, import Developer ID certs from secrets, use that keychain for `codesign` / `productbuild`. Avoids polluting the login keychain.
 
-A common approach is:
-
-- create an ephemeral keychain for the job
-- import Developer ID certificates (from GitHub Secrets)
-- use that keychain for subsequent `codesign`/`productbuild`
-
-This avoids polluting the machine’s default login keychain and makes CI runs more reproducible.
-
-### Step 2: `codesign` the plugin bundles
-
-Example signing command shape:
+### `codesign` the plugin bundles
 
 ```bash
 codesign --force \
@@ -353,73 +266,21 @@ codesign --force \
   --deep --strict --options=runtime --timestamp
 ```
 
-What the flags mean:
+- `--deep` — nested code (helpers, frameworks, embedded dylibs)
+- `--options=runtime` — **Hardened Runtime** (required for notarization)
+- `--timestamp` — signature remains valid after cert expiration
 
-- `--force`
-  - overwrite any existing signature.
-- `-s` identity
-  - selects your Developer ID Application identity.
-- `--deep`
-  - recursively signs nested code (helpers, frameworks). This is often necessary for plugin bundles.
-- `--strict`
-  - enforces stricter validation rules.
-- `--options=runtime`
-  - enables **Hardened Runtime**, required for notarization.
-- `--timestamp`
-  - adds a trusted timestamp so the signature remains valid after cert expiration.
+If the product embeds ONNX Runtime or a Rust domain dylib inside the bundle, those must be present **before** codesign and covered by the signature.
 
-Why it matters:
+### `pkgbuild` component packages
 
-- Without codesigning, Gatekeeper will warn or block loading.
-- Without hardened runtime, notarization will fail.
+Separate component pkgs for AU / VST3 / CLAP with correct `--install-location` paths under `/Library/Audio/Plug-Ins/...`.
 
-### Step 3: Build component packages with `pkgbuild`
+### `productbuild` distribution package
 
-Example shape:
+Generate `distribution.xml` (often from a template via `envsubst`), combine components, sign with **Developer ID Installer**.
 
-```bash
-pkgbuild \
-  --identifier "<bundleid>.vst3.pkg" \
-  --version "$VERSION" \
-  --component "<Plugin.vst3>" \
-  --install-location "/Library/Audio/Plug-Ins/VST3" \
-  "<Product>.vst3.pkg"
-```
-
-What it does:
-
-- Creates an **installer component package** for a specific plugin format.
-- Encodes where it should install on the user’s machine.
-
-Teams often generate separate component pkgs for AU/VST3/CLAP, then combine them.
-
-### Step 4: Build a signed distribution package with `productbuild`
-
-A typical approach:
-
-- generate `distribution.xml` (often from a template using `envsubst`)
-- run `productbuild` to combine component pkgs
-- sign the final `.pkg` with **Developer ID Installer**
-
-Example shape:
-
-```bash
-productbuild \
-  --distribution distribution.xml \
-  --resources ./resources \
-  --sign "$DEVELOPER_ID_INSTALLER" \
-  --timestamp \
-  "<ArtifactName>.pkg"
-```
-
-Why this exists:
-
-- `productbuild` produces a single user-friendly installer.
-- Signing with Developer ID Installer helps Gatekeeper trust the installer.
-
-### Step 5: Notarize with `notarytool`
-
-Example shape:
+### `notarytool` + stapler
 
 ```bash
 xcrun notarytool submit "<ArtifactName>.pkg" \
@@ -427,349 +288,69 @@ xcrun notarytool submit "<ArtifactName>.pkg" \
   --password "$NOTARIZATION_PASSWORD" \
   --team-id "$TEAM_ID" \
   --wait
-```
 
-What it does:
-
-- Uploads the `.pkg` to Apple’s notarization service.
-- Apple scans it for malware and policy compliance.
-- `--wait` blocks until notarization completes (simplifies CI).
-
-### Step 6: Staple the notarization ticket
-
-```bash
 xcrun stapler staple "<ArtifactName>.pkg"
 ```
-
-What it does:
-
-- Attaches Apple’s notarization ticket to the installer.
-- Enables offline verification on end-user machines.
 
 ---
 
 ## Artifact handling and releases
 
-A common pattern:
+- Linux: zip + `actions/upload-artifact`
+- macOS: notarized `.pkg` upload
+- Windows: `.exe` + `.zip` upload
 
-- Linux builds zip up artifacts and upload via `actions/upload-artifact`.
-- macOS builds upload the notarized `.pkg`.
-
-On version tags (e.g. `v1.2.3`), a separate job can:
-
-- download all artifacts
-- create a GitHub Release
-- attach zips/pkgs
-
-This keeps CI builds and release publication decoupled.
+On version tags (e.g. `v1.4.0`), a follow-up job downloads artefacts and creates a prerelease/release with `softprops/action-gh-release` (or similar). Keeping build jobs and publish jobs separate reduces re-signing when only release metadata changes.
 
 ---
 
 ## Common pitfalls
 
 - **Runner labels don’t match** `runs-on`
-  - Your self-hosted runner must include the exact labels referenced.
-
-- **Codesign identity strings don’t match**
-  - The `DEVELOPER_ID_APPLICATION` / `DEVELOPER_ID_INSTALLER` values must match imported identities.
-
-- **Notarization auth fails**
-  - Use an app-specific password.
-  - Ensure the Apple ID has access to the Team ID.
-
-- **pluginval fails on Linux**
-  - Usually due to missing X11/Xvfb or missing JUCE dependencies.
-
-- **Universal builds produce only one architecture**
-  - Verify `CMAKE_OSX_ARCHITECTURES` and ensure Xcode toolchain supports both slices.
+- **Rust missing on PATH** → CMake configure fails looking for `cargo`
+- **Self-hosted dirty trees** → stale build dirs or CPM caches; clean explicitly
+- **Codesign identity strings don’t match** imported certs
+- **Notarization auth fails** → app-specific password + Team ID access
+- **Embedded dylibs unsigned or missing** after Rust/ORT packaging
+- **Universal macOS assumptions** while CI only builds one arch
+- **Assuming pluginval ran** when the workflow no longer includes it
+- **Assuming Windows tests ran** when the step is disabled
+- **ORT download stalls** in CMake → pre-seed the cache
 
 ---
 
 ## Quick checklist
 
-- **Linux x86_64**
-  - GitHub-hosted runner OK
-  - install JUCE deps + Xvfb
-  - run pluginval
-
-- **Linux arm64**
-  - **self-hosted runner required**
-  - label runner `Linux` + `ARM64`
-
-- **macOS universal**
-  - **self-hosted runner** recommended
-  - import Developer ID certs
-  - codesign plugin bundles
-  - pkgbuild + productbuild
-  - notarytool submit
-  - stapler staple
-
-- **Secrets configured**
-  - signing certs + passwords
-  - signing identity strings
-  - notarization credentials
+- **Linux x86_64** — GitHub-hosted OK; JUCE deps + Xvfb; Rust; zip artefacts  
+- **Linux arm64** — self-hosted; labels `Linux` + `ARM64`; Rust  
+- **macOS arm64** — self-hosted; Rust; Developer ID secrets; codesign; pkgbuild; productbuild; notarytool; stapler  
+- **Windows x64** — self-hosted; MSVC + Ninja + Inno Setup; Rust on PATH; optional Azure Trusted Signing  
+- **Secrets** — licensing, Apple signing/notarization, Windows signing as needed  
 
 ---
 
 ## Closing thoughts
 
-The combination of a matrix build plus self-hosted runners gives you a clean path to shipping plugins across architectures without forcing everything into a single machine type. The key is being explicit about:
+Split workflows plus self-hosted runners give a clear path to shipping plugins without forcing every platform onto one machine type. The contracts that matter:
 
-- what the runners provide
-- what the workflow installs
-- what is signed vs notarized vs stapled
+- what each runner provides (including **Rust**)
+- what the workflow installs vs assumes
+- what is signed vs notarized vs stapled vs cloud-signed
+- which quality gates actually run on which OS
 
-Once those contracts are clear (and secrets are correct), the pipeline becomes boring — in the best possible way.
+Once those are explicit, the pipeline becomes boring—in the best possible way.
 
----
+## Related reading
 
-## The complete GithubActions workflow
+- [The LucidHarmony Tech Stack](/blog/technology-stack)
+- [Shipping Continuously: Moving a JUCE Plugin's Brain to Rust](/blog/blog-hybrid-rust-migration)
+- [C++ vs Rust: Domain Brains and Framework Bodies](/blog/cpp-vs-rust-domain-and-shell)
+- [It's 2026 and DLL Hell is Still a Thing](/blog/blog-onnxruntime-windows-audio-plugin)
 
-```yaml
-name: Release
-
-on:
-  workflow_dispatch: # We only build from the UI
-
-# When pushing new commits, cancel any running builds on that branch
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
-
-env:
-  BUILD_TYPE: Release
-  BUILD_DIR: Builds
-  DISPLAY: :0 # linux pluginval needs this
-  HOMEBREW_NO_INSTALL_CLEANUP: 1
-  SCCACHE_GHA_ENABLED: true
-  SCCACHE_CACHE_MULTIARCH: 1
-  LICENSE_API_KEY: ${{ secrets.LICENSE_API_KEY }}
-
-defaults:
-  run:
-    shell: bash
-
-# all steps run in series
-jobs:
-  build_and_test:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
-    name: ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false # show all errors for each platform (vs. cancel jobs on error)
-      matrix:
-        include:
-          - name: Linux (x86_64)
-            platform: Linux
-            os: "ubuntu-22.04"
-            arch: x86_64
-            sccache-enabled: true
-            install-linux-deps: true
-            setup-clang: true
-            pluginval-binary: ./pluginval
-            pluginval-platform: Linux
-            pluginval-enabled: true
-            extra-flags: -G Ninja
-
-          - name: Linux (arm64)
-            platform: Linux
-            os: ["self-hosted", "Linux", "ARM64"]
-            arch: arm64
-            sccache-enabled: false
-            install-linux-deps: false
-            setup-clang: false
-            pluginval-enabled: false
-            extra-flags: -G Ninja
-
-          - name: macOS
-            platform: macOS
-            os: ["self-hosted", "macOS"]
-            arch: universal
-            setup-xcode: false
-            sccache-enabled: false
-            pluginval-binary: pluginval.app/Contents/MacOS/pluginval
-            pluginval-platform: macOS
-            pluginval-enabled: true
-            extra-flags: -G Ninja -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
-    steps:
-      # Use clang on Linux so we don't introduce a 3rd compiler
-      - name: Set up Clang
-        if: ${{ runner.os == 'Linux' && matrix.setup-clang }}
-        uses: egor-tensin/setup-clang@v1
-
-      # This also starts up our "fake" display (Xvfb), needed for pluginval
-      - name: Install JUCE's Linux Deps
-        if: ${{ runner.os == 'Linux' && matrix.install-linux-deps }}
-        # Thanks to McMartin & co https://forum.juce.com/t/list-of-juce-dependencies-under-linux/15121/44
-        run: |
-          sudo apt-get update
-          WEBKIT_PKG="libwebkit2gtk-4.0-dev"
-          if ! apt-cache show "$WEBKIT_PKG" >/dev/null 2>&1; then
-            WEBKIT_PKG="libwebkit2gtk-4.1-dev"
-          fi
-          sudo apt-get install -y libasound2-dev libx11-dev libxinerama-dev libxext-dev libfreetype6-dev "$WEBKIT_PKG" libglu1-mesa-dev xvfb ninja-build
-          sudo /usr/bin/Xvfb $DISPLAY &
-
-      - name: Install macOS Deps
-        if: ${{ matrix.platform == 'macOS' }}
-        run: brew install ninja osxutils
-
-      # This block can be removed once 15.1 is default (JUCE requires it when building on macOS 14)
-      - name: Use latest Xcode on system (macOS)
-        if: ${{ matrix.platform == 'macOS' && matrix.setup-xcode }}
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - name: Verify Xcode (macOS)
-        if: ${{ matrix.platform == 'macOS' }}
-        run: |
-          xcodebuild -version
-          xcode-select -p
-          xcrun --sdk macosx --show-sdk-path
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Cache the build
-        if: ${{ matrix.sccache-enabled }}
-        uses: mozilla-actions/sccache-action@v0.0.9
-
-      - name: Configure
-        run: |
-          SCCACHE_FLAGS=""
-          if [[ "${{ matrix.sccache-enabled }}" == "true" ]]; then
-            SCCACHE_FLAGS="-DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache"
-          fi
-          cmake -B ${{ env.BUILD_DIR }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE}} $SCCACHE_FLAGS ${{ matrix.extra-flags }} .
-
-      - name: Build
-        run: cmake --build ${{ env.BUILD_DIR }} --config ${{ env.BUILD_TYPE }}
-
-      - name: Test & Benchmarks
-        working-directory: ${{ env.BUILD_DIR }}
-        run: ctest --verbose --output-on-failure
-
-      - name: Read in .env from CMake # see GitHubENV.cmake
-        run: |
-          cat .env # show us the config
-          cat .env >> $GITHUB_ENV # pull in our PRODUCT_NAME, etc
-
-      - name: Set additional env vars for next steps
-        run: |
-          ARTIFACTS_PATH=${{ env.BUILD_DIR }}/${{ env.PROJECT_NAME }}_artefacts/${{ env.BUILD_TYPE }}
-          echo "ARTIFACTS_PATH=$ARTIFACTS_PATH" >> $GITHUB_ENV
-          echo "VST3_PATH=$ARTIFACTS_PATH/VST3/${{ env.PRODUCT_NAME }}.vst3" >> $GITHUB_ENV
-          echo "AU_PATH=$ARTIFACTS_PATH/AU/${{ env.PRODUCT_NAME }}.component" >> $GITHUB_ENV
-          echo "AUV3_PATH=$ARTIFACTS_PATH/AUv3/${{ env.PRODUCT_NAME }}.appex" >> $GITHUB_ENV
-          echo "CLAP_PATH=$ARTIFACTS_PATH/CLAP/${{ env.PRODUCT_NAME }}.clap" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME=${{ env.PRODUCT_NAME }}-${{ env.VERSION }}-${{ matrix.platform }}-${{ matrix.arch }}" >> $GITHUB_ENV
-
-      - name: Pluginval
-        if: ${{ matrix.pluginval-enabled }}
-        run: |
-          curl -LO "https://github.com/Tracktion/pluginval/releases/download/v1.0.3/pluginval_${{ matrix.pluginval-platform }}.zip"
-          if command -v 7z >/dev/null 2>&1; then
-            7z x pluginval_${{ matrix.pluginval-platform }}.zip
-          else
-            unzip -q pluginval_${{ matrix.pluginval-platform }}.zip
-          fi
-          ${{ matrix.pluginval-binary }} --strictness-level 10 --verbose --validate "${{ env.VST3_PATH }}"
-
-      - name: Import Certificates (macOS)
-        uses: sudara/basic-macos-keychain-action@v1
-        id: keychain
-        if: ${{ matrix.platform == 'macOS'}}
-        with:
-          dev-id-app-cert: ${{ secrets.DEV_ID_APP_CERT }}
-          dev-id-app-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
-          dev-id-installer-cert: ${{ secrets.DEV_ID_INSTALLER_CERT }}
-          dev-id-installer-password: ${{ secrets.DEV_ID_INSTALLER_PASSWORD }}
-
-      - name: Codesign (macOS)
-        if: ${{ matrix.platform == 'macOS' }}
-        timeout-minutes: 5
-        run: |
-          # Each plugin must be code signed
-          codesign --force --keychain ${{ steps.keychain.outputs.keychain-path }} -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.VST3_PATH }}" --deep --strict --options=runtime --timestamp
-          codesign --force --keychain ${{ steps.keychain.outputs.keychain-path }} -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.AU_PATH }}" --deep --strict --options=runtime --timestamp
-          codesign --force --keychain ${{ steps.keychain.outputs.keychain-path }} -s "${{ secrets.DEVELOPER_ID_APPLICATION}}" -v "${{ env.CLAP_PATH }}" --deep --strict --options=runtime --timestamp
-
-      - name: Add Custom Icons (macOS)
-        if: ${{ matrix.platform == 'macOS' }}
-        run: |
-          # add the icns as its own icon resource (meta!)
-          sips -i packaging/pamplejuce.icns
-
-          # Grab the resource, put in tempfile
-          DeRez -only icns packaging/pamplejuce.icns > /tmp/icons
-
-          # Stuff the resource into the strange Icon? file's resource fork
-          Rez -a /tmp/icons -o "${{ env.VST3_PATH }}/Icon"$'\r'
-          Rez -a /tmp/icons -o "${{ env.AU_PATH }}/Icon"$'\r'
-          Rez -a /tmp/icons -o "${{ env.CLAP_PATH }}/Icon"$'\r'
-
-          # Set custom icon attribute
-          SetFile -a C "${{ env.VST3_PATH }}"
-          SetFile -a C "${{ env.AU_PATH }}"
-          SetFile -a C "${{ env.CLAP_PATH }}"
-
-      - name: pkgbuild, Productbuild and Notarize
-        if: ${{ matrix.platform == 'macOS' }}
-        timeout-minutes: 5
-        run: |
-          pkgbuild --identifier "${{ env.BUNDLE_ID }}.au.pkg" --version $VERSION --component "${{ env.AU_PATH }}" --install-location "/Library/Audio/Plug-Ins/Components"  "packaging/${{ env.PRODUCT_NAME }}.au.pkg"
-          pkgbuild --identifier "${{ env.BUNDLE_ID }}.vst3.pkg" --version $VERSION --component "${{ env.VST3_PATH }}" --install-location "/Library/Audio/Plug-Ins/VST3" "packaging/${{ env.PRODUCT_NAME }}.vst3.pkg"
-          pkgbuild --identifier "${{ env.BUNDLE_ID }}.clap.pkg" --version $VERSION --component "${{ env.CLAP_PATH }}" --install-location "/Library/Audio/Plug-Ins/CLAP" "packaging/${{ env.PRODUCT_NAME }}.clap.pkg"
-
-          cd packaging
-          envsubst < distribution.xml.template > distribution.xml
-          productbuild --resources ./resources --distribution distribution.xml --sign "${{ secrets.DEVELOPER_ID_INSTALLER }}" --timestamp "${{ env.ARTIFACT_NAME }}.pkg"
-
-          xcrun notarytool submit "${{ env.ARTIFACT_NAME }}.pkg" --apple-id ${{ secrets.NOTARIZATION_USERNAME }} --password ${{ secrets.NOTARIZATION_PASSWORD }} --team-id ${{ secrets.TEAM_ID }} --wait
-          xcrun stapler staple "${{ env.ARTIFACT_NAME }}.pkg"
-
-      - name: Zip
-        if: ${{ matrix.platform == 'Linux' }}
-        working-directory: ${{ env.ARTIFACTS_PATH }}
-        run: 7z a -tzip "${{ env.ARTIFACT_NAME }}.zip" "-xr!lib${{ env.PRODUCT_NAME }}_SharedCode.a" .
-
-      - name: Upload Zip (Linux)
-        if: ${{ matrix.platform == 'Linux' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT_NAME }}.zip
-          path: "${{ env.ARTIFACTS_PATH }}/${{ env.ARTIFACT_NAME }}.zip"
-          retention-days: 7
-
-      - name: Upload pkg (macOS)
-        if: ${{ matrix.platform == 'macOS' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT_NAME }}.pkg
-          path: packaging/${{ env.ARTIFACT_NAME }}.pkg
-          retention-days: 7
-
-  release:
-    if: contains(github.ref, 'tags/v')
-    runs-on: ubuntu-latest
-    needs: build_and_test
-
-    steps:
-      - name: Get Artifacts
-        uses: actions/download-artifact@v4
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          prerelease: true
-          # download-artifact puts these files in their own dirs...
-          # Using globs sidesteps having to pass the version around
-          files: |
-            */*.zip
-            */*.dmg
-            */*.pkg
-```
-
+**Updated**
+- 2026-07-12 — Aligned with split platform workflows (macOS / Linux / Windows), not a single matrix job.
+- 2026-07-12 — Documented Rust toolchain + Cargo cache requirements after the hybrid domain migration.
+- 2026-07-12 — Corrected macOS target (arm64 self-hosted; not universal in current release CI).
+- 2026-07-12 — Noted Windows release path (Inno Setup, Azure Trusted Signing) and that pluginval is not currently run in these workflows.
+- 2026-07-12 — Noted Windows automated tests are currently disabled in CI while a teardown segfault is investigated.
+- 2026-07-12 — Linked C++ vs Rust domain/shell comparison.

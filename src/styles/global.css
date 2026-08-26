@@ -41,6 +41,12 @@ article.prose pre {
   max-width: calc(100vw - 3rem);
 }
 
+/* Tailwind Typography adds decorative ` via ::before/::after — hide them */
+article.prose code::before,
+article.prose code::after {
+  content: none;
+}
+
 article.prose code {
   word-break: break-all;
 }

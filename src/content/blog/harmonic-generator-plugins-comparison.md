@@ -6,11 +6,11 @@ readTime: "12 min read"
 tags: ["plugin","daw","harmony"]
 ---
 
-*Published: December 15, 2025 · Last updated: June 2026*
+*Published: December 15, 2025 · Last updated: July 2026*
 
 Here is a curated, comprehensive list of plugins specifically designed for generating MIDI chords or chord progressions. We focus on tools that output MIDI data (e.g., for drag-and-drop into DAWs), emphasizing harmonic generation, progression building, and related features. The list draws from 2025–2026 reviews and avoids non-plugin tools (e.g., standalone apps or browser-based generators like Hookpad's Aria or AIVA).
 
-Pricing and availability verified as of June 2026. Check official sites for current info — some of these products change pricing models or discontinue without notice.
+Pricing and availability were last spot-checked mid-2026. **Check official sites for current info** — products change pricing models or discontinue without notice. We did not re-audit every competitor price for this refresh.
 
 We built LucidHarmony because we saw a gap in this space. We've done our best to be objective and fair below. Skip to [the end](#so-where-does-that-leave-lucidharmony) to see where we think the gap is.
 
@@ -251,10 +251,25 @@ None of these plugins do what LucidHarmony does.
 
 Most chord generators work from presets, genre templates, or simple randomization within a scale. They give you chords that are *correct* — diatonic, in-key, structurally valid. But they don't give you chords that are *interesting* in the way a trained composer's ear would find interesting.
 
-LucidHarmony's approach is fundamentally different. We trained a transformer neural network on 3,700+ compositions from Bach, Palestrina, Monteverdi, Corelli, and Trecento-era composers — not on pop progressions or genre templates. The model learned *harmonic grammar* from centuries of practice: how tension builds and resolves, when a borrowed chord surprises without jarring, why a particular voice-leading choice feels inevitable in retrospect.
+LucidHarmony's approach is fundamentally different. We trained a **transformer** neural network on 3,700+ compositions from Bach, Palestrina, Monteverdi, Corelli, and Trecento-era composers — not on pop progressions or genre templates. The model learned *harmonic grammar* from centuries of practice: how tension builds and resolves, when a borrowed chord surprises without jarring, why a particular voice-leading choice feels inevitable in retrospect. Inference runs **locally** (ONNX) inside the plugin; you keep your sounds, your DAW, your workflow.
 
-The result is a generator that produces harmonies with real depth. Not random, not formulaic — genuinely musical progressions that reward repeated listening. You don't need to know any theory to use it. Click Generate, drag the MIDI to your DAW, assign an instrument. That's it.
+What you get in practice:
 
-What we intentionally leave out: arpeggiators, audio analysis, genre presets, built-in instruments. Your DAW already does those things. We focused entirely on the one thing no other plugin does — deep harmonic intelligence from the masters, running in real-time on your machine.
+- **Generate / explore** — progressions, continuations, and alternatives with temperature-style control  
+- **Voice-led MIDI** — four-part realizations you can drag out (including multi-track export for orchestral sketching)  
+- **Follow mode** — play (e.g. a bass line) and get harmony back in real time  
+- **Theory-aware tooling** — Roman context, optional non-chord-tone motion, precomputed metadata for reliable spelling  
+- **Formats that matter** — AU / VST3 / CLAP on the platforms we ship  
 
-[Get LucidHarmony — $10 (50% off, limited time)](https://lucidmusician.gumroad.com/l/lucid-harmony)
+Under the hood the product is a **hybrid**: JUCE for the editor and host shell; a Rust domain library for generation, metadata, and related engine work—so we can keep shipping while the brain improves. Details for the curious: [tech stack](/blog/technology-stack), [modeling pipeline](/blog/modeling-harmonies), [Rust migration](/blog/blog-hybrid-rust-migration), [C++ vs Rust](/blog/cpp-vs-rust-domain-and-shell).
+
+The result is a generator that aims for depth rather than dice rolls. You don't need to know theory to use it. Click Generate, drag the MIDI to your DAW, assign an instrument—or improvise with Follow mode under a pad or string library.
+
+What we intentionally leave out: arpeggiators, audio analysis, genre presets, built-in instruments. Your DAW already does those things. We focused on deep harmonic intelligence from the masters, running in real time on your machine.
+
+[Get LucidHarmony](https://lucidmusician.gumroad.com/l/lucid-harmony) — check the product page for current pricing and promos.
+
+**Updated**
+- 2026-07-12 — Refreshed LucidHarmony positioning for current product capabilities (follow mode, NCT, hybrid runtime).
+- 2026-07-12 — Competitor pricing/availability note: treat listed prices as snapshots; verify on vendor sites.
+- 2026-07-12 — Linked C++ vs Rust domain/shell comparison.

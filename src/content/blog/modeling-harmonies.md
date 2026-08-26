@@ -1,79 +1,97 @@
 ---
 title: "Modeling Harmonies: From Scores of the Masters to Real-Time AI"
-description: "Explore the pipeline behind LucidHarmony's AI harmonic generation, from historical scores to a lightweight neural network."
+description: "Explore the pipeline behind LucidHarmony's AI harmonic generation, from historical scores to transformer inference in a hybrid plugin."
 date: "2025-12-11"
 readTime: "12 min read"
-tags: ["machine-learning","music-theory","lstm","harmony"]
+tags: ["machine-learning","music-theory","transformers","harmony","onnx","rust"]
 ---
 
-*Published: December 11, 2025 • 12 min read*
+*Published: December 11, 2025 · 12 min read*
 
-How do you teach a machine to understand harmony? Not just to recognize chords, but to grasp the deep patterns that composers use to create musical coherence? This article explores the complete pipeline behind LucidHarmony's AI-powered harmonic generation system, from extracting knowledge from historical scores to deploying a lightweight neural network inside an audio plugin.
+How do you teach a machine to understand harmony? Not just to recognize chords, but to grasp the deep patterns that composers use to create musical coherence? This article explores the complete pipeline behind LucidHarmony's AI-powered harmonic generation system, from extracting knowledge from historical scores to running a compact neural model in real time inside an audio plugin.
 
-> **Note:** This post contains code and music theory. But you can safely skip over code blocks and harmonic notation and still get the gist of what's happening in the pipeline. We think it's pretty interesting in any case.
+> **Note:** This post contains code and music theory. You can safely skip code blocks and harmonic notation and still get the gist of the pipeline.
 
 ## Introduction
-LucidHarmony's approach to harmonic modeling is built on a three-stage pipeline that transforms centuries of musical knowledge into an AI model that can be used in the real-time harmonic inference engine. The system learns from the masters — analyzing thousands of Renaissance and Baroque compositions — and distills this knowledge into a compact model that can generate stylistically authentic chord progressions on the fly.
 
-Why Renaissance and Baroque and not pop songs? Because the harmonic language of composers like [Bach](https://en.wikipedia.org/wiki/Johann_Sebastian_Bach), [Palestrina](https://en.wikipedia.org/wiki/Giovanni_Palestrina), and [Monteverdi](https://en.wikipedia.org/wiki/Claudio_Monteverdi) in that time period set the harmonic foundation of Western music. By learning from the masters, LucidHarmony can generate harmonic progressions that are both musically coherent and stylistically authentic. You can use this know-how to create harmonies with this foundation that **sound** robust and beautiful in any context from classical through ambient to pop.
+LucidHarmony's approach to harmonic modeling is a multi-stage pipeline that transforms centuries of musical knowledge into models that power a real-time harmonic engine. The system learns from the masters — analyzing thousands of Renaissance and Baroque (and related) compositions — and distills that knowledge into models that generate stylistically coherent chord progressions on the fly.
 
-The pipeline consists of three critical stages:
-1. **Extraction**: Converting musical scores into machine-readable harmonic sequences
-2. **Training**: Teaching an [LSTM neural network](https://en.wikipedia.org/wiki/Long_short-term_memory) to predict harmonic progressions
-3. **Export**: Deploying the model as a dependency-free C++ inference engine
+Why Renaissance and Baroque and not only pop songs? Because the harmonic language of composers like [Bach](https://en.wikipedia.org/wiki/Johann_Sebastian_Bach), [Palestrina](https://en.wikipedia.org/wiki/Giovanni_Palestrina), and [Monteverdi](https://en.wikipedia.org/wiki/Claudio_Monteverdi) set foundations that still underlie Western practice. By learning from those sources, LucidHarmony can produce progressions that feel robust from classical through ambient to pop — while **you** choose the instrumentation and genre.
 
-Let's dive deep into each stage.
+The pipeline has four critical stages:
+
+1. **Extraction** — converting scores into machine-readable harmonic sequences  
+2. **Training** — teaching a sequence model to predict harmonic progressions  
+3. **Export** — packaging the model for cross-platform plugin inference  
+4. **Runtime** — inference, constraints, voice leading, and MIDI inside the plugin  
+
+### Evolution (short history)
+
+| Era | Model | Runtime packaging |
+|-----|--------|-------------------|
+| Early product | Stacked **LSTM** over Roman tokens | Custom weights JSON + hand-written C++ forward pass |
+| Current (v1.3+) | **Transformer** over Roman tokens | **ONNX** + ONNX Runtime |
+| Current architecture (v1.4 hybrid) | Same transformer assets | Domain logic (load model, generate, logits, metadata, MIDI events, follow compute) in **Rust**; JUCE for UI/shell/formats |
+
+This article keeps the extraction story (still valid), describes training and export as they work **now**, and treats the LSTM export path as historical context only.
 
 ## Stage 1: Chord Extraction
-The first challenge in modeling harmony is converting raw musical scores into a format suitable for machine learning. We created Python code to process MusicXML, MIDI, and Kern files from composers spanning the 14th to 18th centuries.
+
+The first challenge is converting raw scores into a format suitable for machine learning. Offline Python tooling processes MusicXML, MIDI, and Kern (and similar) sources spanning centuries of practice.
 
 ### The Extraction Process
-The extraction pipeline uses the [`music21`](https://www.music21.org/music21docs/) library to parse scores and perform sophisticated harmonic analysis:
+
+The extraction pipeline uses the [`music21`](https://www.music21.org/music21docs/) library to parse scores and perform harmonic analysis:
 
 #### 1. Parsing and Key Detection
+
 ```python
 score = converter.parse(str(path))
 k = score.analyze("key")
 ```
-The system automatically detects the key of each piece using `music21`'s built-in analysis tools. This is crucial because all subsequent harmonic analysis is performed relative to the detected key, allowing the model to learn functional harmony patterns that generalize across different keys.
+
+The system detects the key of each piece. Subsequent analysis is relative to that key so the model learns **functional** patterns that transpose across tonics.
 
 #### 2. Chordification
+
 ```python
 chordified = score.chordify().flatten()
 ```
-Polyphonic scores are flattened into vertical "slices"—snapshots of all notes sounding at each moment in time. This transforms complex multi-voice counterpoint into a sequence of simultaneous pitch collections.
+
+Polyphonic scores become vertical “slices”—snapshots of notes sounding at each moment—turning counterpoint into a sequence of pitch collections.
 
 #### 3. Harmonic Filtering: The Strong Beat Rule
-One of the most sophisticated aspects of the extraction process is its handling of passing tones and non-harmonic tones. Early versions of the system captured every vertical sonority, resulting in "dissonant chatter"—fleeting harmonies that don't represent the underlying harmonic structure.
 
-The solution is a **Strong Beat Rule** that filters harmonies occurring on strong beats (quarter note level in 4/4 time) to be extracted as harmonic anchors. Weak-beat sonorities are ignored, and their duration is merged into the previous strong-beat chord. This maintains rhythmic integrity while focusing on structurally significant harmonies.
+Early versions captured every vertical sonority, producing “dissonant chatter”—fleeting harmonies that are not structural.
+
+The **Strong Beat Rule** keeps harmonies on strong beats (e.g. quarter-note grid in 4/4) as anchors. Weak-beat sonorities are ignored and their duration merges into the previous strong-beat chord. That preserves rhythmic pacing while focusing on structural harmony.
 
 #### 4. Roman Numeral Tokenization
-The heart of the extraction process is converting chords to Roman Numeral analysis:
+
 ```python
 rn = roman.romanNumeralFromChord(c, k)
 token = get_simplified_figure(rn)
 ```
-Each chord is analyzed relative to the local key and converted to a standardized Roman numeral token. The `get_simplified_figure()` function performs critical simplifications:
 
-**Simplification Rules:**
-- Complex figures like `V[#4]6` are reduced to `V6`
-- Quality markers are preserved: `o` for diminished, `+` for augmented
-- Inversions are strictly maintained: `I`, `I6`, `I64`
+Each chord becomes a standardized Roman numeral token. Simplification rules matter:
 
-**Why Inversions Matter:**
-This is a crucial design decision. By preserving inversions in the token vocabulary (e.g., distinguishing `V` from `V6`), the model learns to compose the bass line, not just chord roots. A first-inversion chord (`V6`) has the third in the bass, fundamentally changing the voice leading and harmonic function.
+- Complex figures like `V[#4]6` reduce toward stable forms such as `V6`
+- Quality markers are preserved where useful (`o`, `+`, …)
+- **Inversions are kept**: `I`, `I6`, `I64`
+
+**Why inversions matter:** by distinguishing `V` from `V6`, the model helps compose the **bass line**, not only chord roots.
 
 #### 5. Duration Encoding
-Each token is appended with a quantized duration:
+
 ```python
 # Format: Figure_Duration
-# Example: "V6_1.0" (V6 chord lasting one quarter note)
+# Example: "V6_1.0" (V6 lasting one quarter note)
 ```
-This allows the model to learn not just which chords follow which, but also the rhythmic pacing of harmonic change.
+
+The model learns both *what* follows *what* and the **harmonic rhythm**.
 
 ### Output Format
-The extraction produces JSON files containing sequences of chord tokens:
+
 ```json
 {
   "metadata": {
@@ -83,13 +101,30 @@ The extraction produces JSON files containing sequences of chord tokens:
   "chords": ["I_2.0", "V6_1.0", "I_1.0", "IV_2.0", "V_1.0", "I_2.0"]
 }
 ```
-This dataset becomes the training corpus for the neural network.
+
+These sequences become the training corpus. Offline tools also emit **precomputed music-theory metadata** (packed JSON) used at runtime for spelling, pitch-class sets, NCT, and related lookups—see [Precomputed Music-Theory Metadata](/blog/precomputed-metadata-formats).
 
 ## Stage 2: Model Training
-With thousands of chord sequences extracted from historical scores, the next stage is training a neural network to predict harmonic progressions. The training script implements a carefully designed [LSTM](https://en.wikipedia.org/wiki/Long_short-term_memory) architecture optimized for this task.
 
-### Architecture: ChordLSTM
-The model uses a stacked LSTM (Long Short-Term Memory) architecture, chosen for its ability to capture long-range dependencies in sequential data:
+With large corpora of chord sequences, the next stage is training a neural network to predict progressions.
+
+### Architecture: Transformer (current)
+
+As of the v1.3 product line, training targets an **attention-based transformer** over the Roman-token vocabulary. Transformers model longer-range harmonic structure more effectively than the compact LSTM stack we used earlier, at the cost of a more careful export and runtime story (ONNX rather than a tiny custom matrix engine).
+
+Conceptually the model still does next-token prediction:
+
+- embed tokens  
+- attend over context  
+- project to vocabulary logits  
+- train with cross-entropy / perplexity metrics  
+
+Hyperparameters (depth, width, context length, dropout, schedules) are experiment-driven; what matters for the product is a model small enough for **local CPU inference** in a DAW plugin with interactive latency.
+
+### Historical note: ChordLSTM
+
+The first shipped generations used a stacked LSTM roughly like:
+
 ```python
 class ChordLSTM(nn.Module):
     def __init__(self, vocab_size, embed_size=64, hidden_size=128,
@@ -99,263 +134,128 @@ class ChordLSTM(nn.Module):
                             dropout=dropout, batch_first=True)
         self.fc = nn.Linear(hidden_size, vocab_size)
 ```
-**Layer Breakdown:**
-1. **Embedding Layer** (`embed_size=64`): Maps discrete chord tokens to dense 64-dimensional vectors. This allows the model to learn semantic relationships between chords (e.g., that `V` and `V7` are related).
-2. **Stacked LSTM** (`hidden_size=128`, `num_layers=2`): Two LSTM layers with 128 hidden units each. The recurrent architecture maintains a "memory" of previous chords, allowing it to understand context like "we're in a cadential progression" or "this is the beginning of a sequence."
-3. **Fully Connected Layer**: Projects the LSTM's hidden state back to vocabulary size, producing a probability distribution over all possible next chords.
 
-### Training Strategy
-The training process incorporates several sophisticated techniques to prevent overfitting and ensure generalization:
+That design was easy to export as raw weight tensors and run with a hand-written C++ forward pass. It remains a good teaching example of sequence modeling (see [How is this AI?](/blog/but-is-it-ai)), but it is **not** the production architecture today.
 
-#### Vocabulary Construction
-```python
-# Build vocabulary from training data
-tokens = [token for seq in sequences for token in seq]
-token_counts = Counter(tokens)
-vocab = {token: i for i, token in enumerate(unique_tokens)}
-# Add special tokens
-vocab["<PAD>"] = len(vocab)
-vocab["<START>"] = len(vocab)
-vocab["<END>"] = len(vocab)
-```
-The vocabulary is constructed dynamically from the training corpus, with special tokens for sequence boundaries and padding. Typical vocabulary sizes range from 200-500 tokens depending on the composer corpus.
+### Training strategy (still applies)
 
-#### Sliding Window Sequences
-```python
-SEQ_LENGTH = 32
-# Create sliding windows
-for i in range(len(indices) - seq_length):
-    input_seq = indices[i : i + seq_length]
-    target_seq = indices[i + 1 : i + seq_length + 1]
-```
-Each piece is split into overlapping 32-chord windows. The model learns to predict the next chord given the previous 32, allowing it to capture both local progressions and longer-term harmonic trajectories.
+**Vocabulary construction** from the corpus, plus special tokens for boundaries/padding. Typical vocabularies are on the order of hundreds of tokens after simplification—not tens of thousands.
 
-#### Regularization Techniques
-**1. Dropout** (`dropout=0.5`): Randomly drops 50% of neurons during training to prevent [co-adaptation](https://aiwiki.ai/wiki/Co-adaptation) and [overfitting](https://aiwiki.ai/wiki/Overfitting).  
-**2. Validation Split** (`VAL_SPLIT=0.15`): 15% of pieces are held out for validation, ensuring the model generalizes to unseen compositions.  
-**3. Early Stopping** (`EARLY_STOP_PATIENCE=10`): Training halts if validation loss doesn't improve for 10 epochs, preventing overfitting to the training set.  
-**4. Learning Rate Decay**:
-```python
-scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-    optimizer, mode='min', factor=0.5, patience=3
-)
-```
-The learning rate is automatically reduced when validation loss plateaus, allowing fine-tuning in later epochs.
+**Sliding windows** over pieces so the model sees local and medium-range contexts.
 
-### Training Metrics
-The model is evaluated using two key metrics:  
-**Loss**: Cross-entropy loss measuring prediction accuracy  
-**Perplexity**: `exp(loss)`, representing the effective "branching factor" of the model's predictions. Lower perplexity means more confident, accurate predictions.
+**Regularization:** dropout, held-out pieces for validation, early stopping, learning-rate schedules on plateau.
 
-Typical training results:
-```
-Epoch 50 | Train Loss: 2.1234 (PPL: 8.36) |
-          Val Loss: 2.3456 (PPL: 10.44) | LR: 0.000125
-```
-A perplexity of ~10 means the model is effectively choosing from about 10 plausible next chords at each step — a reasonable level of uncertainty that allows for creative variation while maintaining stylistic coherence.
+**Metrics:** cross-entropy loss and perplexity (`exp(loss)`). A perplexity around ~10 means “about ten plausible next chords” on average—room for creativity without pure noise.
 
-### Model Checkpoint
-The final model is saved as a PyTorch checkpoint containing:
-```python
-{
-    "model_state_dict": model.state_dict(),
-    "vocab": train_dataset.vocab,
-    "hyperparameters": {
-        "embed_size": 64,
-        "hidden_size": 128,
-        "num_layers": 2
-    },
-    "best_val_loss": 2.3456
-}
-```
-This checkpoint contains everything needed to reconstruct the model and perform inference.
+Checkpoints store weights, vocab, and hyperparameters for export.
 
-## Stage 3: Export to C++ Inference Engine
-The final stage is perhaps the most technically challenging: deploying the trained PyTorch model inside a real-time audio plugin. Audio plugins operate under strict constraints — they must process audio in small buffers (typically 512 samples) with minimal latency, and they cannot rely on heavy dependencies like PyTorch.
+## Stage 3: Export for Plugin Inference
 
-The solution is to convert the PyTorch model into a pure JSON format that can be loaded by a custom C++ inference engine embedded in the plugin
+Audio plugins must run with tight latency budgets and cannot ship full PyTorch.
 
-### Export Process
-```python
-def export_to_json(model_path, output_path, decimals=4):
-    checkpoint = torch.load(model_path, map_location='cpu')
-    export_data = {
-        "metadata": {
-            "vocab_size": len(vocab),
-            "embed_size": 64,
-            "hidden_size": 128,
-            "num_layers": 2
-        },
-        "vocab": vocab,
-        "index_to_token": {i: t for t, i in vocab.items()},
-        "weights": {}
-    }
-    for key, value in state_dict.items():
-        # Round to 4 decimals to reduce file size
-        value = value.double()
-        scale = 10**decimals
-        value = torch.round(value * scale) / scale
-        export_data["weights"][key] = value.tolist()
-```
-**Key Transformations:**
-1. **Weight Extraction**: All PyTorch tensors (embedding weights, LSTM gates, fully connected layer) are extracted and converted to nested Python lists.
-2. **Precision Reduction**: Weights are rounded to 4 decimal places (`decimals=4`). This reduces file size by ~40% with negligible impact on prediction quality. The double-precision conversion before rounding prevents float32 artifacts.
-3. **Vocabulary Mapping**: Both `token → index` and `index → token` mappings are included for bidirectional lookup during inference.
+### Current path: ONNX
 
-### The Exported JSON Structure
-```json
-{
-  "metadata": {
-    "vocab_size": 342,
-    "embed_size": 64,
-    "hidden_size": 128,
-    "num_layers": 2
-  },
-  "vocab": {
-    "I": 0,
-    "V": 1,
-    "IV": 2,
-    ...
-  },
-  "weights": {
-    "embedding.weight": [[0.1234, -0.5678, ...], ...],
-    "lstm.weight_ih_l0": [...],
-    "lstm.weight_hh_l0": [...],
-    "lstm.bias_ih_l0": [...],
-    "lstm.bias_hh_l0": [...],
-    "lstm.weight_ih_l1": [...],
-    "lstm.weight_hh_l1": [...],
-    "lstm.bias_ih_l1": [...],
-    "lstm.bias_hh_l1": [...],
-    "fc.weight": [...],
-    "fc.bias": [...]
-  }
-}
-```
+Trained models are exported to **ONNX**. The plugin (via the domain library) loads the `.onnx` graph with **ONNX Runtime**, runs a forward pass over the token context, and obtains logits for sampling.
 
-### C++ Inference Implementation
-The plugin's inference engine implements the LSTM forward pass using only standard C++ and `std::vector`:
+Why ONNX:
 
-**Key Features:**
-1. **No External Dependencies**: The entire inference engine uses only STL containers and basic math operations. No PyTorch, TensorFlow, or ONNX runtime required.
-2. **LSTM Cell Implementation**: Manual implementation of LSTM gates (input, forget, output, cell state) using the exported weights:
-```cpp
-// Simplified LSTM forward pass
-for (int t = 0; t < seq_length; t++) {
-    // Input gate: σ(W_ii * x + b_ii + W_hi * h + b_hi)
-    // Forget gate: σ(W_if * x + b_if + W_hf * h + b_hf)
-    // Cell gate: tanh(W_ig * x + b_ig + W_hg * h + b_hg)
-    // Output gate: σ(W_io * x + b_io + W_ho * h + b_ho)
-    // Cell state: f * c + i * g
-    // Hidden state: o * tanh(c)
-}
-```
-3. **Temperature Sampling**: The inference engine supports temperature-controlled sampling for creative control:
-```cpp
-// Apply temperature to logits before softmax
-for (auto& logit : logits) {
-    logit /= temperature;
-}
-// Higher temperature = more surprising chords
-// Lower temperature = more predictable progressions
-```
-4. **Constraint System**: The engine can enforce musical constraints like starting with a specific chord (e.g., "I") or preventing immediate repetition.
+- **Cross-platform** runtimes (macOS, Windows, Linux)  
+- **Stable C/C++/Rust bindings** without embedding Python  
+- **Separation of concerns** — training stays in Python; runtime is a small inference stack  
 
-### Performance Characteristics
-The exported model is remarkably efficient:
-- **Model Size**: ~2-5 MB (depending on vocabulary size)
-- **Inference Time**: <1ms per chord prediction on modern CPUs
-- **Memory Footprint**: ~10 MB loaded in RAM
+Windows packaging of ORT has its own drama (DLL search order, host scanning); we document that separately in [It's 2026 and DLL Hell is Still a Thing](/blog/blog-onnxruntime-windows-audio-plugin).
 
-This makes it suitable for real-time use in audio plugins, where predictions must happen instantaneously as users interact with the interface.
+### Historical path: JSON weight dump + pure C++ LSTM
 
-## From Tokens to Music: Voice Leading
-The model outputs abstract Roman numeral tokens like `V6_1.0`, but to hear the music, these must be converted to concrete MIDI notes. This is handled by the voice-leading engine, which implements a [beam search](https://en.wikipedia.org/wiki/Beam_search) algorithm to find optimal four-part (SATB) voicings using heuristics.
+Earlier releases exported rounded weight tensors to JSON and implemented LSTM gates by hand in C++. That was dependency-light and educational, but it did not scale cleanly to transformer graphs. Treat any remaining “export weights to JSON” snippets in older materials as **legacy**.
 
-### The "Path of the Bass"
-A critical design principle: **the model composes the bass line, not just chord roots**. By learning inversions as distinct tokens, the model makes explicit bass-line decisions:
-- `V` → Root position (scale degree 5 in bass)
-- `V6` → First inversion (scale degree 7 in bass)
-- `V43` → Second inversion seventh chord (scale degree 2 in bass)
+## Stage 4: Runtime in the Plugin
 
-The voice-leading engine strictly enforces these inversions:
-```python
-# ENFORCE INVERSION: Bass voice must match the chord's bass note
-bass_pc = rn.bass().pitchClass
-bass_candidates = [n for n in voice_options[3] if n % 12 == bass_pc]
-```
+### Hybrid shell + domain
 
-### Optimization via Beam Search
-The voicing algorithm uses beam search to find the optimal path through the chord sequence, minimizing a cost function that penalizes:
-- **Parallel 5ths and 8ves**: Hard constraint (cost = 99999)
-- **Voice crossing**: Severe penalty (cost = 9999)
-- **Large melodic leaps**: Penalty proportional to interval size
-- **Lack of common tones**: Bonus for voice leading smoothness
-- **Contrary motion**: Bonus for bass vs. soprano moving in opposite directions
+Today the runtime is hybrid:
 
-```python
-def calculate_cost(prev_voicing, curr_voicing):
-    cost = 0.0
-    # Check for parallel perfect intervals
-    for i, j in voice_pairs:
-        if is_parallel_perfect(prev, curr, i, j):
-            return 99999.0  # Reject
-    # Reward smooth voice leading
-    for v1, v2 in zip(prev_voicing, curr_voicing):
-        if v1 == v2:  # Common tone
-            cost -= 2.0
-        cost += abs(v2 - v1)  # Penalize movement
-    return cost
-```
-This produces voicings that sound natural and follow traditional voice-leading principles, even though the model never explicitly learned these rules — they emerge from the optimization process.
+- **JUCE / C++ shell** — plugin formats (AU, VST3, CLAP), editor UI, parameters, process-block glue, licensing HTTP, packaging.  
+- **Rust domain library** — model load/query, generation/continuation/alternatives, logit masks and sampling helpers, Roman/NCT metadata, MIDI event construction, follow-mode pure compute, preset JSON.  
+- **C ABI** — stable boundary; thin C++ façades keep call sites familiar while behavior lives in Rust.
+
+See [Shipping Continuously: Moving a JUCE Plugin's Brain to Rust](/blog/blog-hybrid-rust-migration).
+
+### From logits to notes
+
+1. **Context** — recent Roman tokens (and duration encoding as designed).  
+2. **Forward** — ONNX Runtime produces logits.  
+3. **Decode** — temperature, top‑K, musical masks/biases (start chord, NCT, transitions, …).  
+4. **Realize** — voice-leading search produces SATB (or similar) MIDI pitches with inversion constraints.  
+5. **Emit** — note events become host MIDI, files, or drag-and-drop payloads in the shell.
+
+### Voice leading (still essential)
+
+The model outputs abstract tokens like `V6_1.0`. A **beam-search** voicer optimizes four-part realizations with costs for parallels, leaps, missing common tones, etc. Inversions from the token still constrain the bass. This is structured search on purpose—not “the network does voice leading for free.”
+
+### Performance goals
+
+- Interactive generation on CPU in a DAW  
+- Model and metadata assets small enough to ship inside the plugin bundle  
+- Deterministic options for tests (seeded sampling, fixed fixtures)
+
+Exact millisecond budgets depend on context length, model size, and host buffer settings; the design target is “feels instant” for UI-driven generation, with heavier follow-mode work off the audio callback where needed.
 
 ## The Complete Pipeline in Action
-Let's trace a single chord through the entire pipeline:
-1. **Extraction**: A V6 chord in Bach's chorale BWV 1 is analyzed:
-   - Detected key: G major
-   - Chord: D major in first inversion (D-F#-A with F# in bass)
-   - Token: `V6_1.0`
-2. **Training**: The model learns that `V6` often follows `I` and precedes `I`:
-   - Context: `[..., I_2.0, V6_1.0, I_1.0, ...]`
-   - The LSTM's hidden state encodes "we're approaching a cadence"
-3. **Inference**: During generation, the model predicts `V6` with probability 0.23:
-   - Input context: `[I_2.0, IV_1.0, ...]`
-   - Temperature sampling selects `V6_1.0`
-4. **Export**: The C++ engine looks up token index 47 → `V6`
-5. **Voice Leading**: The voicing engine realizes `V6` in G major:
-   - Bass: F#3 (the third of the chord)
-   - Tenor: D4
-   - Alto: A4
-   - Soprano: D5
-   - Cost: 12.3 (smooth voice leading from previous chord)
-6. **Output**: MIDI notes [54, 62, 69, 74] are sent to the synthesizer
+
+1. **Extraction** — A `V6` in a chorale is analyzed in G major → token `V6_1.0`.  
+2. **Training** — The transformer learns that such tokens participate in cadential and prolongational patterns across the corpus.  
+3. **Export** — Weights become an ONNX graph + vocab tables; theory facts become packed JSON metadata.  
+4. **Inference** — Domain code runs ONNX, samples the next token under temperature and constraints.  
+5. **Voice leading** — Beam search realizes pitches consistent with the inversion.  
+6. **Output** — MIDI notes hit the user’s instrument of choice (pad, strings, piano, orchestra library…).
 
 ## Lessons Learned
-Building this pipeline revealed several key insights:
 
-### 1. Simplification is Essential
-Early versions captured every detail of the original scores — figured bass symbols, chromatic alterations, complex suspensions. This created a vocabulary of thousands of tokens, leading to severe overfitting. The simplified token system (200-500 tokens) strikes the right balance between expressiveness and generalization.
+### 1. Simplification is essential
 
-### 2. Inversions are Musical Decisions
-Treating inversions as distinct tokens was initially controversial — why not let the voicing engine decide? But inversions are compositional choices that affect harmonic function, not just voice-leading details. A `V6` chord has a different character than a `V` chord, and the model needs to learn when each is appropriate.
+Capturing every ornamental detail explodes vocabulary and overfits. Simplified Roman tokens strike a balance between expressiveness and generalization.
 
-### 3. Strong Beat Filtering is Critical
-Capturing every vertical sonority produced noisy, unmusical training data. The strong beat rule dramatically improved model quality by focusing on structurally significant harmonies.
+### 2. Inversions are musical decisions
 
-### 4. Lightweight Deployment is Possible
-With careful engineering, sophisticated neural networks can run in real-time environments without heavy dependencies. The key is separating training (use powerful frameworks) from inference (implement only what's needed).
+Treating inversions as distinct tokens lets the model influence bass motion; the voicer enforces those choices rather than inventing them alone.
+
+### 3. Strong beat filtering is critical
+
+Noisy vertical slices train the model on accidents of counterpoint. Structural harmony on a grid works better for progression learning.
+
+### 4. Training stack ≠ shipping stack
+
+Use PyTorch (or similar) to train; ship **ONNX + a small domain runtime**. Hand-rolling transformer math in C++ is a false economy once graphs grow.
+
+### 5. Domain vs shell is a product architecture choice
+
+Moving inference and music logic into Rust while keeping JUCE for hosts and UI let us improve the brain without pausing AU/VST3/CLAP shipment.
 
 ## Future Directions
-The current pipeline opens several exciting research directions:
-- **Hierarchical Models**: Capturing phrase-level structure and large-scale tonal plans
-- **Style Transfer**: Interpolating between different composer styles
-- **User Conditioning**: Allowing users to guide generation with constraints or examples
-- **Polyphonic Generation**: Generating independent melodic lines, not just chords
+
+- Hierarchical / phrase-level structure  
+- Stronger user conditioning and interactive constraints  
+- Style blending across corpora  
+- Continued shell experiments (UI frameworks, alternate plugin toolkits) **after** the domain stays stable  
 
 ## Conclusion
 
-Modeling harmony is a bridge between music theory and machine learning, between centuries of compositional practice and modern AI techniques. By carefully designing each stage of the pipeline — from extraction that preserves musical meaning, through training that captures long-range dependencies, to deployment that runs in real-time — LucidHarmony demonstrates that AI can be a creative partner in music composition.
+Modeling harmony bridges music theory and machine learning—centuries of practice and modern sequence models. By designing extraction that preserves musical meaning, training that captures long-range dependencies, export that DAWs can run, and a hybrid runtime that stays shippable, LucidHarmony aims to be a creative partner rather than a random chord dice roller.
 
-The system doesn't replace musical knowledge; it encodes it. The model learned from Bach, Palestrina, and Monteverdi, distilling their harmonic language into a compact neural network. When you use LucidHarmony to generate a chord progression, you're tapping into centuries of musical wisdom, translated into the language of tensors and gradients.
+The system doesn’t replace musical knowledge; it encodes patterns learned from masters and combines them with explicit voice-leading and theory metadata. When you generate a progression, you’re using that stack—and then **you** choose the sound.
 
-**Tags:** #machine-learning #music-theory #lstm #harmony #ai-composition #audio-plugins
+## Related reading
+
+- [How is this AI?](/blog/but-is-it-ai)  
+- [The LucidHarmony Tech Stack](/blog/technology-stack)  
+- [Shipping Continuously: Moving a JUCE Plugin's Brain to Rust](/blog/blog-hybrid-rust-migration)  
+- [C++ vs Rust: Domain Brains and Framework Bodies](/blog/cpp-vs-rust-domain-and-shell)  
+- [Precomputed Music-Theory Metadata](/blog/precomputed-metadata-formats)  
+- [It's 2026 and DLL Hell is Still a Thing](/blog/blog-onnxruntime-windows-audio-plugin)  
+
+**Updated**
+- 2026-07-12 — Replaced outdated LSTM / custom C++ JSON-export story with the current transformer → ONNX path.
+- 2026-07-12 — Documented hybrid deployment: domain inference and orchestration in Rust; JUCE shell for UI and formats.
+- 2026-07-12 — Clarified that LSTM details remain historical context, not what ships today.
+- 2026-07-12 — Linked C++ vs Rust domain/shell comparison. 

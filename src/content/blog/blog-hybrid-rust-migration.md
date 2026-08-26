@@ -16,6 +16,8 @@ We wanted more of the *domain* in Rust—clearer types, fewer footguns, a path t
 
 This is how that hybrid migration went, what we learned, and why “always shippable” beat “rewrite the world.”
 
+For the comparative case—why C++ hurts on domain concurrency and builds, and what Rust buys at that layer—see [C++ vs Rust: Domain Brains and Framework Bodies](/blog/cpp-vs-rust-domain-and-shell).
+
 
 ## The constraint that shaped everything
 
@@ -212,13 +214,17 @@ We did not get a free rewrite of the UI. We did not magically delete concurrency
 - Nobody will maintain the FFI; an abandoned boundary is worse than boring C++.
 
 
+## Status
+
+The hybrid MVP described here is **merged and shipping** on the main product line: domain in Rust, shell still JUCE. Remaining work is product polish and platform hardening—not finishing the strangler for its own sake.
+
 ## What’s next (and what isn’t)
 
-Next product work can stay on the hybrid: fix follow-mode edge cases, polish UI, ship presets—users feel those.
+Next product work stays on the hybrid: follow-mode edge cases, UI polish, presets—users feel those.
 
 Next *platform* work is optional and ordered carefully:
 
-1. Harden packaging and CI on every target OS.  
+1. Harden packaging and CI on every target OS (including Windows release automation).  
 2. Optionally experiment with a new UI toolkit in a **lab** window or standalone—not as a forced tab embed.  
 3. Revisit a non-JUCE plugin shell only when the audio unit story and GUI stack are deliberate choices, not side effects.
 
@@ -232,3 +238,16 @@ Rewrites fail when they try to replace the product and the architecture in one m
 Rust is the brain. JUCE is still the body that walks into the DAW. The C ABI is the nervous system between them—and like any nervous system, it should be thin, boring, and well tested.
 
 If you take one idea from our migration, take this: **optimize for continuous shipment, not for purity of stack.** Purity can come later, one layer at a time, when the domain already trusts itself.
+
+## Related reading
+
+- [C++ vs Rust: Domain Brains and Framework Bodies](/blog/cpp-vs-rust-domain-and-shell)
+- [The LucidHarmony Tech Stack](/blog/technology-stack)
+- [Modeling Harmonies](/blog/modeling-harmonies)
+- [Building an Audio Plugin with GitHub Actions](/blog/github-actions-macos-linux-build)
+- [It's 2026 and DLL Hell is Still a Thing](/blog/blog-onnxruntime-windows-audio-plugin)
+
+**Updated**
+- 2026-07-12 — Marked hybrid MVP as merged and shipping on the main product line.
+- 2026-07-12 — Cross-linked tech stack and CI posts after website content refresh.
+- 2026-07-12 — Linked new C++ vs Rust domain/shell comparison post.

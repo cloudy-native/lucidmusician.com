@@ -13,9 +13,6 @@ import {
 import {
 	CachePolicy,
 	Distribution,
-	Function,
-	FunctionCode,
-	FunctionEventType,
 	HeadersFrameOption,
 	HeadersReferrerPolicy,
 	OriginAccessIdentity,
@@ -73,37 +70,6 @@ export class LucidMusicianStack extends Stack {
 		);
 		websiteBucket.grantRead(originAccessIdentity);
 
-		// CloudFront Function: redirect www -> apex + ensure https (defense in depth)
-		const normalizeHostFunction = new Function(this, "NormalizeHostFunction", {
-			comment: "Redirect www to apex and enforce https",
-			code: FunctionCode.fromInline(`
-function handler(event) {
-  var request = event.request;
-  var headers = request.headers;
-  var hostHeader = headers.host ? headers.host.value : '';
-  var uri = request.uri || '/';
-
-  // Redirect www to non-www (apex)
-  if (hostHeader.startsWith('www.')) {
-    var apexHost = hostHeader.slice(4);
-    var location = 'https://' + apexHost + uri;
-    return {
-      statusCode: 301,
-      statusDescription: 'Moved Permanently',
-      headers: {
-        'location': { value: location },
-        'cache-control': { value: 'max-age=3600' }
-      }
-    };
-  }
-
-  // If somehow http reached here, force https (viewer policy usually handles this)
-  // We do not inspect scheme here; CloudFront adds cloudfront-viewer-https or similar in some events.
-  return request;
-}
-			`),
-		});
-
 		// Security headers policy including HSTS (helps Google/browsers prefer HTTPS)
 		const securityHeadersPolicy = new ResponseHeadersPolicy(this, "SecurityHeadersPolicy", {
 			comment: "Security headers + HSTS for lucidmusician.com",
@@ -137,12 +103,6 @@ function handler(event) {
 				origin: new S3Origin(websiteBucket, { originAccessIdentity }),
 				viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
 				cachePolicy: CachePolicy.CACHING_OPTIMIZED,
-				functionAssociations: [
-					{
-						function: normalizeHostFunction,
-						eventType: FunctionEventType.VIEWER_REQUEST,
-					},
-				],
 				responseHeadersPolicy: securityHeadersPolicy,
 			},
 			errorResponses: [

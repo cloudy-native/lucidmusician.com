@@ -6,7 +6,7 @@ readTime: "14 min read"
 tags: ["ai","machine-learning","lstm","transformers","markov","decoding"]
 ---
 
-*Published: December 17, 2025 • 14 min read*
+*Published: December 17, 2025 · 14 min read*
 
 When people say “AI” they often mean “a model that writes plausible sequences.” In practice, that could mean anything from a 2‑gram Markov chain to a GPT‑style Transformer. They’re all **probabilistic sequence models**, but they differ radically in:
 
@@ -328,6 +328,8 @@ This is why you’ll sometimes see “AI music” systems that combine:
 
 It’s not cheating; it’s engineering.
 
+**How LucidHarmony maps onto this (today):** production generation uses a **transformer** trained on Roman-numeral harmony sequences, exported to **ONNX** for local inference. Decoding uses temperature / top‑K style sampling plus musical constraints. A separate **voice-leading** search realizes MIDI. Domain orchestration lives in a **Rust** library; the plugin shell remains JUCE. Earlier product generations used an LSTM—useful history, not the current default. Details: [Modeling Harmonies](/blog/modeling-harmonies), [Tech Stack](/blog/technology-stack), [Hybrid Rust migration](/blog/blog-hybrid-rust-migration).
+
 ## So… is it AI?
 
 If “AI” means “systems that learn statistical structure from data and generalize,” then:
@@ -347,3 +349,10 @@ If you want a simple way to complete the picture:
 
 - [Modeling Harmonies: From Scores of the Masters to Real-Time AI](/blog/modeling-harmonies)
 - [The LucidHarmony Tech Stack: Modeling, Plugin, and Website](/blog/technology-stack)
+- [Shipping Continuously: Moving a JUCE Plugin's Brain to Rust](/blog/blog-hybrid-rust-migration)
+- [C++ vs Rust: Domain Brains and Framework Bodies](/blog/cpp-vs-rust-domain-and-shell)
+
+**Updated**
+- 2026-07-12 — Clarified product mapping: LucidHarmony ships a transformer + ONNX path; LSTM material stays educational.
+- 2026-07-12 — Linked hybrid runtime / modeling pipeline posts for current architecture.
+- 2026-07-12 — Linked C++ vs Rust domain/shell comparison.

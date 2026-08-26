@@ -6,6 +6,8 @@ readTime: "12 min read"
 tags: ["machine-learning","music-theory","harmony","data-structures"]
 ---
 
+*Published: February 26, 2026 · 12 min read*
+
 Audio software often wants sophisticated harmonic intelligence — Roman numerals, chord spelling, chord reduction, and voice-leading — yet it must remain fast, deterministic, and easy to validate. A practical way to achieve that is **precomputation**: compute music-theory facts offline using a trusted theory engine, then ship compact lookup tables that runtime code can load quickly and rely on.
 
 This post explains a set of **packed JSON formats** designed for that approach: how they’re used, why they beat hard-coded rules, and the trade-offs involved.
@@ -32,16 +34,20 @@ A typical flow looks like this:
 ```text
 offline generator (music theory engine)
   -> packed JSON assets
-     -> embedded or shipped with the app
-        -> parsed at startup into in-memory caches
-           -> O(1)-ish lookups during:
-              - UI chord spelling
-              - chord-tone selection / reduction
-              - voice-leading scoring (tendency tones)
-              - MIDI marker text (if applicable)
+     -> embedded or shipped with the plugin
+        -> bytes handed across the shell/domain boundary
+           -> parsed once into in-memory stores (domain library)
+              -> O(1)-ish lookups during:
+                 - UI chord spelling (shell asks domain / façades)
+                 - chord-tone selection / reduction
+                 - NCT and logit bias
+                 - voice-leading scoring (tendency tones)
+                 - MIDI marker text (if applicable)
 ```
 
 This keeps runtime code lean and predictable, and pushes complex theory to the offline toolchain where it can be tested thoroughly.
+
+In LucidHarmony’s hybrid architecture, the **plugin shell** (JUCE) still resolves embedded assets to bytes; the **domain library** (Rust) owns parsing and query APIs. Format on disk does not change when the consumer language does—only the loader does.
 
 ---
 
@@ -340,3 +346,15 @@ There’s a spectrum:
 - custom binary (smallest and fastest, hardest to debug)
 
 Packed JSON is often a strong middle ground: you pay a one-time startup parse and get fast, deterministic lookups thereafter.
+
+## Related reading
+
+- [Modeling Harmonies](/blog/modeling-harmonies)
+- [The LucidHarmony Tech Stack](/blog/technology-stack)
+- [Shipping Continuously: Moving a JUCE Plugin's Brain to Rust](/blog/blog-hybrid-rust-migration)
+- [C++ vs Rust: Domain Brains and Framework Bodies](/blog/cpp-vs-rust-domain-and-shell)
+
+**Updated**
+- 2026-07-12 — Noted that packed tables are now loaded and queried primarily from the Rust domain layer (C++ façades at the edge).
+- 2026-07-12 — Confirmed format design principles unchanged; runtime ownership moved with the hybrid migration.
+- 2026-07-12 — Linked C++ vs Rust domain/shell comparison.

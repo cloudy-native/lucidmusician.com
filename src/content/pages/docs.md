@@ -3,6 +3,28 @@ title: "Documentation"
 description: "Complete documentation for LucidHarmony, the AI-powered chord progression generator for ambient music and film scoring."
 ---
 
+
+## Instant gratification
+
+Empty instrument track. LucidHarmony in the MIDI FX slot (Logic) or before the instrument. **No MIDI region.** Defaults are fine.
+
+1. Click **Generate**.
+2. Press **Play**.
+
+You should hear four-part harmony on your instrument. If you see **Muted by track MIDI**, a MIDI **note-on** is on that track — mute or remove the region, or don’t play the keyboard until you want Follow Me. Host clock and all-notes-off do not mute.
+
+![Generate then play](/images/instant-gratification.png)
+
+### After you drag MIDI onto a track
+
+Play then uses **that DAW region**, not LucidHarmony. The tape banner reads **MIDI is on a DAW track**. Click the banner to **audition LucidHarmony** again; click **Auditioning LucidHarmony** to go back to the DAW MIDI. Generate does not switch this.
+
+Typical setup: keep LucidHarmony on one track to generate; drag MIDI onto a **second** instrument track. Mute the LucidHarmony track’s instrument if you only want the exported region.
+
+Then wander. The rest of this page is for when you get curious.
+
+---
+
 **LucidHarmony** is an AI-powered chord progression generator and harmonic editor for your DAW. Our custom AI model is trained on centuries of music theory and 3,700+ compositions from master composers, delivering musically intelligent chord progressions instantly.
 
 ### LucidHarmony is for _all_ kinds of music
@@ -19,11 +41,11 @@ Then start to generate sequences with longer chords that let lush pads play out.
 
 ### Platform Availability
 
-Available for **Mac** (Apple Silicon only as of v1.3.x; Intel supported in v1.2.x), **Linux** (Intel and ARM64), and **Windows** (Intel, ZIP, and installer). Mac supports AU, AUv3, VST3, and CLAP formats. Windows and Linux support VST3 and CLAP.
+Available for **Mac** (Apple Silicon, macOS 13.3+; Intel remains on v1.2.x), **Windows** (x64, installer or ZIP), and **Linux** (64-bit). Formats: **AU, VST3, and CLAP**. There is no AUv3 build.
 
 ### Tested DAWs
 
-Works with any DAW that supports VST3, AU, AUv3, or CLAP plugins. Tested with Reaper, Ableton Live, and Logic Pro.
+Works with any DAW that supports VST3, AU, or CLAP. Tested with Logic Pro, Ableton Live, and Reaper.
 
 If you find a DAW that doesn't work, please [submit a support ticket](https://lucidmusician.zohodesk.com/portal/en/newticket).
 
@@ -33,9 +55,22 @@ If you find a DAW that doesn't work, please [submit a support ticket](https://lu
 
 Here is your quick start and highlights of the controls. More details as we go along.
 
-![Front panel](/images/lucidharmony-front-panel.png)
+![Intuitive tab](/images/ui-intuitive-tab.png)
 
-LucidHarmony's interface is organized into three main tabs: **Generate**, **Harmonic Explorer**, and **About**. The Generate tab (shown above) contains all the core controls for creating chord progressions.
+*Placeholder — replace with a 1.4 Intuitive-tab screenshot.*
+
+![Preset bar](/images/ui-presets.png)
+
+*Placeholder — replace with the 1.4 preset selector (above the tabs).*
+
+LucidHarmony's interface has four tabs: **Intuitive**, **Advanced**, **Harmonic Explorer**, and **About**. **Create** vs **Follow Me** is the mode switcher on the generator. Presets sit above the tabs.
+
+- **Intuitive** — Predictability, richness, length, and four voicing knobs (Smooth, Open, Centered, Ornaments). Start chord, meter, and extension toggles are hidden here.
+- **Advanced** — Full generator (key, start chord, model, meter, note length, bars, Infinite, 7ths/9ths) plus detailed voicing sliders and NCT type toggles.
+
+![Advanced tab](/images/ui-advanced-tab.png)
+
+*Placeholder — replace with a 1.4 Advanced-tab screenshot.*
 
 ### AI Generator Section
 
@@ -46,7 +81,11 @@ LucidHarmony's interface is organized into three main tabs: **Generate**, **Harm
 - **5. Predictability** — Red dial controlling how familiar or surprising the progressions feel. Five levels: Very Familiar, Familiar, Balanced, Surprising, Very Surprising.
 - **6. Richness & Extension Bias** — Red dial controlling chord complexity. Five levels: Simple, Some Color, Colorful, Rich, Very Rich. Higher levels add 7ths, 9ths, and extended harmonies. Four toggles (7ths, 9ths, Aug 6ths, Others) appear next to the Richness dial. When Richness is above Simple, these control which chord extension types are biased in generation. "Others" biases toward remaining extended chords (sus, add9, etc.) independently from the other three.
 - **7. Bars** — Slider setting the total number of chords to generate.
-- **8. Infinite Mode** — Checkbox to enable continuous generation. When enabled with "Reset on Play," LucidHarmony generates new progressions each time you press play in your DAW.
+- **8. Infinite Mode** — Toggle (or Bars at 33) for continuous streaming. Generate still starts the stream; press play in the DAW to hear it.
+
+![Infinite mode](/images/ui-infinite.png)
+
+*Placeholder — replace with the Infinite control in 1.4.*
 - **9. Generate Button** — Click to create a new chord progression based on your settings. You can click this as many times as you want.
 - **10. Undo/Redo** — Step backward or forward through your generation history.
 
@@ -73,7 +112,7 @@ Six blue dials control how the chords are voiced across the four parts:
 ### Utility Controls
 
 - **21. Reset** — Reset the chord tape to a single start chord.
-- **22. Chord Tape** — Generated chords appear here. Click to select, right-click to edit, drag to rearrange. Chords play with DAW transport or drag to an instrument track. See [Chord Tape Editing](#chord-tape-editing) for details.
+- **22. Chord Tape** — Generated chords appear here. Click to select, right-click to edit, drag to rearrange. On an empty track, Play auditions from LucidHarmony. After you drag MIDI out, Play uses the DAW region until you click the tape banner to toggle. See [Chord Tape Editing](#chord-tape-editing) and [After you drag MIDI onto a track](#after-you-drag-midi-onto-a-track).
 
 ---
 
@@ -81,7 +120,7 @@ Six blue dials control how the chords are voiced across the four parts:
 
 ### System Requirements
 
-**macOS** requires macOS 11.0 (Big Sur) or later. Version 1.3.x and above requires Apple Silicon (M1/M2/M3/M4). Intel Mac users can continue using version 1.2.x with all existing features. Needs a DAW compatible with AU, AUv3, VST3, or CLAP.
+**macOS** requires **13.3** or later and **Apple Silicon**. Intel Mac users stay on **v1.2.x**. Formats: AU, VST3, CLAP.
 
 **Windows** requires Windows 10 or later (64-bit) with a VST3- or CLAP-compatible DAW.
 
@@ -98,10 +137,9 @@ Visit [lucidmusician.com](https://lucidmusician.com) and click the Gumroad link 
 1. Download the `.pkg` file for macOS
 2. Run the installer — double-click the downloaded package
 3. Follow the installation wizard — plugins install automatically to:
-   - AU: `~/Library/Audio/Plug-Ins/Components/`
-   - AUv3: `~/Library/Audio/Plug-Ins/Components/` (same location, AUv3 variant)
-   - VST3: `~/Library/Audio/Plug-Ins/VST3/`
-   - CLAP: `~/Library/Audio/Plug-Ins/CLAP/`
+   - AU: `/Library/Audio/Plug-Ins/Components/`
+   - VST3: `/Library/Audio/Plug-Ins/VST3/`
+   - CLAP: `/Library/Audio/Plug-Ins/CLAP/`
 4. Rescan plugins in your DAW:
    - **Logic Pro**: Preferences → Plug-in Manager → Reset & Rescan
    - **Ableton Live**: Preferences → Plug-ins → Rescan
@@ -145,7 +183,7 @@ Visit [lucidmusician.com](https://lucidmusician.com) and click the Gumroad link 
 
 LucidHarmony uses a simple, hassle-free licensing system. The full price is $20 (currently 50% off at $10) with a 30-day money-back guarantee. You'll get your license key when you download — just enter it in the plugin interface. **If you don't enter a license key, the plugin will show a friendly nag, but we will never block or disable any features or functionality.** You can install as many times as you like without restriction.
 
-Works offline once installed, although we check the license and whether there's an upgrade available about once a week. This will not block any features or operation.
+Works offline once installed. The plugin may check the license when it starts; that never blocks features.
 
 ---
 
@@ -272,11 +310,13 @@ Click the **Generate** button and watch the magic happen!
 
 ### Step 4: Listen to Your Progression
 
-Press play in your DAW or use LucidHarmony's built-in playback. The current chord is highlighted as it plays. You'll hear 4-part harmony with intelligent voice leading, and the default voicing provides a balanced, musical sound.
+Press **Play** in your DAW (there is no separate plugin transport). On an empty instrument track, LucidHarmony sends the four-part MIDI and the tape follows the playhead. You’ll hear voice-led SATB on whatever instrument is on that track.
+
+If the tape says **Muted by track MIDI**, a note-on is arriving on the track — mute/remove the region or stop playing the keyboard.
 
 ### Step 5: Export to Your Instrument Track
 
-Drag the MIDI directly into your DAW:
+Drag MIDI into the arrangement (often a **second** instrument track):
 
 1. **Drag MIDI (Single)**: All 4 voices on one track — perfect for:
    - Choir sounds
@@ -295,7 +335,27 @@ Drag the MIDI directly into your DAW:
 
 **Tip:** The exported MIDI includes chord symbol markers at each chord change, visible as text markers in DAWs that support them.
 
+After a successful drag, Play uses the **DAW region**. The tape banner **MIDI is on a DAW track** — click it to audition LucidHarmony again, click again to return to the DAW MIDI. See [After you drag MIDI onto a track](#after-you-drag-midi-onto-a-track).
+
 ---
+
+## Follow Me
+
+Follow Me listens to notes you play (or notes on the track) and commits SATB chords that fit those pitches, using the current key, model, and start chord.
+
+![Follow Me](/images/ui-follow-me.png)
+
+*Placeholder — replace with Follow Me mode in 1.4.*
+
+Play a monophonic line; each note-on selects a chord from a precomputed table (no audio dropouts). The chord tape fills as you play. Live Follow output is chord tones only — NCTs appear after you export or switch back to Create playback.
+
+## Presets
+
+Factory and user presets capture generator/voicing *style* (model, predictability, richness, voicing, NCT, Infinite/bars). They do **not** overwrite your session key, major/minor, note length, or start chord. Factory examples include Infinite Ambient and **Modal Drift** (Monteverdi, more open/wandering).
+
+![Presets](/images/ui-presets.png)
+
+*Placeholder — replace with Save as / factory list in 1.4.*
 
 ## Infinite Mode
 
@@ -309,7 +369,7 @@ When you enable **Infinite Mode**, LucidHarmony generates continuously evolving 
 Click Generate with Infinite Mode enabled to create extended progressions. Each generation recreates the entire sequence with fresh harmonic content. Don't worry about regenerating multiple times — LucidHarmony's custom AI is extremely fast: creating 100 chords takes about 1/10th of a second.
 
 **2. Live Background Harmony**  
-Add LucidHarmony to an instrument track in your DAW and enable Infinite Mode with "Reset on Play." Now when you press play, it generates new harmonic MIDI sequences in real-time while you work on other elements of your production.
+Add LucidHarmony to an instrument track, enable Infinite, click Generate, then press play. It streams new chords while you work. Leave the track free of MIDI note-ons if you want to hear LucidHarmony's own output.
 
 ### Best Use Cases
 
@@ -327,8 +387,8 @@ Add LucidHarmony to an instrument track in your DAW and enable Infinite Mode wit
 LucidHarmony maintains a complete history of up to **100 undo steps**, saving both your chord progressions and all configuration settings. This means you can freely experiment with different generations, voicing parameters, and settings — then step backward through your entire creative process.
 
 **How to use:**
-- **Undo**: Cmd+Z (Mac) / Ctrl+Z (Windows) or click the Undo button
-- **Redo**: Cmd+Shift+Z (Mac) / Ctrl+Shift+Z (Windows) or click the Redo button
+- **Undo**: Cmd+Z (Mac) / Ctrl+Z (Windows and Linux), or click Undo. The plugin help shows the shortcut for your OS.
+- **Redo**: Cmd+Shift+Z (Mac) / Ctrl+Shift+Z or Ctrl+Y (Windows and Linux), or click Redo.
 
 Each undo step captures everything: the generated chords, key, AI model, predictability, richness, voicing settings, and more. You can compare different generations side-by-side by undoing and redoing, or recover a progression you accidentally regenerated over.
 
@@ -340,7 +400,7 @@ Each undo step captures everything: the generated chords, key, AI model, predict
 
 ### Main Tabs
 
-LucidHarmony has three main tabs: **AI Generator** for creating progressions automatically, **Chord Editor** for manually editing individual chords and exploring alternatives, and **About** for version info, licensing, and settings.
+LucidHarmony has four tabs: **Intuitive** (simple generator + voicing), **Advanced** (full controls including start chord), **Harmonic Explorer** (alternatives constellation), and **About** (version and license). Switch **Create** vs **Follow Me** on the generator; they are not separate tabs.
 
 ### The Two-Stage Workflow
 
@@ -566,7 +626,7 @@ Right-click any chord to open the editing context menu:
 - **Replace with...** — Opens the Harmonic Explorer with alternatives for this position. Click a bubble to replace the chord.
 - **Insert Before** — Opens the Harmonic Explorer to insert a new chord before this position.
 - **Insert After** — Opens the Harmonic Explorer to insert a new chord after this position.
-- **Delete** — Removes this chord from the progression. Selection moves to the previous chord.
+- **Delete** — Removes this chord from the progression. The tape selection (and leftover playback highlight) is cleared.
 - **Duplicate** — Inserts a copy of this chord immediately after it.
 
 ### Drag to Rearrange
@@ -595,7 +655,7 @@ When Infinite Mode is active and the DAW transport is playing, editing is restri
 
 ### Undo/Redo for Edits
 
-Every edit operation (replace, insert, delete, duplicate, rearrange) is captured in the undo history. Use Cmd+Z / Ctrl+Z to step back through edits, and Cmd+Shift+Z / Ctrl+Shift+Z to redo.
+Every edit operation (replace, insert, delete, duplicate, rearrange) is captured in the undo history. Use Cmd+Z (Mac) or Ctrl+Z (Windows/Linux) to step back through edits, and Cmd+Shift+Z (Mac) or Ctrl+Shift+Z / Ctrl+Y (Windows/Linux) to redo.
 
 ---
 
@@ -648,10 +708,13 @@ Every edit operation (replace, insert, delete, duplicate, rearrange) is captured
 
 ### No Sound / Silent Output
 
-1. Check MIDI input — LucidHarmony requires MIDI to trigger playback
-2. Verify track is armed/enabled and not muted
-3. Check plugin output routing
-4. Generate a progression first — click Generate to create chords
+LucidHarmony is a MIDI effect: it does **not** need incoming MIDI to play. Generate, then press Play on an **empty** instrument track.
+
+1. Confirm LucidHarmony is before the instrument (MIDI FX / MIDI insert), not an audio insert
+2. Verify the instrument track is armed/enabled and not muted
+3. Click Generate, then Play — no MIDI region, don’t play the keyboard
+4. If you see **Muted by track MIDI**, there is a note-on on that track — mute/remove the region
+5. After dragging MIDI out, Play uses the DAW region. Click the tape banner to audition LucidHarmony again
 
 ### Crackling or Distorted Audio
 
@@ -679,9 +742,15 @@ Every edit operation (replace, insert, delete, duplicate, rearrange) is captured
 ### Can't Export MIDI to DAW
 
 1. Drag to the arrangement/timeline view, not the mixer
-2. Drag to an empty area to create a new MIDI clip
+2. Drag to an empty area to create a new MIDI clip (a second instrument track is the usual target)
 3. Ensure you're dragging to a MIDI or Instrument track, not an audio track
-4. Check DAW compatibility - most DAWs support MIDI drag and drop
+4. Check DAW compatibility — most DAWs support MIDI drag and drop
+5. After a successful drop, Play uses that region. Click the tape banner if you want to hear LucidHarmony again
+
+
+### Two parts at once / tape still moving after I muted the instrument
+
+After you drag MIDI onto a track, LucidHarmony stops auditioning so the DAW region is what Play drives. If you still hear two parts, the plugin and a region are both sounding — mute one instrument, or click the tape banner so only one source is live.
 
 ### Voices Sound Too Close Together
 
@@ -712,7 +781,7 @@ Every edit operation (replace, insert, delete, duplicate, rearrange) is captured
 6. **Experiment with AI models**—each model has a distinct character
 7. **Voice the same progression multiple ways**—one harmonic progression can serve multiple sections with different voicings
 8. **Start simple**—use 8 bars, Balanced predictability, Colorful richness for first use
-9. **Use Undo/Redo** - Cmd+Z (Mac) / Ctrl+Z (Windows) to compare different generations
+9. **Use Undo/Redo** — Cmd+Z (Mac) / Ctrl+Z (Windows and Linux) to compare different generations
 
 ---
 

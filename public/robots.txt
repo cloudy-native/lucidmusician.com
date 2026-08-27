@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /data/
+Disallow: /beta
+Disallow: /beta/
 
 Sitemap: https://lucidmusician.com/sitemap.xml

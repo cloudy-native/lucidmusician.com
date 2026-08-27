@@ -75,7 +75,8 @@ LucidHarmony is a MIDI effect. It generates MIDI data, not audio. You need to ro
 1. Make sure you have a software instrument (synth, piano, strings, etc.) receiving MIDI from LucidHarmony. See the [Setting Up the Plugin](docs.md#setting-up-the-plugin) section in the main docs for DAW-specific routing instructions.
 2. Verify the instrument track is armed/enabled and not muted
 3. Check that you've generated a progression. Click Generate to create chords.
-4. Press play in your DAW to hear the progression
+4. Press play in your DAW on an **empty** instrument track (no MIDI region). LucidHarmony does not need incoming MIDI to audition.
+5. If you see **Muted by track MIDI**, mute or remove the region. After dragging MIDI out, Play uses the DAW region — click the tape banner to audition LucidHarmony again.
 
 ### Crackling or Distorted Audio
 
@@ -90,10 +91,15 @@ LucidHarmony itself uses very little CPU (chord generation takes less than 1ms).
 ### MIDI Drag Not Working
 
 1. Drag to the arrangement/timeline view, not the mixer
-2. Drag to an empty area on a MIDI or Instrument track to create a new clip
+2. Drag to an empty area on a MIDI or Instrument track to create a new clip (a second instrument track is typical)
 3. Make sure you're not dragging to an audio track
 4. Some DAWs require you to hold a modifier key while dragging. Check your DAW's documentation.
 5. If dragging feels unresponsive, try generating a shorter progression first (8 bars) to confirm it works
+6. After a successful drop, Play uses that region. Click the tape banner **MIDI is on a DAW track** to audition LucidHarmony; click **Auditioning LucidHarmony** to hear the DAW MIDI again
+
+### Two parts at once after dragging MIDI
+
+LucidHarmony stops auditioning once MIDI is on a DAW track so you don’t hear the plugin and the region together. If you still hear two parts, mute one instrument, or click the tape banner so only one source is live.
 
 ### Stuck Notes
 
@@ -197,7 +203,7 @@ LucidHarmony uses a simple, hassle-free licensing system through Gumroad. The fu
 - Enter it in the About tab of the plugin
 - **We never block or disable any features.** An unlicensed plugin shows a friendly reminder, but everything works.
 - Install on as many computers as you like
-- Works offline. We check the license about once a week, but this never blocks functionality.
+- Works offline. A check may run when the plugin starts; it never blocks functionality.
 
 ### License Key Not Accepted
 
@@ -219,9 +225,9 @@ LucidHarmony uses a simple, hassle-free licensing system through Gumroad. The fu
 
 | Platform | Minimum OS | Architectures | Plugin Formats |
 |----------|-----------|---------------|----------------|
-| **macOS** | 11.0 (Big Sur) | Apple Silicon (M1/M2/M3/M4) — v1.3.x+. Intel supported in v1.2.x. | AU, AUv3, VST3, CLAP |
-| **Windows** | 10 (64-bit) | Intel/AMD x64, ARM64 | VST3, CLAP |
-| **Linux** | 64-bit | Intel/AMD x64, ARM64 | VST3, CLAP |
+| **macOS** | 13.3 | Apple Silicon (Intel stays on v1.2.x) | AU, VST3, CLAP |
+| **Windows** | 10 (64-bit) | x64 | VST3, CLAP |
+| **Linux** | 64-bit | x64 / ARM64 | VST3, CLAP |
 
 LucidHarmony uses minimal CPU and memory. Chord generation takes less than 1ms per chord. The plugin runs entirely on CPU with no GPU requirements.
 

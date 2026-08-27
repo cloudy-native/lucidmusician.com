@@ -11,7 +11,14 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes("/beta"),
+      filter: (page) => {
+        try {
+          const path = new URL(page).pathname.replace(/\/+$/, "") || "/";
+          return path !== "/beta";
+        } catch {
+          return !page.includes("/beta");
+        }
+      },
     }),
     mdx(),
     icon(),

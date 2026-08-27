@@ -15,6 +15,16 @@ export const supportFaqs: FaqItem[] = [
       "LucidHarmony is a MIDI effect — it generates MIDI, not audio. Route its output to a software instrument track, verify the instrument is armed and not muted, click Generate to create a progression, then press play in your DAW.",
   },
   {
+    question: "Play does nothing / I see “Muted by track MIDI.” What’s going on?",
+    answer:
+      "LucidHarmony is a MIDI effect: Generate, then press play on an empty instrument track (no MIDI region, don’t play the keyboard). Audition mutes only when a MIDI note-on is on that track. Host clock and all-notes-off do not mute. Remove or mute the region to hear LucidHarmony again.",
+  },
+  {
+    question: "I dragged MIDI to a track. Play still drives LucidHarmony / how do I hear the DAW region?",
+    answer:
+      "After a successful MIDI drag, Play uses the DAW region. The tape banner reads “MIDI is on a DAW track.” Click the banner to audition LucidHarmony again (“Auditioning LucidHarmony”); click once more to go back to the DAW MIDI. Generate does not switch this. Keep LucidHarmony on one track and drop MIDI onto a second instrument track; mute the unused instrument if you only want one source.",
+  },
+  {
     question: "MIDI drag and drop isn't working. What should I try?",
     answer:
       "Drag to the arrangement/timeline view on a MIDI or Instrument track, not the mixer or an audio track. Some DAWs require a modifier key while dragging. If drag feels unresponsive, try generating a shorter progression first to confirm the workflow.",
@@ -22,7 +32,7 @@ export const supportFaqs: FaqItem[] = [
   {
     question: "The Generate button does nothing. How do I fix it?",
     answer:
-      "Make sure a key is selected, the Bars slider is set to a reasonable value (4–32), and an AI model is selected. Try resetting to defaults: C Major, I chord, Bach model, 8 bars, Balanced predictability. Check your DAW console for error messages.",
+      "Stay in Create (not Follow Me). Pick a model. Bars 4–32 is a finite progression; 33 is Infinite. Try C major, Bach, 8 bars. If Generate is highlighted, settings changed — click it again.",
   },
   {
     question: "Generated progressions sound wrong or too random. How do I get better results?",
@@ -32,7 +42,7 @@ export const supportFaqs: FaqItem[] = [
   {
     question: "How does LucidHarmony licensing work?",
     answer:
-      "Purchase through Gumroad ($10 during the current 50% off promotion, regular price $20). Enter your license key in the About tab. The plugin works offline, installs on multiple computers, and unlicensed use shows a friendly reminder without blocking features.",
+      "Purchase through Gumroad ($10 during the current 50% off promotion, regular price $20). Enter your license key in the About tab. The plugin works offline, installs on multiple computers, and unlicensed use shows a friendly reminder without blocking features. A license check may run at startup; it never disables the plugin.",
   },
   {
     question: "My license key isn't being accepted. What should I do?",

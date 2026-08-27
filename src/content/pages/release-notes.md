@@ -3,7 +3,28 @@ title: "Release Notes"
 description: "Latest updates and changelog for the LucidHarmony MIDI plugin."
 ---
 
+## 1.4.0: August 2026
+
+_Follow Me, presets, and a faster path from empty track to harmony_
+
+- **Follow Me** — Play a line on your keyboard (or a MIDI track); LucidHarmony commits four-part chords that fit those notes. Tables are precomputed so playback stays light.
+- **Intuitive and Advanced** — Intuitive is the simple view (predictability, richness, length, four voicing knobs). **Advanced is the previous Generate tab**, unchanged: start chord, meter, extensions, and the detailed voicing sliders. Harmonic Explorer and About are still their own tabs.
+- **Presets** — Factory and user presets store *style* (model, voicing, richness, Infinite). They do not overwrite your key, major/minor, note length, or start chord.
+- **Infinite** — Toggle (or Bars at 33) streams new chords while you play. Generate still starts the stream.
+- **Non-chord tones** in Create playback — ornaments you hear on the tape match export more closely. Follow Me live output is still chord tones; export after you play to hear NCTs.
+- **MIDI drag vs Play** — After you drag MIDI onto a track, Play uses that DAW region (not LucidHarmony). The tape banner **MIDI is on a DAW track**; click it to audition LucidHarmony, click **Auditioning LucidHarmony** to go back to the DAW MIDI.
+- **Bugs fixed**
+  - Empty track + Play was muted by host all-notes-off / clock. Audition now mutes only on a real MIDI **note-on**. If you still see “Muted by track MIDI,” there is a note on that track — remove or mute the region.
+  - After MIDI drag, Play no longer also drives LucidHarmony (double play / tape motion with the instrument muted).
+  - Minor-key start chord (`i`) restores as `i`, not `I`.
+  - Project save no longer keeps a stale sequence after a second save.
+  - Chord-tape highlight clears after delete or replace.
+  - Infinite append no longer retriggers notes that are already sounding.
+
+macOS 1.4.0 is **Apple Silicon**, **macOS 13.3+**, formats **AU, VST3, and CLAP** (no AUv3). Intel Macs stay on 1.2.x.
+
 ## 1.3.0: June 19, 2026
+
 
 _Complete rewrite of the AI training and inference & a new non-chord tones feature_
 

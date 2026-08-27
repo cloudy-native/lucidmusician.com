@@ -1,0 +1,422 @@
+/* Shared Kami parchment theme. Scoped to html.kami-landing.
+   Body: Avenir Next / Nunito Sans. Headings: Source Serif 4. */
+
+html.kami-landing {
+  --parchment: #f5f4ed;
+  --ivory: #faf9f5;
+  --warm-sand: #e8e6dc;
+  --brand: #1b365d;
+  --brand-light: #2d5a8a;
+  --brand-tint: #eef2f7;
+  --near-black: #141413;
+  --dark-warm: #3d3d3a;
+  --olive: #504e49;
+  --stone: #6b6a64;
+  --border: #e8e6dc;
+  --border-soft: #e5e3d8;
+  --line: #d8d5c8;
+  --serif: "Source Serif 4", Charter, "Iowan Old Style", Georgia, Palatino,
+    "Times New Roman", serif;
+  --sans: "Avenir Next", Avenir, "Nunito Sans", "Century Gothic", system-ui,
+    sans-serif;
+  --latin-ui: var(--sans);
+  --mono: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, Monaco, monospace;
+  --shot-bg: #141318;
+
+  --color-bg: var(--parchment);
+  --color-bg-subtle: #efece3;
+  --color-bg-muted: var(--warm-sand);
+  --color-bg-card: var(--ivory);
+  --color-text: var(--near-black);
+  --color-text-muted: var(--olive);
+  --color-text-subtle: var(--stone);
+  --color-border: var(--border);
+  --color-border-muted: var(--border-soft);
+  --color-accent: var(--brand);
+  --color-accent-light: var(--brand-light);
+  --color-nav-bg: color-mix(in srgb, var(--parchment) 92%, transparent);
+  --color-nav-border: var(--border);
+  --color-button-bg: var(--brand);
+  --color-button-bg-hover: var(--brand-light);
+  --color-badge-bg: var(--brand-tint);
+  --color-badge-text: var(--brand);
+  --breaking-bg: #f0e0d8;
+  --breaking-fg: #8b4513;
+}
+
+html.kami-landing body {
+  background: var(--parchment);
+  color: var(--near-black);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.kami-landing a {
+  color: var(--brand);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+html.kami-landing a:hover {
+  color: var(--brand-light);
+}
+
+html.kami-landing strong {
+  font-weight: 500;
+}
+
+html.kami-landing .btn-primary,
+html.kami-landing .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.2px;
+  padding: 13px 28px;
+  border-radius: 999px;
+  border: 1.5px solid var(--brand);
+  cursor: pointer;
+  min-width: 158px;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s, color 0.15s;
+}
+
+html.kami-landing a.btn-primary,
+html.kami-landing .btn-primary {
+  background: var(--brand);
+  color: var(--ivory);
+}
+
+html.kami-landing a.btn-primary:hover,
+html.kami-landing .btn-primary:hover {
+  background: var(--brand-light);
+  border-color: var(--brand-light);
+  color: var(--ivory);
+}
+
+html.kami-landing a.btn-ghost,
+html.kami-landing .btn-ghost {
+  color: var(--brand);
+  background: transparent;
+}
+
+html.kami-landing a.btn-ghost:hover,
+html.kami-landing .btn-ghost:hover {
+  background: var(--brand-tint);
+  color: var(--brand);
+}
+
+html.kami-landing .kami-page-header {
+  text-align: left;
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+html.kami-landing .kami-page-header h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(32px, 5vw, 40px);
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--near-black);
+}
+
+html.kami-landing .kami-page-header p {
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--olive);
+  margin-left: 0;
+  max-width: 42rem;
+}
+
+html.kami-landing article.prose {
+  font-family: var(--sans);
+  --tw-prose-body: var(--olive);
+  --tw-prose-headings: var(--near-black);
+  --tw-prose-links: var(--brand);
+  --tw-prose-bold: var(--near-black);
+  --tw-prose-counters: var(--brand);
+  --tw-prose-bullets: var(--brand);
+  --tw-prose-quotes: var(--olive);
+  --tw-prose-quote-borders: var(--brand);
+  --tw-prose-captions: var(--stone);
+  --tw-prose-code: var(--brand);
+  --tw-prose-pre-code: var(--dark-warm);
+  --tw-prose-pre-bg: var(--ivory);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border-soft);
+  --tw-prose-hr: var(--line);
+}
+
+html.kami-landing article.prose h1,
+html.kami-landing article.prose h2,
+html.kami-landing article.prose h3,
+html.kami-landing article.prose h4 {
+  font-family: var(--serif);
+  font-weight: 500;
+  color: var(--near-black);
+}
+
+html.kami-landing h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+}
+
+html.kami-landing article.prose a:hover {
+  color: var(--brand-light);
+}
+
+html.kami-landing article.prose code {
+  font-family: var(--mono);
+  background: var(--brand-tint);
+  color: var(--brand);
+  font-weight: 400;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+html.kami-landing article.prose pre,
+html.kami-landing article.prose pre.astro-code {
+  background: var(--ivory) !important;
+  color: var(--near-black) !important;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+html.kami-landing article.prose pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+html.kami-landing article.prose img {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+html.kami-landing article.prose hr {
+  border-color: var(--line);
+}
+
+html.kami-landing article.prose em {
+  font-style: italic;
+}
+
+html.kami-landing nav span,
+html.kami-landing footer .font-semibold {
+  font-family: var(--sans);
+}
+
+html.kami-landing #faq-heading,
+html.kami-landing #related-articles-heading {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 28px;
+  color: var(--near-black);
+  margin: 0 0 8px;
+}
+
+html.kami-landing .faq-lede {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--olive);
+  margin: 0 0 28px;
+}
+
+html.kami-landing .faq-pair {
+  margin: 0;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+
+html.kami-landing .faq-pair:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+html.kami-landing .faq dt {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--near-black);
+  margin: 0 0 6px;
+}
+
+html.kami-landing .faq dd {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--olive);
+  margin: 0;
+}
+
+html.kami-landing .post-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 56rem;
+}
+
+html.kami-landing .post-list li {
+  border-top: 1px solid var(--line);
+}
+
+html.kami-landing .post-list a {
+  display: block;
+  padding: 22px 0;
+  color: inherit;
+}
+
+html.kami-landing .post-list .meta {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--stone);
+  margin: 0 0 6px;
+}
+
+html.kami-landing .post-list h2,
+html.kami-landing .post-list h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--near-black);
+  margin: 0 0 6px;
+}
+
+html.kami-landing .post-list a:hover h2,
+html.kami-landing .post-list a:hover h3 {
+  color: var(--brand);
+}
+
+html.kami-landing .post-list .dek {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--olive);
+  margin: 0;
+}
+
+html.kami-landing .kami-404-num {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(64px, 12vw, 96px);
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--near-black);
+}
+
+html.kami-landing .kami-404-title {
+  margin-top: 16px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.2;
+  color: var(--near-black);
+}
+
+html.kami-landing footer.foot {
+  width: 100%;
+  max-width: 1120px;
+  margin: 56px auto 0;
+  padding: 40px 24px 64px;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 48px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--stone);
+}
+
+html.kami-landing .foot .mark {
+  display: grid;
+  grid-template-columns: 56px auto;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  align-items: start;
+}
+
+html.kami-landing .foot .mark img {
+  grid-row: 1 / span 2;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+html.kami-landing .foot .mark .wm-name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 28px;
+  color: var(--near-black);
+  line-height: 1.1;
+}
+
+html.kami-landing .foot .mark .wm-line {
+  font-size: 13px;
+  color: var(--olive);
+  margin-top: 2px;
+}
+
+html.kami-landing .foot .colophon {
+  text-align: right;
+  max-width: 520px;
+}
+
+html.kami-landing .foot .colophon .links {
+  font-family: var(--latin-ui);
+  color: var(--dark-warm);
+  margin-bottom: 16px;
+  line-height: 1.55;
+}
+
+html.kami-landing .foot .colophon .links a {
+  color: var(--dark-warm);
+}
+
+html.kami-landing .foot .colophon .links a:hover {
+  color: var(--brand);
+}
+
+html.kami-landing .foot .colophon .ethos {
+  font-family: var(--serif);
+  color: var(--olive);
+  font-style: italic;
+  line-height: 1.55;
+  max-width: 360px;
+  margin-left: auto;
+}
+
+html.kami-landing .copyright {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--stone);
+}
+
+@media (max-width: 880px) {
+  html.kami-landing footer.foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  html.kami-landing .foot .colophon {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  html.kami-landing .foot .colophon .ethos {
+    margin-left: 0;
+  }
+}

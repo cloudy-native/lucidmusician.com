@@ -6,6 +6,11 @@ import icon from "astro-icon";
 
 export default defineConfig({
   site: "https://lucidmusician.com",
+  markdown: {
+    shikiConfig: {
+      theme: "github-light",
+    },
+  },
   redirects: {
     "/blog/survey": "/blog/harmonic-generator-plugins-comparison",
   },

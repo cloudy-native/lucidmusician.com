@@ -3,7 +3,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: "Montserrat", sans-serif;
+  --font-sans: "Avenir Next", Avenir, "Nunito Sans", "Century Gothic", system-ui, sans-serif;
 }
 
 html {

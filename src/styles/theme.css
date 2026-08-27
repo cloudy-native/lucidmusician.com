@@ -1,49 +1,40 @@
-/*
- * Global Theme Variables
- * 
- * All colors used across the site are defined here as CSS custom properties.
- * To switch themes, change the values below. Components reference these 
- * variables via Tailwind arbitrary values or direct var() usage.
- *
- * Current theme: Dark
- */
-
 :root {
-  /* Page backgrounds */
-  --color-bg: #0f0f14;
-  --color-bg-subtle: #16161e;
-  --color-bg-muted: #1c1c27;
-  --color-bg-card: #1a1a24;
-  --color-bg-card-hover: #22222e;
+  --parchment: #f5f4ed;
+  --ivory: #faf9f5;
+  --warm-sand: #e8e6dc;
+  --brand: #1b365d;
+  --brand-light: #2d5a8a;
+  --brand-tint: #eef2f7;
+  --near-black: #141413;
+  --dark-warm: #3d3d3a;
+  --olive: #504e49;
+  --stone: #6b6a64;
+  --border: #e8e6dc;
+  --border-soft: #e5e3d8;
+  --line: #d8d5c8;
+  --serif: "Source Serif 4", Charter, "Iowan Old Style", Georgia, Palatino, serif;
+  --sans: "Avenir Next", Avenir, "Nunito Sans", "Century Gothic", system-ui, sans-serif;
+  --latin-ui: var(--sans);
+  --mono: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, Monaco, monospace;
+  --shot-bg: #141318;
 
-  /* Text */
-  --color-text: #f0f0f3;
-  --color-text-muted: #a0a0b0;
-  --color-text-subtle: #6b6b80;
-
-  /* Borders */
-  --color-border: #2a2a3a;
-  --color-border-muted: #222233;
-
-  /* Accent (violet) */
-  --color-accent: #8b5cf6;
-  --color-accent-light: #a78bfa;
-  --color-accent-muted: rgba(139, 92, 246, 0.15);
-
-  /* Secondary accent (cyan) */
-  --color-accent2: #06b6d4;
-  --color-accent2-muted: rgba(6, 182, 212, 0.15);
-
-  /* Surfaces for specific elements */
-  --color-nav-bg: rgba(15, 15, 20, 0.85);
-  --color-nav-border: #1f1f2e;
-
-  /* Badge/tag backgrounds */
-  --color-badge-bg: #1f1f2e;
-  --color-badge-text: #a0a0b0;
-
-  /* Interactive states */
-  --color-button-bg: #7c3aed;
-  --color-button-bg-hover: #6d28d9;
-  --color-button-text: #ffffff;
+  --color-bg: var(--parchment);
+  --color-bg-subtle: #efece3;
+  --color-bg-muted: var(--warm-sand);
+  --color-bg-card: var(--ivory);
+  --color-text: var(--near-black);
+  --color-text-muted: var(--olive);
+  --color-text-subtle: var(--stone);
+  --color-border: var(--border);
+  --color-border-muted: var(--border-soft);
+  --color-accent: var(--brand);
+  --color-accent-light: var(--brand-light);
+  --color-nav-bg: color-mix(in srgb, var(--parchment) 92%, transparent);
+  --color-nav-border: var(--border);
+  --color-button-bg: var(--brand);
+  --color-button-bg-hover: var(--brand-light);
+  --color-badge-bg: var(--brand-tint);
+  --color-badge-text: var(--brand);
+  --breaking-bg: #f0e0d8;
+  --breaking-fg: #8b4513;
 }

@@ -32,9 +32,9 @@ const fullTitle = `${title} | LucidHarmony`;
   structuredData={structuredData}
 >
   <div class="py-10 w-full min-w-0">
-    <div class="text-center mb-12">
+    <div class="kami-page-header mb-12">
       <h1 class="text-3xl md:text-4xl font-bold break-words" style="color: var(--color-text);">{title}</h1>
-      <p class="text-base md:text-lg mt-4 max-w-3xl mx-auto" style="color: var(--color-text-muted);">{description}</p>
+      <p class="text-base md:text-lg mt-4" style="color: var(--color-text-muted);">{description}</p>
     </div>
 
     {Astro.slots.has("prepend") && (
@@ -61,15 +61,14 @@ const fullTitle = `${title} | LucidHarmony`;
           href="https://lucidmusician.gumroad.com/l/lucid-harmony"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center px-6 py-3 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transition-shadow"
-          style="background-color: var(--color-button-bg);"
+          class="btn-primary gumroad-button"
         >
           Get LucidHarmony
         </a>
-        <a href="/docs" class="inline-flex items-center px-6 py-3 rounded-full font-semibold transition-colors" style="border: 1px solid var(--color-border); color: var(--color-text-muted);">
+        <a href="/docs" class="btn-ghost">
           Read the Docs
         </a>
-        <a href="/blog" class="inline-flex items-center px-6 py-3 rounded-full font-semibold transition-colors" style="border: 1px solid var(--color-border); color: var(--color-text-muted);">
+        <a href="/blog" class="btn-ghost">
           More Articles
         </a>
       </div>

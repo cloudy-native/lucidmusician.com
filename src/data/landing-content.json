@@ -1,0 +1,194 @@
+{
+  "type": "landing-page",
+  "lang": "en",
+  "brief": {
+    "audience": "Composers and producers looking for AI chord generation in a DAW",
+    "job": "Convert visitors to a one-time LucidHarmony license",
+    "template": "landing-page-en",
+    "formats": ["html"],
+    "page_target": 1,
+    "narrative": "Category first, screenshots, features, principles, price, FAQ",
+    "required_facts": ["$10 one-time (regular $20)", "v1.4.0", "VST3 AU CLAP", "Windows Mac Linux", "30-day refund"],
+    "required_assets": ["logo", "ui-follow-me", "ui-presets", "ui-intuitive-tab", "ui-advanced-tab", "ui-infinite", "hero screenshot"],
+    "acceptance_checks": ["parchment canvas", "Avenir Next body", "serif headings", "landing page only", "no invented metrics"],
+    "preserve": [
+      "Gumroad checkout URL",
+      "existing site nav destinations",
+      "v1.4.0 facts",
+      "real screenshots",
+      "Customer quotes are verbatim from users; never edit wording, grammar, or punctuation"
+    ],
+    "explicit_deviations": ["Avenir Next (or Nunito Sans) for body; Source Serif 4 for headings"]
+  },
+  "content": {
+    "category": "MIDI harmony plugin",
+    "product_name": "LucidHarmony",
+    "tagline": "Gorgeous infinite harmony for ambient and scoring.",
+    "facts": [
+      "$10 one-time",
+      "VST3, AU, CLAP",
+      "Windows, Mac, Linux",
+      "30-day refund",
+      "On-device AI"
+    ],
+    "cta": {
+      "primary": "Buy LucidHarmony",
+      "secondary": "Read the docs"
+    },
+    "gallery": [
+      {
+        "image": "src/assets/images/generate-sequence.png",
+        "title": "Generate",
+        "caption": "Key, model, richness. Then one click."
+      },
+      {
+        "image": "src/assets/images/lucid-harmony-hero.com.png",
+        "title": "In the DAW",
+        "caption": "MIDI on the track, not a bounce."
+      },
+      {
+        "image": "src/assets/images/edit-mode.png",
+        "title": "Explorer",
+        "caption": "Click a chord. Keep the ones that land."
+      },
+      {
+        "image": "src/assets/images/refine-voicing.png",
+        "title": "Voicing",
+        "caption": "The inner voices, made visible."
+      },
+      {
+        "image": "src/assets/images/export-midi.png",
+        "title": "Export",
+        "caption": "Drag once. The piano roll is done."
+      }
+    ],
+    "features": [
+      {
+        "name": "Follow Me",
+        "subtitle": "A second pair of hands.",
+        "description": "Play a line on the keyboard and LucidHarmony voices harmony underneath in real time. Same on-device model as Generate, now following you instead of leading."
+      },
+      {
+        "name": "Generate",
+        "subtitle": "A new sequence every click.",
+        "description": "Pick key, model, and richness, then click Generate. Finite bars or Infinite mode. Each pass is a different, musically coherent progression."
+      },
+      {
+        "name": "Harmonic Explorer",
+        "subtitle": "Scored alternatives, not a grid.",
+        "description": "Inspect the current sequence, revoice it, and swap chords for scored alternatives. Regenerate as many times as you like without leaving the plugin."
+      },
+      {
+        "name": "MIDI export",
+        "subtitle": "From plugin to piano roll.",
+        "description": "Drag a single clip or split voices onto separate tracks. The voicing that sounded right in the plugin is the MIDI that lands in your DAW."
+      },
+      {
+        "name": "Presets",
+        "subtitle": "Start closer to the cue.",
+        "description": "Factory presets cover ambient, choral, and cinematic starting points. Save your own once a setting earns a place in the session."
+      },
+      {
+        "name": "Intuitive and Advanced",
+        "subtitle": "One plugin, two depths.",
+        "description": "Intuitive keeps the path short: generate, play, drag. Advanced opens voicing, parallel motion, and style controls when the cue needs a tighter hand."
+      }
+    ],
+    "principles": [
+      {
+        "title": "On-device, always",
+        "description": "The transformer runs on your machine. No cloud round-trip to hear a chord."
+      },
+      {
+        "title": "MIDI, not audio",
+        "description": "LucidHarmony writes notes. Your instruments, your mix, your sound."
+      },
+      {
+        "title": "Theory without homework",
+        "description": "Voice leading follows counterpoint defaults you can override. You hear the result first."
+      },
+      {
+        "title": "Any DAW, three formats",
+        "description": "VST3, AU, and CLAP on Windows, Mac, and Linux."
+      },
+      {
+        "title": "One purchase",
+        "description": "Pay once. Lifetime updates. Install on the machines you work on."
+      },
+      {
+        "title": "Thirty days to decide",
+        "description": "If it does not earn a place in the template, Gumroad refunds the license."
+      }
+    ],
+    "pricing": {
+      "benefits": [
+        "Infinite unique progressions, any key",
+        "Follow Me live keyboard harmony",
+        "MIDI drag into any DAW",
+        "On-device transformer, no cloud",
+        "Factory presets plus your own",
+        "Lifetime updates included"
+      ],
+      "price": "$10 · One-time purchase",
+      "comparisons": [
+        { "name": "Scaler 3", "their_price": "$99" },
+        { "name": "Captain Chords", "their_price": "$99" }
+      ],
+      "terms": "Regular price $20. 50% off for a limited time. 30-day money-back via Gumroad. License works offline after first validation."
+    },
+    "faq": [
+      {
+        "q": "How is LucidHarmony different from Scaler or Captain Chords?",
+        "a": "LucidHarmony generates MIDI for ambient and scoring with an on-device transformer, Follow Me, and infinite sequences. Scaler and Captain Chords are theory workstations with analysis and large libraries; this plugin does not replace that job."
+      },
+      {
+        "q": "Is it an instrument?",
+        "a": "No. It is a MIDI effect. Generate or play, then route the MIDI to a software instrument. Silence usually means there is no instrument on the track."
+      },
+      {
+        "q": "Which formats and operating systems?",
+        "a": "VST3, AU, and CLAP on Windows, Mac, and Linux. Any DAW that hosts those formats."
+      },
+      {
+        "q": "Does generation need the internet?",
+        "a": "No. Inference runs on-device. A license check may run at startup; it never disables the plugin."
+      },
+      {
+        "q": "How does licensing work?",
+        "a": "Buy on Gumroad, enter the key in the About tab. Multiple computers, offline use after first validation. Unlicensed use shows a reminder without blocking features."
+      },
+      {
+        "q": "What if it is not for me?",
+        "a": "Gumroad offers a 30-day money-back guarantee on the license."
+      },
+      {
+        "q": "Who is this not for?",
+        "a": "If you need to analyze existing MIDI or browse a chord dictionary, use Scaler. LucidHarmony is for generating and voicing new progressions."
+      },
+      {
+        "q": "How do I install it?",
+        "a": "Download from Gumroad, install the VST3, AU, or CLAP, then rescan plugins in your DAW. The docs page has per-DAW paths."
+      }
+    ],
+    "footer": {
+      "ethos": "Harmony that arrives before the blank bar does."
+    },
+    "quotes": [
+      {
+        "text": "This is amazing. I use it every day, sometimes just for fun. I can create compelling ambient tracks super easily.",
+        "attribution": "Verified purchase",
+        "role": "Ambient Producer"
+      },
+      {
+        "text": "Beautiful chord progressions perfect for ambient music are easily created simply by playing them slowly. It's an ultimate tool that lets even beginners intuitively learn the magic of harmony, giving you the inspiring experience of collaborating across time with history's greatest musicians!",
+        "attribution": "だいすけ",
+        "role": "Music Student"
+      },
+      {
+        "text": "I saw this on Apple. I definitely see it's potential. So glad to see it offered for Windows. Thank you..",
+        "attribution": "Verified purchase",
+        "role": "Sound Designer"
+      }
+    ]
+  }
+}

@@ -11,22 +11,36 @@ const navItems = [
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
 ];
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+function isCurrent(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+}
 ---
 
 <nav class="sticky top-0 z-40 w-full backdrop-blur-lg" style="background-color: var(--color-nav-bg); border-bottom: 1px solid var(--color-nav-border);">
   <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
     <a href="/" class="flex items-center gap-2">
       <Image src={logo} alt="LucidHarmony" width={40} height={40} class="rounded-lg" />
-      <span class="text-lg font-bold" style="color: var(--color-text);">lucidmusician.com</span>
+      <span class="text-lg" style="color: var(--color-text);">lucidmusician.com</span>
     </a>
 
     <!-- Desktop nav -->
     <div class="hidden lg:flex items-center gap-6">
-      {navItems.map((item) => (
-        <a href={item.href} class="text-sm font-medium transition-colors" style="color: var(--color-text-muted);">
-          {item.label}
-        </a>
-      ))}
+      {navItems.map((item) => {
+        const current = isCurrent(item.href);
+        return (
+          <a
+            href={item.href}
+            aria-current={current ? "page" : undefined}
+            class:list={["nav-item text-lg", current && "is-current"]}
+          >
+            {item.label}
+          </a>
+        );
+      })}
     </div>
 
     <!-- Mobile menu button -->
@@ -43,11 +57,18 @@ const navItems = [
 
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden lg:hidden px-6 py-4" style="border-top: 1px solid var(--color-nav-border);">
-    {navItems.map((item) => (
-      <a href={item.href} class="block py-2 text-sm font-medium transition-colors" style="color: var(--color-text-muted);">
-        {item.label}
-      </a>
-    ))}
+    {navItems.map((item) => {
+      const current = isCurrent(item.href);
+      return (
+        <a
+          href={item.href}
+          aria-current={current ? "page" : undefined}
+          class:list={["nav-item nav-item-mobile block py-2 text-sm", current && "is-current"]}
+        >
+          {item.label}
+        </a>
+      );
+    })}
   </div>
 </nav>
 
@@ -56,3 +77,29 @@ const navItems = [
     document.getElementById("mobile-menu")?.classList.toggle("hidden");
   });
 </script>
+
+<style>
+  .nav-item {
+    position: relative;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-item:hover,
+  .nav-item.is-current {
+    color: var(--color-accent);
+  }
+  .nav-item.is-current::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--color-accent);
+  }
+  .nav-item-mobile.is-current::after {
+    bottom: 6px;
+  }
+</style>

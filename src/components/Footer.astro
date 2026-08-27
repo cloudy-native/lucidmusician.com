@@ -1,56 +1,33 @@
 ---
+import { Image } from "astro:assets";
 import { PLUGIN_COMPARISON_PATH } from "../lib/blog";
+import landing from "../data/landing-content.json";
+import logo from "../assets/images/LH-logo-small-cropped.jpg";
 
 const year = new Date().getFullYear();
-const gumroad = 'https://lucidmusician.gumroad.com/l/lucid-harmony';
-const ticket = 'https://lucidmusician.zohodesk.com/portal/en/newticket';
+const gumroad = "https://lucidmusician.gumroad.com/l/lucid-harmony";
+const ticket = "https://lucidmusician.zohodesk.com/portal/en/newticket";
 ---
 
-<footer class="w-full py-10 text-sm" style="border-top: 1px solid var(--color-border); color: var(--color-text-muted);">
-  <div class="mx-auto max-w-7xl px-6">
-    <div class="grid grid-cols-1 gap-y-10 md:grid-cols-3 md:gap-x-8">
-      <!-- Brand -->
-      <div>
-        <div class="font-semibold" style="color: var(--color-text);">Lucid Musician</div>
-        <p class="mt-2" style="color: var(--color-text-subtle);">Gorgeous infinite harmony for ambient and scoring.</p>
-      </div>
-
-      <!-- Explore -->
-      <div>
-        <div class="font-semibold mb-3" style="color: var(--color-text);">Explore</div>
-        <ul class="space-y-1.5">
-          <li><a href="/about" class="transition-colors hover:underline">About</a></li>
-          <li><a href="/blog" class="transition-colors hover:underline">Blog</a></li>
-          <li><a href={PLUGIN_COMPARISON_PATH} class="transition-colors hover:underline">Plugin Comparison</a></li>
-          <li><a href="/docs" class="transition-colors hover:underline">Documentation</a></li>
-          <li><a href="/release-notes" class="transition-colors hover:underline">Release Notes</a></li>
-          <li><a href="/support" class="transition-colors hover:underline">Support</a></li>
-        </ul>
-      </div>
-
-      <!-- Get & Support -->
-      <div>
-        <div class="font-semibold mb-3" style="color: var(--color-text);">Get &amp; Support</div>
-        <ul class="space-y-1.5">
-          <li>
-            <a href={gumroad} target="_blank" rel="noopener noreferrer" class="transition-colors hover:underline font-medium" style="color: var(--color-accent-light);">
-              Get LucidHarmony
-            </a>
-          </li>
-          <li><a href="/docs" class="transition-colors hover:underline">Read the docs</a></li>
-          <li><a href="/support" class="transition-colors hover:underline">Support &amp; FAQs</a></li>
-          <li>
-            <a href={ticket} target="_blank" rel="noopener noreferrer" class="transition-colors hover:underline">Submit a ticket</a>
-          </li>
-          <li>
-            <a href="mailto:support@lucidmusician.com" class="transition-colors hover:underline">support@lucidmusician.com</a>
-          </li>
-        </ul>
-      </div>
+<footer class="foot">
+  <div class="mark">
+    <Image src={logo} alt="LucidHarmony" width={56} height={56} />
+    <span class="wm-name">LucidHarmony</span>
+    <span class="wm-line">Gorgeous infinite harmony.</span>
+  </div>
+  <div class="colophon">
+    <div class="links">
+      <a href="/docs">Docs</a> &middot;
+      <a href="/support">Support</a> &middot;
+      <a href="/release-notes">Releases</a> &middot;
+      <a href="/blog">Blog</a> &middot;
+      <a href="/about">About</a> &middot;
+      <a href={PLUGIN_COMPARISON_PATH}>Compare</a> &middot;
+      <a href={ticket} target="_blank" rel="noopener noreferrer">Ticket</a> &middot;
+      <a href="mailto:support@lucidmusician.com">Email</a> &middot;
+      <a href={gumroad} target="_blank" rel="noopener noreferrer">Buy</a>
     </div>
-
-    <div class="mt-10 pt-6 text-xs text-center md:text-left" style="border-top: 1px solid var(--color-border-muted); color: var(--color-text-subtle);">
-      Copyright &copy; {year} Lucid Musician. All rights reserved.
-    </div>
+    <p class="ethos">{landing.content.footer.ethos}</p>
+    <p class="copyright">© {year} Lucid Musician. All rights reserved.</p>
   </div>
 </footer>

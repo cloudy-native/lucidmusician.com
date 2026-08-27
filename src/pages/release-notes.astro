@@ -1,7 +1,6 @@
 ---
 import { getEntry, render } from "astro:content";
 import Page from "../layouts/Page.astro";
-import BuyButton from "../components/BuyButton.astro";
 
 const page = await getEntry("pages", "release-notes");
 const { Content } = await render(page);
@@ -10,9 +9,9 @@ const fullTitle = `${page.data.title} | LucidHarmony`;
 
 <Page title={fullTitle} description={page.data.description}>
   <div class="py-10">
-    <div class="text-center mb-12">
+    <div class="kami-page-header mb-12">
       <h1 class="text-4xl font-bold" style="color: var(--color-text);">{page.data.title}</h1>
-      <p class="text-lg mt-4 max-w-3xl mx-auto" style="color: var(--color-text-muted);">{page.data.description}</p>
+      <p class="text-lg mt-4" style="color: var(--color-text-muted);">{page.data.description}</p>
     </div>
 
   <!-- Download prompt -->

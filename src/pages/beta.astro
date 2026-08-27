@@ -12,13 +12,13 @@ const products = betaData.products;
   noindex={true}
 >
   <section class="py-10 max-w-4xl mx-auto">
-    <div class="text-center mb-12">
+    <div class="kami-page-header mb-12">
       <h1 class="text-4xl font-bold text-[var(--color-text)]">Beta Downloads</h1>
-      <p class="text-lg text-[var(--color-text-muted)] mt-4 max-w-3xl mx-auto">Try the latest features before they're officially released.</p>
+      <p class="text-lg text-[var(--color-text-muted)] mt-4">Try the latest features before they're officially released.</p>
     </div>
 
-    <div class="rounded-xl border border-amber-700/50 bg-amber-900/20 p-4 mb-8">
-      <div class="flex items-center gap-2 text-amber-400 font-semibold text-sm">
+    <div class="rounded-xl p-4 mb-8" style="border: 1px solid var(--color-border); background-color: var(--breaking-bg);">
+      <div class="flex items-center gap-2 font-semibold text-sm" style="color: var(--breaking-fg);">
         <Icon name="lucide:triangle-alert" class="h-5 w-5" />
         Beta Software
       </div>
@@ -33,7 +33,7 @@ const products = betaData.products;
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <a href="https://lucidmusician.zohodesk.com/portal/en/newticket" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4 hover:shadow-md transition-shadow">
-          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-violet-900/30 text-violet-400 shrink-0">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg shrink-0" style="background-color: var(--brand-tint); color: var(--brand);">
             <Icon name="lucide:file-text" class="h-5 w-5" />
           </div>
           <div>
@@ -42,7 +42,7 @@ const products = betaData.products;
           </div>
         </a>
         <a href="mailto:support@lucidmusician.com" class="flex items-center gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] p-4 hover:shadow-md transition-shadow">
-          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-900/30 text-emerald-400 shrink-0">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg shrink-0" style="background-color: var(--brand-tint); color: var(--brand);">
             <Icon name="lucide:mail" class="h-5 w-5" />
           </div>
           <div>
@@ -61,7 +61,7 @@ const products = betaData.products;
         {product.versions.map((version) => (
           <div class="mb-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
             <div class="flex items-center gap-3 mb-4">
-              <span class="text-lg font-bold text-violet-400">v{version.version}</span>
+              <span class="text-lg font-bold" style="color: var(--brand);">v{version.version}</span>
             </div>
 
             {version.changelog.length > 0 && (
@@ -85,7 +85,7 @@ const products = betaData.products;
                   </div>
                   <a
                     href={`/data/${dl.fileName}`}
-                    class="inline-flex items-center gap-2 rounded-full bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700 transition-colors"
+                    class="btn-primary" style="min-width: 0; padding: 8px 16px; font-size: 13px;"
                     download
                   >
                     <Icon name="lucide:download" class="h-4 w-4" />

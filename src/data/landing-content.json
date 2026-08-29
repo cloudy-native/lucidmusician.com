@@ -97,7 +97,7 @@
     "principles": [
       {
         "title": "On-device, always",
-        "description": "The transformer runs on your machine. No cloud round-trip to hear a chord."
+        "description": "The AI model runs on your machine. No cloud round-trip to hear a chord."
       },
       {
         "title": "MIDI, not audio",
@@ -113,11 +113,11 @@
       },
       {
         "title": "One purchase",
-        "description": "Pay once. Lifetime updates. Install on the machines you work on."
+        "description": "Pay once. Lifetime updates. Install on all the machines you work on."
       },
       {
         "title": "Thirty days to decide",
-        "description": "If it does not earn a place in the template, Gumroad refunds the license."
+        "description": "If it does not earn a place in your workflow, Gumroad refunds the license. No questions asked. But we'd love to know why."
       }
     ],
     "pricing": {
@@ -125,7 +125,7 @@
         "Infinite unique progressions, any key",
         "Follow Me live keyboard harmony",
         "MIDI drag into any DAW",
-        "On-device transformer, no cloud",
+        "On-device AI, no cloud, your music stays local",
         "Factory presets plus your own",
         "Lifetime updates included"
       ],

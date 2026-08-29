@@ -3,6 +3,8 @@
 html.kami-landing .page {
   max-width: 1120px;
   width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
   margin: 0 auto;
   padding: 48px 64px 120px;
   container-type: inline-size;
@@ -82,20 +84,32 @@ html.kami-landing .version-link {
 }
 
 html.kami-landing .hero h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   font-family: var(--serif);
   font-weight: 500;
-  font-size: min(88px, 12.2cqi);
-  line-height: 1.05;
-  letter-spacing: 0;
-  margin: 0 0 18px;
-  color: var(--near-black);
-  text-wrap: balance;
-  max-width: 100%;
-  overflow-wrap: anywhere;
+  letter-spacing: -0.03em;
+  margin: 0 0 22px;
+  line-height: 0.9;
   opacity: 0;
   transform: translateY(10px);
   filter: blur(6px);
   animation: kami-hero-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 120ms forwards;
+}
+
+html.kami-landing .hero-lucid {
+  font-size: min(56px, 8cqi);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--brand);
+}
+
+html.kami-landing .hero-harmony {
+  font-size: min(92px, 13cqi);
+  font-weight: 500;
+  line-height: 0.92;
+  color: var(--near-black);
 }
 
 @keyframes kami-hero-rise {
@@ -115,7 +129,9 @@ html.kami-landing .hero .tagline {
   letter-spacing: 0.2px;
   margin: 0 0 28px;
   max-width: min(820px, 100%);
+  white-space: normal;
   text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 html.kami-landing .hero-tokens {
@@ -676,8 +692,12 @@ html.kami-landing .faq-tail {
     padding-bottom: 32px;
   }
 
-  html.kami-landing .hero h1 {
-    font-size: min(64px, 14cqi);
+  html.kami-landing .hero-lucid {
+    font-size: min(44px, 11cqi);
+  }
+
+  html.kami-landing .hero-harmony {
+    font-size: min(68px, 16cqi);
   }
 
   html.kami-landing .hero .tagline {
@@ -764,8 +784,12 @@ html.kami-landing .faq-tail {
     padding: 24px 16px 64px;
   }
 
-  html.kami-landing .hero h1 {
-    font-size: min(48px, 16cqi);
+  html.kami-landing .hero-lucid {
+    font-size: min(36px, 12cqi);
+  }
+
+  html.kami-landing .hero-harmony {
+    font-size: min(52px, 18cqi);
   }
 
   html.kami-landing .hero .tagline {

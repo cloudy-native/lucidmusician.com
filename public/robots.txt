@@ -4,4 +4,5 @@ Disallow: /data/
 Disallow: /beta
 Disallow: /beta/
 
+Sitemap: https://lucidmusician.com/sitemap-index.xml
 Sitemap: https://lucidmusician.com/sitemap.xml

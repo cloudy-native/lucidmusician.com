@@ -1,0 +1,108 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "LucidHarmony lucidmusician.com" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img "LucidHarmony" [ref=e5]
+        - generic [ref=e6]: lucidmusician.com
+      - generic [ref=e7]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: /
+        - link "Documentation" [ref=e9] [cursor=pointer]:
+          - /url: /docs
+        - link "Support" [ref=e10] [cursor=pointer]:
+          - /url: /support
+        - link "Release Notes" [ref=e11] [cursor=pointer]:
+          - /url: /release-notes
+        - link "Blog" [ref=e12] [cursor=pointer]:
+          - /url: /blog
+        - link "About" [ref=e13] [cursor=pointer]:
+          - /url: /about
+  - main [ref=e14]:
+    - generic [ref=e15]:
+      - generic [ref=e16]:
+        - heading "The Lucid Musician Team" [level=1] [ref=e17]
+        - paragraph [ref=e18]: A dedicated and eclectic team of specialists, who are not at all the same person really.
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - img "S. J. Harrison" [ref=e22]
+          - generic [ref=e23]:
+            - generic [ref=e24]: Chief Executive Officer
+            - generic [ref=e25]: S. J. Harrison
+            - generic [ref=e26]: "\"Always delegate\""
+            - paragraph [ref=e27]: SJ incorporated a company with a complete C-suite. They all answer to the same bathroom mirror. His job is to point Lucid Musician at the interesting problems and the other Stephens at everything else.
+        - generic [ref=e28]:
+          - img "J. Roger Harrison" [ref=e30]
+          - generic [ref=e31]:
+            - generic [ref=e32]: Chief Music Officer
+            - generic [ref=e33]: J. Roger Harrison
+            - generic [ref=e34]: "\"You pay extra for black notes\""
+            - paragraph [ref=e35]: Roger is the one who actually listens. If a chord is theoretically correct and musically boring, it does not ship. He tests every feature as if a session is booked at ten, because in his head it is.
+        - generic [ref=e36]:
+          - img "Dr. Stephen James Harrison, PhD" [ref=e38]
+          - generic [ref=e39]:
+            - generic [ref=e40]: Lead Software Engineer
+            - generic [ref=e41]: Dr. Stephen James Harrison, PhD
+            - generic [ref=e42]: "\"It builds, it ships\""
+            - paragraph [ref=e43]: The doctorate was the respectable chapter. Then he spent it on a MIDI plugin, a website, and a build matrix that would make a thesis committee weep. He writes the code, reviews the code, and is, regrettably, also the CI.
+        - generic [ref=e44]:
+          - img "S. James-Roger Harrison" [ref=e46]
+          - generic [ref=e47]:
+            - generic [ref=e48]: Brand & Visual Designer
+            - generic [ref=e49]: S. James-Roger Harrison
+            - generic [ref=e50]: "\"I don't do pixels or RGB\""
+            - paragraph [ref=e51]: He does, in fact, do both. He just prefers not to be caught. Brand, layout, and the quiet removal of anything that looks like it was designed at 2 a.m. remain his department of one.
+        - generic [ref=e52]:
+          - img "Steve Harrison" [ref=e54]
+          - generic [ref=e55]:
+            - generic [ref=e56]: Chief Content Officer
+            - generic [ref=e57]: Steve Harrison
+            - generic [ref=e58]: "\"As long as the lighting's good\""
+            - paragraph [ref=e59]: Steve writes the docs, the tutorials, and the release notes, then takes a headshot to prove a human was involved. If a sentence needs a trumpet emoji, it is not finished.
+        - generic [ref=e60]:
+          - img "Harrison, Stephen J. R." [ref=e62]
+          - generic [ref=e63]:
+            - generic [ref=e64]: CFO (and Head of Accounting)
+            - generic [ref=e65]: Harrison, Stephen J. R.
+            - generic [ref=e66]: "\"No such thing as a rounding error\""
+            - paragraph [ref=e67]: "Payroll has one row, which keeps the close short. The books are in C: balanced, slightly cheaper than they should be, and never accidentally in 7/8."
+  - contentinfo [ref=e68]:
+    - generic [ref=e69]:
+      - img "LucidHarmony" [ref=e70]
+      - generic [ref=e71]: LucidHarmony
+      - generic [ref=e72]: Gorgeous infinite harmony.
+    - generic [ref=e73]:
+      - generic [ref=e74]:
+        - link "Docs" [ref=e75] [cursor=pointer]:
+          - /url: /docs
+        - text: ·
+        - link "Support" [ref=e76] [cursor=pointer]:
+          - /url: /support
+        - text: ·
+        - link "Releases" [ref=e77] [cursor=pointer]:
+          - /url: /release-notes
+        - text: ·
+        - link "Blog" [ref=e78] [cursor=pointer]:
+          - /url: /blog
+        - text: ·
+        - link "About" [ref=e79] [cursor=pointer]:
+          - /url: /about
+        - text: ·
+        - link "Compare" [ref=e80] [cursor=pointer]:
+          - /url: /blog/harmonic-generator-plugins-comparison
+        - text: ·
+        - link "Ticket" [ref=e81] [cursor=pointer]:
+          - /url: https://lucidmusician.zohodesk.com/portal/en/newticket
+        - text: ·
+        - link "Email" [ref=e82] [cursor=pointer]:
+          - /url: mailto:support@lucidmusician.com
+        - text: ·
+        - link "Buy" [ref=e83] [cursor=pointer]:
+          - /url: https://lucidmusician.gumroad.com/l/lucid-harmony
+      - paragraph [ref=e84]: Harmony that arrives before the blank bar does.
+      - paragraph [ref=e85]: © 2026 Lucid Musician. All rights reserved.
+  - generic [ref=e88]:
+    - button [ref=e89]
+    - button [ref=e95]
+    - button [ref=e99]
+    - button [ref=e107]

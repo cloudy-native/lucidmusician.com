@@ -8,12 +8,13 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
+  scroll-padding-top: 5.75rem;
 }
 
 body {
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  overflow-x: clip;
   background-color: var(--color-bg);
   color: var(--color-text);
 }
@@ -56,6 +57,34 @@ article.prose img {
   height: auto;
 }
 
+article.prose .md-figure {
+  margin: 1.75rem 0;
+}
+
+article.prose .md-figure > p {
+  margin: 0;
+}
+
+article.prose .md-figure img {
+  display: block;
+  margin: 0 auto;
+}
+
+article.prose .md-figure figcaption {
+  margin: 0.45rem 0 0;
+  text-align: center;
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--color-text-subtle);
+}
+
+article.prose .md-figure figcaption::before,
+article.prose .md-figure figcaption::after {
+  content: "—";
+  font-style: normal;
+  margin: 0 0.4em;
+}
+
 article.prose h1,
 article.prose h2,
 article.prose h3,
@@ -92,4 +121,48 @@ lite-youtube {
   left: 0;
   width: 100% !important;
   height: 100% !important;
+}
+
+article.prose .admonition {
+  display: block;
+  border-left: 4px solid;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+  margin: 1.5rem 0;
+}
+
+article.prose .admonition > * {
+  margin: 0;
+}
+
+article.prose .admonition > * + * {
+  margin-top: 0.35rem;
+}
+
+article.prose .admonition-title {
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+article.prose .admonition.note,
+article.prose .admonition.info {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+article.prose .admonition.tip {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+
+article.prose .admonition.warning,
+article.prose .admonition.caution {
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+
+article.prose .admonition.danger {
+  border-color: #ef4444;
+  background: #fef2f2;
 }

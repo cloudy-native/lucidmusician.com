@@ -8,8 +8,6 @@ tags: ["rust", "architecture", "plugin", "c++", "migration"]
 
 *Published: July 5, 2026 · 14 min read*
 
-# Shipping continuously: moving a JUCE plugin’s brain to Rust
-
 We build a real-time MIDI harmony plugin. The product is not a toy: host formats, a substantial editor, ONNX models, voice-leading heuristics, follow-mode concurrency, presets, licensing—the whole stack has to keep working every week.
 
 We wanted more of the *domain* in Rust—clearer types, fewer footguns, a path toward a future non-JUCE shell—without pausing releases for a multi-month rewrite. So we did the boring, professional thing: we migrated the brain first and left the face and hands where they were.

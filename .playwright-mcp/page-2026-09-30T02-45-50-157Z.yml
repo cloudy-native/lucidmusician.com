@@ -1,0 +1,268 @@
+- generic [active] [ref=f16e1]:
+  - navigation [ref=f16e2]:
+    - generic [ref=f16e3]:
+      - link "LucidHarmony lucidmusician.com" [ref=f16e4] [cursor=pointer]:
+        - /url: /
+        - img "LucidHarmony" [ref=f16e5]
+        - generic [ref=f16e6]: lucidmusician.com
+      - button "Toggle menu" [ref=f16e7]
+  - main [ref=f16e10]:
+    - generic [ref=f16e11]:
+      - generic [ref=f16e12]:
+        - generic [ref=f16e14]:
+          - text: MIDI harmony plugin ·
+          - link "v1.4.0" [ref=f16e15] [cursor=pointer]:
+            - /url: /release-notes
+        - heading "Lucid LHarmony" [level=1] [ref=f16e16]:
+          - generic [ref=f16e17]: Lucid
+          - generic [ref=f16e18]: LHarmony
+        - paragraph [ref=f16e19]: Gorgeous infinite harmony for ambient and scoring.
+        - generic [ref=f16e20]:
+          - generic [ref=f16e21]:
+            - generic [ref=f16e22]:
+              - generic [ref=f16e23]: $10
+              - text: one-time purchase ·
+            - generic [ref=f16e24]: Free updates forever ·
+            - generic [ref=f16e25]: On-device, works offline ·
+            - generic [ref=f16e26]: Any DAW ·
+            - generic [ref=f16e27]: Mac/Windows/Linux
+          - generic [ref=f16e28]:
+            - link "Read the docs" [ref=f16e29] [cursor=pointer]:
+              - /url: /docs
+            - link "Buy LucidHarmony" [ref=f16e30] [cursor=pointer]:
+              - /url: https://lucidmusician.gumroad.com/l/lucid-harmony
+      - generic [ref=f16e31]:
+        - figure [ref=f16e33]:
+          - img "LucidHarmony running as a MIDI effect in a DAW session" [ref=f16e34]
+        - generic [ref=f16e35]:
+          - paragraph [ref=f16e36]: In the DAW
+          - paragraph [ref=f16e37]: MIDI on the track, not a bounce.
+        - generic "Choose a screenshot" [ref=f16e38]:
+          - button "In the DAW" [pressed] [ref=f16e39] [cursor=pointer]
+          - button "Generate" [ref=f16e40] [cursor=pointer]
+          - button "Explorer" [ref=f16e41] [cursor=pointer]
+          - button "Voicing" [ref=f16e42] [cursor=pointer]
+          - button "Export" [ref=f16e43] [cursor=pointer]
+    - generic [ref=f16e44]:
+      - generic [ref=f16e45]:
+        - paragraph [ref=f16e46]: 01 · Proof
+        - heading "Heard before it is sold" [level=2] [ref=f16e47]
+      - list [ref=f16e48]:
+        - listitem [ref=f16e49]:
+          - paragraph [ref=f16e50]: “This is amazing. I use it every day, sometimes just for fun. I can create compelling ambient tracks super easily.”
+          - generic [ref=f16e51]: Verified purchase · Ambient Producer
+        - listitem [ref=f16e52]:
+          - paragraph [ref=f16e53]: “Beautiful chord progressions perfect for ambient music are easily created simply by playing them slowly. It's an ultimate tool that lets even beginners intuitively learn the magic of harmony, giving you the inspiring experience of collaborating across time with history's greatest musicians!”
+          - generic [ref=f16e54]: だいすけ · Music Student
+        - listitem [ref=f16e55]:
+          - paragraph [ref=f16e56]: “I saw this on Apple. I definitely see it's potential. So glad to see it offered for Windows. Thank you..”
+          - generic [ref=f16e57]: Verified purchase · Sound Designer
+    - generic [ref=f16e58]:
+      - generic [ref=f16e59]:
+        - paragraph [ref=f16e60]: 02 · Watch
+        - heading "Generate, play, drag MIDI" [level=2] [ref=f16e61]
+        - paragraph [ref=f16e62]: Pads, bass, and windchimes at 60 BPM. Infinite mode. No keyboard, no hand editing.
+      - 'button "Play: LucidHarmony Demo" [ref=f16e65] [cursor=pointer]':
+        - generic [ref=f16e66]: Play
+      - paragraph [ref=f16e67]:
+        - text: "Also:"
+        - link "30 seconds" [ref=f16e68] [cursor=pointer]:
+          - /url: https://www.youtube.com/watch?v=sSWSHgycSkk
+        - text: ·
+        - link "five minutes" [ref=f16e69] [cursor=pointer]:
+          - /url: https://www.youtube.com/watch?v=HgQNWbGRb7M
+    - generic [ref=f16e70]:
+      - generic [ref=f16e71]:
+        - paragraph [ref=f16e72]: 03 · Workflow
+        - heading "Three steps to the DAW" [level=2] [ref=f16e73]
+      - generic [ref=f16e74]:
+        - article [ref=f16e75]:
+          - img "LucidHarmony generating a four-chord ambient progression" [ref=f16e76]
+          - paragraph [ref=f16e77]: 1. Generate
+          - paragraph [ref=f16e78]: Pick a model, starting chord, and key. Click Generate. Get a harmonic story of any length.
+        - article [ref=f16e79]:
+          - img "Voiced MIDI chord sequence in a DAW piano roll" [ref=f16e80]
+          - paragraph [ref=f16e81]: 2. Drag MIDI
+          - paragraph [ref=f16e82]: Drop it into the arrangement. Voices stay separated, including the bass line.
+        - article [ref=f16e83]:
+          - iframe [ref=f16e84]:
+            - link "SoundCloud privacy policy" [ref=f17e7] [cursor=pointer]:
+              - /url: https://soundcloud.com/pages/privacy
+              - text: Privacy policy
+          - paragraph [ref=f16e85]: 3. Any instrument
+          - paragraph [ref=f16e86]: Assign pads, choir, or ear candy. This sketch is one unedited progression.
+    - generic [ref=f16e87]:
+      - generic [ref=f16e88]:
+        - paragraph [ref=f16e89]: 04 · Features
+        - heading "What it actually does" [level=2] [ref=f16e90]
+      - list [ref=f16e91]:
+        - listitem [ref=f16e92]:
+          - paragraph [ref=f16e93]:
+            - text: Follow Me
+            - generic [ref=f16e94]: A second pair of hands.
+          - paragraph [ref=f16e95]: Play a line on the keyboard and LucidHarmony voices harmony underneath in real time. Same on-device model as Generate, now following you instead of leading.
+        - listitem [ref=f16e96]:
+          - paragraph [ref=f16e97]:
+            - text: Generate
+            - generic [ref=f16e98]: A new sequence every click.
+          - paragraph [ref=f16e99]: Pick key, model, and richness, then click Generate. Finite bars or Infinite mode. Each pass is a different, musically coherent progression.
+        - listitem [ref=f16e100]:
+          - paragraph [ref=f16e101]:
+            - text: Harmonic Explorer
+            - generic [ref=f16e102]: Scored alternatives, not a grid.
+          - paragraph [ref=f16e103]: Inspect the current sequence, revoice it, and swap chords for scored alternatives. Regenerate as many times as you like without leaving the plugin.
+        - listitem [ref=f16e104]:
+          - paragraph [ref=f16e105]:
+            - text: MIDI export
+            - generic [ref=f16e106]: From plugin to piano roll.
+          - paragraph [ref=f16e107]: Drag a single clip or split voices onto separate tracks. The voicing that sounded right in the plugin is the MIDI that lands in your DAW.
+        - listitem [ref=f16e108]:
+          - paragraph [ref=f16e109]:
+            - text: Presets
+            - generic [ref=f16e110]: Start closer to the cue.
+          - paragraph [ref=f16e111]: Factory presets cover ambient, choral, and cinematic starting points. Save your own once a setting earns a place in the session.
+        - listitem [ref=f16e112]:
+          - paragraph [ref=f16e113]:
+            - text: Intuitive and Advanced
+            - generic [ref=f16e114]: One plugin, two depths.
+          - paragraph [ref=f16e115]: "Intuitive keeps the path short: generate, play, drag. Advanced opens voicing, parallel motion, and style controls when the cue needs a tighter hand."
+    - generic [ref=f16e116]:
+      - generic [ref=f16e117]:
+        - paragraph [ref=f16e118]: 05 · Listen
+        - heading "Unedited MIDI, real instruments" [level=2] [ref=f16e119]
+      - paragraph [ref=f16e120]: Every track in this album was generated in LucidHarmony, exported unedited, and played by Omnisphere 3, Pigments 7, and Ashlight 2 in Kontakt 8. Logic Pro here; any DAW works.
+      - iframe [ref=f16e122]
+    - generic [ref=f16e123]:
+      - generic [ref=f16e124]:
+        - paragraph [ref=f16e125]: 06 · Principles
+        - heading "How the product is allowed to behave" [level=2] [ref=f16e126]
+      - list [ref=f16e127]:
+        - listitem [ref=f16e128]:
+          - generic [ref=f16e129]: "1"
+          - generic [ref=f16e130]:
+            - generic [ref=f16e131]: On-device, always
+            - text: The AI model runs on your machine. No cloud round-trip to hear a chord.
+        - listitem [ref=f16e132]:
+          - generic [ref=f16e133]: "2"
+          - generic [ref=f16e134]:
+            - generic [ref=f16e135]: MIDI, not audio
+            - text: LucidHarmony writes notes. Your instruments, your mix, your sound.
+        - listitem [ref=f16e136]:
+          - generic [ref=f16e137]: "3"
+          - generic [ref=f16e138]:
+            - generic [ref=f16e139]: Theory without homework
+            - text: Voice leading follows counterpoint defaults you can override. You hear the result first.
+        - listitem [ref=f16e140]:
+          - generic [ref=f16e141]: "4"
+          - generic [ref=f16e142]:
+            - generic [ref=f16e143]: Any DAW, three formats
+            - text: VST3, AU, and CLAP on Windows, Mac, and Linux.
+        - listitem [ref=f16e144]:
+          - generic [ref=f16e145]: "5"
+          - generic [ref=f16e146]:
+            - generic [ref=f16e147]: One purchase
+            - text: Pay once. Lifetime updates. Install on all the machines you work on.
+        - listitem [ref=f16e148]:
+          - generic [ref=f16e149]: "6"
+          - generic [ref=f16e150]:
+            - generic [ref=f16e151]: Thirty days to decide
+            - text: If it does not earn a place in your workflow, Gumroad refunds the license. No questions asked. But we'd love to know why.
+    - generic [ref=f16e152]:
+      - generic [ref=f16e153]:
+        - paragraph [ref=f16e154]: 07 · Pricing
+        - heading "What you keep" [level=2] [ref=f16e155]
+      - generic [ref=f16e156]:
+        - list [ref=f16e157]:
+          - listitem [ref=f16e158]: Infinite unique progressions, any key
+          - listitem [ref=f16e159]: Follow Me live keyboard harmony
+          - listitem [ref=f16e160]: MIDI drag into any DAW
+          - listitem [ref=f16e161]: On-device AI, no cloud, your music stays local
+          - listitem [ref=f16e162]: Factory presets plus your own
+          - listitem [ref=f16e163]: Lifetime updates included
+        - paragraph [ref=f16e164]: $10 · One-time purchase
+        - paragraph [ref=f16e165]: Scaler 3 lists at $99. Captain Chords lists at $99. LucidHarmony is a one-time license. Free update forever.
+        - link "Buy LucidHarmony" [ref=f16e166] [cursor=pointer]:
+          - /url: https://lucidmusician.gumroad.com/l/lucid-harmony
+        - paragraph [ref=f16e167]:
+          - text: Compare features in the
+          - link "plugin survey" [ref=f16e168] [cursor=pointer]:
+            - /url: /blog/harmonic-generator-plugins-comparison
+          - text: .
+        - paragraph [ref=f16e169]: Regular price $20. 50% off for a limited time. 30-day money-back via Gumroad. License works offline after first validation.
+    - generic [ref=f16e170]:
+      - generic [ref=f16e171]:
+        - paragraph [ref=f16e172]: 08 · FAQ
+        - heading "Before you install" [level=2] [ref=f16e173]
+      - generic [ref=f16e174]:
+        - generic [ref=f16e175]:
+          - term [ref=f16e176]: How is LucidHarmony different from Scaler or Captain Chords?
+          - definition [ref=f16e177]: LucidHarmony generates MIDI for ambient and scoring with an on-device transformer, Follow Me, and infinite sequences. Scaler and Captain Chords are theory workstations with analysis and large libraries; this plugin does not replace that job.
+        - generic [ref=f16e178]:
+          - term [ref=f16e179]: Is it an instrument?
+          - definition [ref=f16e180]: No. It is a MIDI effect. Generate or play, then route the MIDI to a software instrument. Silence usually means there is no instrument on the track.
+        - generic [ref=f16e181]:
+          - term [ref=f16e182]: Which formats and operating systems?
+          - definition [ref=f16e183]: VST3, AU, and CLAP on Windows, Mac, and Linux. Any DAW that hosts those formats.
+        - generic [ref=f16e184]:
+          - term [ref=f16e185]: Does generation need the internet?
+          - definition [ref=f16e186]: No. Inference runs on-device. A license check may run at startup; it never disables the plugin.
+        - generic [ref=f16e187]:
+          - term [ref=f16e188]: How does licensing work?
+          - definition [ref=f16e189]: Buy on Gumroad, enter the key in the About tab. Multiple computers, offline use after first validation. Unlicensed use shows a reminder without blocking features.
+        - generic [ref=f16e190]:
+          - term [ref=f16e191]: What if it is not for me?
+          - definition [ref=f16e192]: Gumroad offers a 30-day money-back guarantee on the license.
+        - generic [ref=f16e193]:
+          - term [ref=f16e194]: Who is this not for?
+          - definition [ref=f16e195]: If you need to analyze existing MIDI or browse a chord dictionary, use Scaler. LucidHarmony is for generating and voicing new progressions.
+        - generic [ref=f16e196]:
+          - term [ref=f16e197]: How do I install it?
+          - definition [ref=f16e198]: Download from Gumroad, install the VST3, AU, or CLAP, then rescan plugins in your DAW. The docs page has per-DAW paths.
+      - paragraph [ref=f16e199]:
+        - text: More questions? See
+        - link "support" [ref=f16e200] [cursor=pointer]:
+          - /url: /support
+        - text: or
+        - link "documentation" [ref=f16e201] [cursor=pointer]:
+          - /url: /docs
+        - text: .
+  - contentinfo [ref=f16e202]:
+    - generic [ref=f16e203]:
+      - img "LucidHarmony" [ref=f16e204]
+      - generic [ref=f16e205]: LucidHarmony
+      - generic [ref=f16e206]: Gorgeous infinite harmony.
+    - generic [ref=f16e207]:
+      - generic [ref=f16e208]:
+        - link "Docs" [ref=f16e209] [cursor=pointer]:
+          - /url: /docs
+        - text: ·
+        - link "Support" [ref=f16e210] [cursor=pointer]:
+          - /url: /support
+        - text: ·
+        - link "Releases" [ref=f16e211] [cursor=pointer]:
+          - /url: /release-notes
+        - text: ·
+        - link "Blog" [ref=f16e212] [cursor=pointer]:
+          - /url: /blog
+        - text: ·
+        - link "About" [ref=f16e213] [cursor=pointer]:
+          - /url: /about
+        - text: ·
+        - link "Compare" [ref=f16e214] [cursor=pointer]:
+          - /url: /blog/harmonic-generator-plugins-comparison
+        - text: ·
+        - link "Ticket" [ref=f16e215] [cursor=pointer]:
+          - /url: https://lucidmusician.zohodesk.com/portal/en/newticket
+        - text: ·
+        - link "Email" [ref=f16e216] [cursor=pointer]:
+          - /url: mailto:support@lucidmusician.com
+        - text: ·
+        - link "Buy" [ref=f16e217] [cursor=pointer]:
+          - /url: https://lucidmusician.gumroad.com/l/lucid-harmony
+      - paragraph [ref=f16e218]: Harmony that arrives before the blank bar does.
+      - paragraph [ref=f16e219]: © 2026 Lucid Musician. All rights reserved.
+  - generic [ref=f16e222]:
+    - button [ref=f16e223]
+    - button [ref=f16e229]
+    - button [ref=f16e233]
+    - button [ref=f16e241]

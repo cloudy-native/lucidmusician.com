@@ -1,5 +1,5 @@
 export const SITE_URL = "https://lucidmusician.com";
-export const HERO_IMAGE = `${SITE_URL}/lucid-harmony-hero.com.png`;
+export const HERO_IMAGE = `${SITE_URL}/lucid-harmony-hero.png`;
 export const LOGO_IMAGE = `${SITE_URL}/images/LH-logo.jpg`;
 
 export const publisher = {

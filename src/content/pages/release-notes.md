@@ -3,6 +3,16 @@ title: "Release Notes"
 description: "Latest updates and changelog for the LucidHarmony MIDI plugin."
 ---
 
+## Unreleased
+
+- **Interface** — Panels, buttons, and menus share one corner radius and a quiet 1 px stroke. Section labels recede, and the two cards share a bottom edge. Create, Follow Me, and Generate sit under the generator card; drag and Hold notes sit under voicing, with the same gutter between them.
+- **Generate** — Highlighted when the chord tape is empty, including the first time you open the plugin.
+- **Harmonic Explorer** — Destinations cluster by root on the circle of fifths (tonic at 12 o'clock). Closer to the center is more likely. Hover to hear and expand inversions; click to commit. Diatonic filter (default), inversions collapsed/expanded, and Show more. Tape selection chooses add, replace, or insert. Labels are ASCII-only so they no longer show as `Â·`. Clusters stay off the hub; expanded inversion stacks stay on the map (top 5).
+- **Tape delete** — After Delete/Backspace (or context-menu Delete), the chord to the left stays selected so you can delete several without clicking again. The first chord is still protected.
+- **Ensemble** (Advanced voicing) — Choir (SATB), string quartet, brass, pad stack, boys choir, women (SSAA), or woodwind quartet. Changes the MIDI range of the four parts. Boys choir is treble SSAA (up to C6, bottom G3). Women (SSAA) sits lower (altos to D3). Woodwind is flute, oboe, clarinet, and bassoon. Open still controls spacing. Hidden on Intuitive. Multi-track MIDI names follow the ensemble.
+- **Ornament types** — Suspension is on by default (left column). Passing, Neighbor, and Anticipation start off (right column). Most factory presets use Suspension only. Clean Baroque turns every type off. Dense Baroque enables all four.
+- **Chord length** — Playback and MIDI drag keep every chord on the tape. Lengthening chords (for example 1 bar to 4) no longer stops at the Bars setting and leaves the rest of the tape behind. Bars only sets how long a new Generate is.
+
 ## 1.4.0: August 2026
 
 _Follow Me, presets, and a faster path from empty track to harmony_

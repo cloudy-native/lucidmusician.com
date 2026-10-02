@@ -1,0 +1,198 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+type TocItem = Heading & { children: Heading[] };
+
+const items: TocItem[] = [];
+for (const heading of headings) {
+  if (heading.depth === 2) {
+    items.push({ ...heading, children: [] });
+  } else if (heading.depth === 3) {
+    if (items.length === 0) {
+      items.push({ ...heading, children: [] });
+    } else {
+      items[items.length - 1].children.push(heading);
+    }
+  }
+}
+---
+
+{
+  items.length > 0 && (
+    <nav class="docs-toc" aria-label="Table of contents">
+      <details class="docs-toc-mobile lg:hidden rounded-xl" style="border: 1px solid var(--color-border); background-color: var(--color-bg-card);">
+        <summary class="cursor-pointer select-none px-4 py-3 text-sm font-semibold" style="color: var(--color-text);">
+          On this page
+        </summary>
+        <div class="px-4 pb-3">
+          <ul class="docs-toc-list">
+            {items.map((item) => (
+              <li>
+                <a href={`#${item.slug}`}>{item.text}</a>
+                {item.children.length > 0 && (
+                  <ul>
+                    {item.children.map((child) => (
+                      <li>
+                        <a href={`#${child.slug}`}>{child.text}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </details>
+
+      <div class="docs-toc-desktop hidden lg:block">
+        <p class="docs-toc-label">On this page</p>
+        <ul class="docs-toc-list">
+          {items.map((item) => (
+            <li>
+              <a href={`#${item.slug}`}>{item.text}</a>
+              {item.children.length > 0 && (
+                <ul>
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={`#${child.slug}`}>{child.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  )
+}
+
+<script>
+  function initDocsToc() {
+    const nav = document.querySelector(".docs-toc");
+    if (!nav) return;
+
+    const links = [...nav.querySelectorAll<HTMLAnchorElement>("a[href^='#']")];
+    const headings = links
+      .map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const uniqueHeadings = [...new Map(headings.map((h) => [h.id, h])).values()];
+    if (uniqueHeadings.length === 0) return;
+
+    const keepActiveVisible = (link: HTMLElement) => {
+      const scroller = link.closest(".docs-gutter");
+      if (!(scroller instanceof HTMLElement)) return;
+      const linkRect = link.getBoundingClientRect();
+      const box = scroller.getBoundingClientRect();
+      if (linkRect.bottom > box.bottom) {
+        scroller.scrollTop += linkRect.bottom - box.bottom + 12;
+      } else if (linkRect.top < box.top) {
+        scroller.scrollTop -= box.top - linkRect.top + 12;
+      }
+    };
+
+    const setActive = (id: string) => {
+      let desktopActive: HTMLAnchorElement | null = null;
+      for (const link of links) {
+        const match = decodeURIComponent(link.hash.slice(1)) === id;
+        link.classList.toggle("is-active", match);
+        if (match) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+        if (match && link.closest(".docs-toc-desktop")) desktopActive = link;
+      }
+      if (desktopActive) keepActiveVisible(desktopActive);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]?.target.id) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-96px 0px -70% 0px", threshold: 0 },
+    );
+
+    for (const heading of uniqueHeadings) observer.observe(heading);
+
+    const initial = decodeURIComponent(window.location.hash.slice(1));
+    if (initial && uniqueHeadings.some((h) => h.id === initial)) setActive(initial);
+    else if (uniqueHeadings[0]) setActive(uniqueHeadings[0].id);
+  }
+
+  initDocsToc();
+  document.addEventListener("astro:page-load", initDocsToc);
+</script>
+
+<style>
+  .docs-toc-mobile {
+    position: sticky;
+    top: 4.25rem;
+    z-index: 30;
+    background-color: var(--color-bg-card);
+  }
+
+  .docs-toc-desktop {
+    padding-right: 0.5rem;
+  }
+
+  .docs-toc-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+    margin: 0 0 0.75rem;
+  }
+
+  .docs-toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .docs-toc-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .docs-toc-list a {
+    display: block;
+    padding: 0.2rem 0 0.2rem 0.85rem;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    margin-left: -1px;
+  }
+
+  .docs-toc-list ul a {
+    padding-left: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--color-text-subtle);
+  }
+
+  .docs-toc-list a:hover {
+    color: var(--color-accent);
+  }
+
+  .docs-toc-list a.is-active {
+    color: var(--color-accent);
+    font-weight: 600;
+    border-left-color: var(--color-accent);
+  }
+</style>

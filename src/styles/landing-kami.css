@@ -1,12 +1,13 @@
 /* Kami landing layout. Tokens live in kami-theme.css. */
 
 html.kami-landing .page {
+  --lm-nav: 74px;
   max-width: 1120px;
   width: 100%;
   min-width: 0;
   overflow-x: hidden;
   margin: 0 auto;
-  padding: 48px 64px 120px;
+  padding: 40px 64px 120px;
   container-type: inline-size;
 }
 
@@ -59,9 +60,12 @@ html.kami-landing .btn-ghost:hover {
 }
 
 html.kami-landing .hero {
-  padding-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-bottom: 40px;
   border-bottom: 1px solid var(--border-soft);
-  margin-bottom: 80px;
+  margin-bottom: 72px;
 }
 
 html.kami-landing .eyebrow {
@@ -75,7 +79,7 @@ html.kami-landing .eyebrow {
   letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--stone);
-  margin: 0 0 22px;
+  margin: 0 0 16px;
 }
 
 html.kami-landing .version-link {
@@ -89,9 +93,9 @@ html.kami-landing .hero h1 {
   align-items: flex-start;
   font-family: var(--serif);
   font-weight: 500;
-  letter-spacing: -0.03em;
-  margin: 0 0 22px;
-  line-height: 0.9;
+  letter-spacing: 0;
+  margin: 0 0 14px;
+  line-height: 0.96;
   opacity: 0;
   transform: translateY(10px);
   filter: blur(6px);
@@ -99,16 +103,16 @@ html.kami-landing .hero h1 {
 }
 
 html.kami-landing .hero-lucid {
-  font-size: min(56px, 8cqi);
+  font-size: 36px;
   font-weight: 400;
   line-height: 1.05;
   color: var(--brand);
 }
 
 html.kami-landing .hero-harmony {
-  font-size: min(92px, 13cqi);
+  font-size: 60px;
   font-weight: 500;
-  line-height: 0.92;
+  line-height: 0.96;
   color: var(--near-black);
 }
 
@@ -123,22 +127,30 @@ html.kami-landing .hero-harmony {
 html.kami-landing .hero .tagline {
   font-family: var(--sans);
   font-weight: 400;
-  font-size: 21px;
-  line-height: 1.4;
+  font-size: 18px;
+  line-height: 1.45;
   color: var(--olive);
   letter-spacing: 0.2px;
-  margin: 0 0 28px;
+  margin: 0 0 16px;
   max-width: min(820px, 100%);
   white-space: normal;
   text-wrap: pretty;
   overflow-wrap: break-word;
 }
 
+html.kami-landing .hero-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 0;
+}
+
 html.kami-landing .hero-tokens {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 0;
-  margin: 0 0 32px;
+  margin: 0;
   font-family: var(--latin-ui);
   font-size: 13px;
   color: var(--stone);
@@ -167,9 +179,16 @@ html.kami-landing .hero-tokens b {
 html.kami-landing .hero-cta {
   display: flex;
   align-items: center;
-  gap: 12px 16px;
-  margin-top: 4px;
+  gap: 12px;
+  margin-top: 0;
   flex-wrap: wrap;
+}
+
+html.kami-landing .hero .btn-primary,
+html.kami-landing .hero .btn-ghost {
+  font-size: 14px;
+  padding: 8px 16px;
+  min-width: 0;
 }
 
 html.kami-landing main.page > section {
@@ -208,97 +227,30 @@ html.kami-landing .section-lede {
   margin: 14px 0 0;
 }
 
-html.kami-landing .gallery {
-  --enter-from-x: 44px;
-  --exit-to-x: -34px;
-  --sweep-angle: 100deg;
-  --sweep-from: -45%;
-  --sweep-to: 65%;
-  --caption-shift: -2px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: 24px;
-  align-items: baseline;
+html.kami-landing .hero-shot {
   margin: 0;
+  min-width: 0;
+}
+
+html.kami-landing .hero-shot-open {
+  display: block;
+  width: min(100%, calc((100svh - var(--lm-nav) - 300px) * 1.6));
+  margin-inline: auto;
   padding: 0;
-}
-
-html.kami-landing .gallery[data-direction="prev"] {
-  --enter-from-x: -44px;
-  --exit-to-x: 34px;
-  --sweep-angle: 260deg;
-  --sweep-from: 65%;
-  --sweep-to: -45%;
-  --caption-shift: 2px;
-}
-
-html.kami-landing .gallery-frame {
-  grid-column: 1 / -1;
-  position: relative;
   aspect-ratio: 16 / 10;
   background: var(--warm-sand);
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
-  cursor: ew-resize;
+  cursor: zoom-in;
 }
 
-html.kami-landing .gallery-frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  background: linear-gradient(
-    var(--sweep-angle),
-    rgba(245, 244, 237, 0) 32%,
-    rgba(245, 244, 237, 0.16) 50%,
-    rgba(245, 244, 237, 0) 68%
-  );
-  opacity: 0;
-  transform: translate3d(var(--sweep-from), 0, 0);
-  transition:
-    opacity 540ms ease,
-    transform 920ms cubic-bezier(0.22, 1, 0.36, 1);
+html.kami-landing .hero-shot-open:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
 }
 
-html.kami-landing .gallery.is-switching .gallery-frame::after {
-  opacity: 1;
-  transform: translate3d(var(--sweep-to), 0, 0);
-}
-
-html.kami-landing .gallery-panel {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 1;
-  transform: translate3d(var(--enter-from-x), 0, 0) scale(0.985);
-  transition:
-    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 880ms cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 620ms;
-}
-
-html.kami-landing .gallery-panel.is-active {
-  opacity: 1;
-  visibility: visible;
-  z-index: 2;
-  transform: translate3d(0, 0, 0) scale(1);
-}
-
-html.kami-landing .gallery-panel.was-active {
-  opacity: 0;
-  visibility: visible;
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  transform: translate3d(var(--exit-to-x), 0, 0) scale(0.985);
-  pointer-events: none;
-}
-
-html.kami-landing .gallery-panel img {
+html.kami-landing .hero-shot-open img {
   width: 100%;
   height: 100%;
   display: block;
@@ -306,80 +258,104 @@ html.kami-landing .gallery-panel img {
   object-position: center;
 }
 
-html.kami-landing .gallery-caption {
-  grid-column: 1;
-  grid-row: 2;
-  min-height: 48px;
-  padding: 12px 2px 0;
+html.kami-landing .hero-shot figcaption {
   display: flex;
   align-items: baseline;
   gap: 14px;
-  transition:
-    opacity 420ms ease,
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 12px 2px 0;
 }
 
-html.kami-landing .gallery.is-switching .gallery-caption {
-  opacity: 0.72;
-  transform: translate3d(var(--caption-shift), 0, 0);
-}
-
-html.kami-landing .gallery-caption .title {
+html.kami-landing .hero-shot .title {
   font-family: var(--serif);
   font-weight: 500;
   font-size: 17px;
   color: var(--near-black);
-  margin: 0;
   letter-spacing: 0.1px;
   flex: 0 0 auto;
 }
 
-html.kami-landing .gallery-caption .line {
+html.kami-landing .hero-shot .line {
   font-family: var(--serif);
   font-size: 14px;
   color: var(--olive);
   font-style: italic;
+}
+
+html.kami-landing .lightbox {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
   margin: 0;
-}
-
-html.kami-landing .gallery-tabs {
-  grid-column: 2;
-  grid-row: 2;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-  justify-content: flex-end;
-}
-
-html.kami-landing .gallery-tabs button {
-  appearance: none;
-  border: 1px solid var(--border-soft);
-  border-radius: 999px;
+  padding: 28px 24px 24px;
+  border: none;
   background: transparent;
-  color: var(--olive);
+}
+
+html.kami-landing .lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--near-black) 78%, transparent);
+}
+
+html.kami-landing .lightbox::backdrop {
+  background: color-mix(in srgb, var(--near-black) 78%, transparent);
+}
+
+html.kami-landing .lightbox-figure {
+  margin: 0;
+  max-width: min(1120px, 100%);
+  max-height: 100%;
+}
+
+html.kami-landing .lightbox-figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100svh - 88px);
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  background: var(--warm-sand);
+  box-shadow: 0 1px 3px rgba(20, 19, 19, 0.1);
+}
+
+html.kami-landing .lightbox-close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--ivory);
+  color: var(--near-black);
   font-family: var(--latin-ui);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
   padding: 8px 12px;
   cursor: pointer;
-  transition:
-    color 0.18s ease,
-    border-color 0.18s ease,
-    background 0.18s ease;
 }
 
-@media (hover: hover) {
-  html.kami-landing .gallery-tabs button:hover {
-    color: var(--brand);
-    border-color: var(--line);
+html.kami-landing .lightbox-close:focus-visible {
+  outline: 2px solid var(--ivory);
+  outline-offset: 3px;
+}
+
+@media (min-width: 881px) {
+  html.kami-landing .hero {
+    display: grid;
+    grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.18fr);
+    column-gap: 48px;
+    row-gap: 0;
+    align-items: center;
+    padding-bottom: 36px;
+    margin-bottom: 72px;
   }
-}
 
-html.kami-landing .gallery-tabs button.is-active {
-  color: var(--brand);
-  background: var(--brand-tint);
-  border-color: var(--line);
+  html.kami-landing .hero-shot-open {
+    width: min(100%, calc((100svh - var(--lm-nav) - 168px) * 1.6));
+  }
 }
 
 html.kami-landing .quotes {
@@ -684,29 +660,27 @@ html.kami-landing .faq-tail {
 
 @media (max-width: 880px) {
   html.kami-landing .page {
-    padding: 32px 32px 80px;
+    padding: 28px 32px 80px;
   }
 
   html.kami-landing .hero {
+    display: flex;
     margin-bottom: 56px;
-    padding-bottom: 32px;
+    padding-bottom: 28px;
+    gap: 22px;
   }
 
   html.kami-landing .hero-lucid {
-    font-size: min(44px, 11cqi);
+    font-size: 32px;
   }
 
   html.kami-landing .hero-harmony {
-    font-size: min(68px, 16cqi);
-  }
-
-  html.kami-landing .hero .tagline {
-    font-size: 18px;
+    font-size: 52px;
   }
 
   html.kami-landing .hero-cta {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
   }
 
   html.kami-landing .btn-primary,
@@ -720,20 +694,6 @@ html.kami-landing .faq-tail {
 
   html.kami-landing .section-title {
     font-size: 26px;
-  }
-
-  html.kami-landing .gallery {
-    grid-template-columns: 1fr;
-  }
-
-  html.kami-landing .gallery-caption,
-  html.kami-landing .gallery-tabs {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  html.kami-landing .gallery-tabs {
-    justify-content: flex-start;
   }
 
   html.kami-landing .quotes,
@@ -781,35 +741,36 @@ html.kami-landing .faq-tail {
 
 @media (max-width: 480px) {
   html.kami-landing .page {
-    padding: 24px 16px 64px;
+    padding: 20px 16px 64px;
   }
 
   html.kami-landing .hero-lucid {
-    font-size: min(36px, 12cqi);
+    font-size: 28px;
   }
 
   html.kami-landing .hero-harmony {
-    font-size: min(52px, 18cqi);
+    font-size: 44px;
   }
 
   html.kami-landing .hero .tagline {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   html.kami-landing .hero-cta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    gap: 8px;
+  }
+
+  html.kami-landing .hero .btn-primary,
+  html.kami-landing .hero .btn-ghost {
+    padding: 8px 14px;
   }
 
   html.kami-landing .btn-primary,
   html.kami-landing .btn-ghost {
     min-width: 0;
-    padding: 13px 20px;
   }
 
-  html.kami-landing .gallery-caption {
-    min-height: auto;
+  html.kami-landing .hero-shot figcaption {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
@@ -824,13 +785,4 @@ html.kami-landing .faq-tail {
     filter: none;
   }
 
-  html.kami-landing .gallery-frame::after {
-    display: none;
-  }
-
-  html.kami-landing .gallery-panel,
-  html.kami-landing .gallery-caption {
-    transition: none;
-    transform: none;
-  }
 }

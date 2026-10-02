@@ -1,13 +1,15 @@
 ---
 import { getEntry, render } from "astro:content";
+import DocsToc from "../components/DocsToc.astro";
 import Markdown from "../layouts/Markdown.astro";
 import { PLUGIN_COMPARISON_PATH } from "../lib/blog";
 
 const page = await getEntry("pages", "docs");
-const { Content } = await render(page);
+const { Content, headings } = await render(page);
 ---
 
 <Markdown title={page.data.title} description={page.data.description}>
+  <DocsToc slot="sidebar" headings={headings} />
   <div
     slot="prepend"
     class="max-w-4xl mx-auto mb-12 rounded-xl p-6"

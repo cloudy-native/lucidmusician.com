@@ -4,8 +4,8 @@ import "../styles/kami-theme.css";
 import StructuredData from "../components/StructuredData.astro";
 import {
   GOOGLE_SITE_VERIFICATION,
-  GTAG_IDS,
   PRIMARY_GTAG_ID,
+  gtagInlineScript,
 } from "../lib/analytics";
 import { HERO_IMAGE, organization } from "../lib/schema";
 
@@ -83,23 +83,13 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href;
 
     <!-- Analytics (GA4 + Google Ads) -->
     {
-      PRIMARY_GTAG_ID && (
+      PRIMARY_GTAG_ID && gtagInlineScript && (
         <>
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${PRIMARY_GTAG_ID}`}
           />
-          <script
-            is:inline
-            define:vars={{ gtagIds: GTAG_IDS }}
-          >
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtagIds.forEach((id) => gtag("config", id));
-          </script>
+          <script is:inline set:html={gtagInlineScript} />
         </>
       )
     }

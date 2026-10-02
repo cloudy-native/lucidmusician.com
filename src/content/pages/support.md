@@ -157,9 +157,9 @@ If notes continue playing after stopping transport:
 ### Voice Leading Sounds Jumpy
 
 1. Increase **Stepwise Motion** to 80-100%
-2. Increase **Common Tones** to 70-100%
+2. Increase **Keep tones** to 70-100% (this keeps a shared pitch in the same voice; it does not lengthen the MIDI note)
 3. Lower **Contrary Motion** if you want more parallel motion
-4. Enable **Extend MIDI** for smoother note connections
+4. Turn on **Hold notes** so a continued pitch sustains into the next chord
 
 ### Voicing Sounds Thin or Hollow
 
@@ -185,11 +185,12 @@ Right-click (or Ctrl+click on Mac) on a chord in the tape. If the context menu s
 
 ### Harmonic Explorer Shows Wrong Alternatives
 
-The Harmonic Explorer shows alternatives based on the chords surrounding the selected position. If the suggestions seem off:
+The Harmonic Explorer shows destination roots based on the chords surrounding the selected position. If the suggestions seem off:
 
-1. Make sure you've selected the correct chord position in the tape
-2. The alternatives depend on the AI model. Different models suggest different chords.
-3. Try selecting a different position to see how context changes the suggestions
+1. Make sure you've selected the correct chord position in the tape (replace vs add next)
+2. Switch **Diatonic** to **All** if you expected borrowed or chromatic chords
+3. The alternatives depend on the AI model. Different models suggest different chords.
+4. Hover a bubble to expand inversions; the idle map shows one bubble per root
 
 ---
 

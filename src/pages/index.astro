@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import StructuredData from "../components/StructuredData.astro";
+import { conversionInlineScript } from "../lib/analytics";
 import { PLUGIN_COMPARISON_PATH } from "../lib/blog";
 import { HERO_IMAGE, SITE_URL, publisher } from "../lib/schema";
 import { Image } from "astro:assets";
@@ -10,38 +11,13 @@ import "../styles/landing-kami.css";
 
 import fourChord from "../assets/images/four-chord-harmony.png";
 import beautifullyVoiced from "../assets/images/beautifully-voiced.png";
-import generateSeq from "../assets/images/generate-sequence.png";
-import heroShot from "../assets/images/lucid-harmony-hero.com.png";
-import editMode from "../assets/images/edit-mode.png";
-import refineVoicing from "../assets/images/refine-voicing.png";
-import exportMidi from "../assets/images/export-midi.png";
+import heroShot from "../assets/images/lucid-harmony-hero.png";
 import landing from "../data/landing-content.json";
 
 const copy = landing.content;
 const ctaHref = "https://lucidmusician.gumroad.com/l/lucid-harmony";
-
-const galleryAssets: Record<string, ImageMetadata> = {
-  "src/assets/images/generate-sequence.png": generateSeq,
-  "src/assets/images/lucid-harmony-hero.com.png": heroShot,
-  "src/assets/images/edit-mode.png": editMode,
-  "src/assets/images/refine-voicing.png": refineVoicing,
-  "src/assets/images/export-midi.png": exportMidi,
-};
-
-const galleryAlts: Record<string, string> = {
-  Generate: "LucidHarmony Generate view with key, model, and voicing controls",
-  "In the DAW": "LucidHarmony running as a MIDI effect in a DAW session",
-  Explorer: "LucidHarmony Harmonic Explorer with scored chord alternatives",
-  Voicing: "LucidHarmony voicing controls and resulting chord layout",
-  Export: "Dragging LucidHarmony MIDI into a DAW piano roll",
-};
-
-const gallery = copy.gallery.map((panel) => ({
-  src: galleryAssets[panel.image],
-  title: panel.title,
-  line: panel.caption,
-  alt: galleryAlts[panel.title],
-}));
+const shot = copy.gallery[0];
+const shotAlt = "LucidHarmony running as a MIDI effect in a DAW session";
 
 const features = copy.features;
 const principles = copy.principles;
@@ -52,457 +28,394 @@ const quotes = copy.quotes;
 ---
 
 <Base
-  title="LucidHarmony · Gorgeous infinite harmony"
-  description="LucidHarmony is a MIDI harmony plugin for ambient music and film scoring. On-device AI generates chord progressions as VST3, AU, and CLAP for any DAW on Windows, Mac, and Linux."
+    title="LucidHarmony · Gorgeous infinite harmony"
+    description="LucidHarmony is a MIDI harmony plugin for ambient music and film scoring. On-device AI generates chord progressions as VST3, AU, and CLAP for any DAW on Windows, Mac, and Linux."
 >
-  <Navbar />
-  <main class="page">
-    <header class="hero">
-      <div class="eyebrow">
-        <span>
-          MIDI harmony plugin ·{" "}
-          <a class="version-link" href="/release-notes">v1.4.0</a>
-        </span>
-      </div>
-      <h1>
-        <span class="hero-lucid">Lucid</span>
-        <span class="hero-harmony">Harmony</span>
-      </h1>
-      <p class="tagline">{copy.tagline}</p>
-      <div class="hero-tokens">
-        <span><b>$10</b> one-time</span>
-        <span>On-device</span>
-        <span>Any DAW</span>
-      </div>
-      <div class="hero-cta">
-        <a class="btn-ghost" href="/docs">{copy.cta.secondary}</a>
-        <a
-          class="btn-primary gumroad-button"
-          href={ctaHref}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {copy.cta.primary}
-        </a>
-      </div>
-    </header>
-
-    <section>
-      <div class="section-head">
-        <p class="section-num">00 · Surface</p>
-        <h2 class="section-title">The plugin, as shipped</h2>
-        <p class="section-lede">Generate, voice, and drag MIDI into the session.</p>
-      </div>
-      <div class="gallery" data-gallery>
-        <div class="gallery-frame" aria-live="polite">
-          {
-            gallery.map((panel, i) => (
-              <figure
-                class:list={["gallery-panel", i === 0 && "is-active"]}
-                data-title={panel.title}
-                data-line={panel.line}
-                aria-hidden={i === 0 ? "false" : "true"}
-              >
-                <Image
-                  src={panel.src}
-                  alt={panel.alt}
-                  widths={[640, 960, 1280, 1600]}
-                  sizes="(max-width: 880px) 100vw, 1120px"
-                  loading={i === 0 ? "eager" : "lazy"}
-                />
-              </figure>
-            ))
-          }
-        </div>
-        <div class="gallery-caption">
-          <p class="title" data-gallery-title></p>
-          <p class="line" data-gallery-line></p>
-        </div>
-        <div class="gallery-tabs" aria-label="Choose a screenshot">
-          {
-            gallery.map((panel, i) => (
-              <button
-                type="button"
-                class:list={[i === 0 && "is-active"]}
-                aria-pressed={i === 0 ? "true" : "false"}
-              >
-                {panel.title}
-              </button>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <p class="section-num">01 · Proof</p>
-        <h2 class="section-title">Heard before it is sold</h2>
-      </div>
-      <ul class="quotes">
-        {
-          quotes.map((quote) => (
-            <li>
-              <p>“{quote.text}”</p>
-              <cite>
-                {quote.attribution} · {quote.role}
-              </cite>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <p class="section-num">02 · Watch</p>
-        <h2 class="section-title">Generate, play, drag MIDI</h2>
-        <p class="section-lede">
-          Pads, bass, and windchimes at 60 BPM. Infinite mode. No keyboard, no
-          hand editing.
-        </p>
-      </div>
-      <div class="media-frame">
-        <lite-youtube videoid="zZXODsd1zlY" playlabel="Play: LucidHarmony Demo">
-          <button type="button" class="lyt-playbtn" aria-label="Play: LucidHarmony Demo">
-            <span class="lyt-visually-hidden">Play</span>
-          </button>
-        </lite-youtube>
-      </div>
-      <p class="media-links">
-        Also:{" "}
-        <a href="https://www.youtube.com/watch?v=sSWSHgycSkk" target="_blank" rel="noopener noreferrer">
-          30 seconds
-        </a>
-        {" · "}
-        <a href="https://www.youtube.com/watch?v=HgQNWbGRb7M" target="_blank" rel="noopener noreferrer">
-          five minutes
-        </a>
-      </p>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <p class="section-num">03 · Workflow</p>
-        <h2 class="section-title">Three steps to the DAW</h2>
-      </div>
-      <div class="workflow">
-        <article class="demo-card">
-          <Image
-            src={fourChord}
-            alt="LucidHarmony generating a four-chord ambient progression"
-            widths={[480, 768]}
-            sizes="(max-width: 880px) 100vw, 340px"
-          />
-          <p class="demo-title">1. Generate</p>
-          <p class="demo-desc">
-            Pick a model, starting chord, and key. Click Generate. Get a
-            harmonic story of any length.
-          </p>
-        </article>
-        <article class="demo-card">
-          <Image
-            src={beautifullyVoiced}
-            alt="Voiced MIDI chord sequence in a DAW piano roll"
-            widths={[480, 768]}
-            sizes="(max-width: 880px) 100vw, 340px"
-          />
-          <p class="demo-title">2. Drag MIDI</p>
-          <p class="demo-desc">
-            Drop it into the arrangement. Voices stay separated, including the
-            bass line.
-          </p>
-        </article>
-        <article class="demo-card">
-          <iframe
-            src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F2234115233&color=%231058A9&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"
-            title="SoundCloud sketch from one generated progression"
-            loading="lazy"
-            allow="autoplay"
-          ></iframe>
-          <p class="demo-title">3. Any instrument</p>
-          <p class="demo-desc">
-            Assign pads, choir, or ear candy. This sketch is one unedited
-            progression.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <p class="section-num">04 · Features</p>
-        <h2 class="section-title">What it actually does</h2>
-      </div>
-      <ol class="features">
-        {
-          features.map((feature) => (
-            <li>
-              <p class="name">
-                {feature.name}
-                <small>{feature.subtitle}</small>
-              </p>
-              <p class="what">{feature.description}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <p class="section-num">05 · Listen</p>
-        <h2 class="section-title">Unedited MIDI, real instruments</h2>
-      </div>
-      <p class="listen-copy">
-        Every track in this album was generated in LucidHarmony, exported
-        unedited, and played by Omnisphere 3, Pigments 7, and Ashlight 2 in
-        Kontakt 8. Logic Pro here; any DAW works.
-      </p>
-      <div class="listen-frame">
-        <iframe
-          width="100%"
-          height="300"
-          allow="autoplay"
-          loading="lazy"
-          title="SoundCloud album of LucidHarmony samples"
-          src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2Fsoundcloud%3Aplaylists%3A2162448524&color=%231058A9&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
-        ></iframe>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <p class="section-num">06 · Principles</p>
-        <h2 class="section-title">How the product is allowed to behave</h2>
-      </div>
-      <ol class="principles">
-        {
-          principles.map((item, i) => (
-            <li>
-              <span class="n">{i + 1}</span>
-              <span class="body">
-                <b>{item.title}</b>
-                <span>{item.description}</span>
-              </span>
-            </li>
-          ))
-        }
-      </ol>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <p class="section-num">07 · Pricing</p>
-        <h2 class="section-title">What you keep</h2>
-      </div>
-      <div class="price-card">
-        <ul class="price-benefits">
-          {benefits.map((item) => <li>{item}</li>)}
-        </ul>
-        <p class="price-amount">{copy.pricing.price}</p>
-        <p class="price-vs">
-          Scaler 3 lists at <s>$99</s>. Captain Chords lists at <s>$99</s>.
-          LucidHarmony is a <span class="hl">one-time</span> license. Free update forever.
-        </p>
-        <a
-          class="btn-primary gumroad-button"
-          href={ctaHref}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Buy LucidHarmony
-        </a>
-        <p class="price-trial">
-          Compare features in the{" "}
-          <a href={PLUGIN_COMPARISON_PATH}>plugin survey</a>.
-        </p>
-        <p class="price-terms">
-          {copy.pricing.terms}
-        </p>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <p class="section-num">08 · FAQ</p>
-        <h2 class="section-title">Before you install</h2>
-      </div>
-      <dl class="faq">
-        {
-          faqs.map((item) => (
-            <div class="faq-pair">
-              <dt>{item.q}</dt>
-              <dd>{item.a}</dd>
+    <Navbar />
+    <main class="page">
+        <header class="hero">
+            <div class="hero-copy">
+                <div class="eyebrow">
+                    <span>
+                        MIDI harmony plugin ·{" "}
+                        <a class="version-link" href="/release-notes">
+                            v1.4.0
+                        </a>
+                    </span>
+                </div>
+                <h1>
+                    <span class="hero-lucid">Lucid</span>
+                    <span class="hero-harmony">Harmony</span>
+                </h1>
+                <p class="tagline">{copy.tagline}</p>
+                <div class="hero-bar">
+                    <div class="hero-tokens">
+                        <span>
+                            <b>$10</b> one-time purchase
+                        </span>
+                        <span>Free updates forever</span>
+                        <span>On-device, works offline</span>
+                        <span>Any DAW</span>
+                        <span>Mac/Windows/Linux</span>
+                    </div>
+                    <div class="hero-cta">
+                        <a class="btn-ghost" href="/docs">
+                            {copy.cta.secondary}
+                        </a>
+                        <a
+                            class="btn-primary gumroad-button"
+                            href={ctaHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {copy.cta.primary}
+                        </a>
+                    </div>
+                </div>
             </div>
-          ))
-        }
-      </dl>
-      <p class="faq-tail">
-        More questions? See <a href="/support">support</a> or{" "}
-        <a href="/docs">documentation</a>.
-      </p>
-    </section>
-  </main>
-  <Footer />
+            <figure class="hero-shot">
+                <button
+                    type="button"
+                    class="hero-shot-open"
+                    data-lightbox-open
+                    aria-haspopup="dialog"
+                    aria-controls="hero-lightbox"
+                    aria-label={`Enlarge: ${shotAlt}`}
+                >
+                    <Image
+                        src={heroShot}
+                        alt={shotAlt}
+                        widths={[640, 960, 1280]}
+                        sizes="(max-width: 880px) 100vw, 560px"
+                        loading="eager"
+                    />
+                </button>
+                <figcaption id="hero-shot-caption">
+                    <span class="title">{shot.title}</span>
+                    <span class="line">{shot.caption}</span>
+                </figcaption>
+            </figure>
+        </header>
 
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.4/src/lite-yt-embed.min.css"
-  />
-  <script
-    is:inline
-    src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.4/src/lite-yt-embed.min.js"
-  ></script>
+        <section>
+            <div class="section-head">
+                <p class="section-num">01 · Proof</p>
+                <h2 class="section-title">Heard before it is sold</h2>
+            </div>
+            <ul class="quotes">
+                {quotes.map((quote) => (
+                    <li>
+                        <p>“{quote.text}”</p>
+                        <cite>
+                            {quote.attribution} · {quote.role}
+                        </cite>
+                    </li>
+                ))}
+            </ul>
+        </section>
 
-  <script is:inline>
-    (function () {
-      var gallery = document.querySelector("[data-gallery]");
-      if (!gallery) return;
-      var frame = gallery.querySelector(".gallery-frame");
-      var panels = Array.prototype.slice.call(
-        gallery.querySelectorAll(".gallery-panel")
-      );
-      var tabs = Array.prototype.slice.call(
-        gallery.querySelectorAll(".gallery-tabs button")
-      );
-      var title = gallery.querySelector("[data-gallery-title]");
-      var line = gallery.querySelector("[data-gallery-line]");
-      var index = 0;
-      var timer = null;
-      var transitionTimer = null;
-      var reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+        <section>
+            <div class="section-head">
+                <p class="section-num">02 · Watch</p>
+                <h2 class="section-title">Generate, play, drag MIDI</h2>
+                <p class="section-lede">
+                    Pads, bass, and windchimes at 60 BPM. Infinite mode. No
+                    keyboard, no hand editing.
+                </p>
+            </div>
+            <div class="media-frame">
+                <lite-youtube
+                    videoid="zZXODsd1zlY"
+                    playlabel="Play: LucidHarmony Demo"
+                >
+                    <button
+                        type="button"
+                        class="lyt-playbtn"
+                        aria-label="Play: LucidHarmony Demo"
+                    >
+                        <span class="lyt-visually-hidden">Play</span>
+                    </button>
+                </lite-youtube>
+            </div>
+            <p class="media-links">
+                Also:{" "}
+                <a
+                    href="https://www.youtube.com/watch?v=sSWSHgycSkk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    30 seconds
+                </a>
+                {" · "}
+                <a
+                    href="https://www.youtube.com/watch?v=HgQNWbGRb7M"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    five minutes
+                </a>
+            </p>
+        </section>
 
-      if (panels.length === 0) return;
-      if (title) title.textContent = panels[0].dataset.title || "";
-      if (line) line.textContent = panels[0].dataset.line || "";
-      if (panels.length === 1) return;
+        <section>
+            <div class="section-head">
+                <p class="section-num">03 · Workflow</p>
+                <h2 class="section-title">Three steps to the DAW</h2>
+            </div>
+            <div class="workflow">
+                <article class="demo-card">
+                    <Image
+                        src={fourChord}
+                        alt="LucidHarmony generating a four-chord ambient progression"
+                        widths={[480, 768]}
+                        sizes="(max-width: 880px) 100vw, 340px"
+                    />
+                    <p class="demo-title">1. Generate is always unique</p>
+                    <p class="demo-desc">
+                        Pick a model, starting chord, and key. Click Generate.
+                        Get a harmonic story of any length.
+                    </p>
+                </article>
+                <article class="demo-card">
+                    <Image
+                        src={beautifullyVoiced}
+                        alt="Voiced MIDI chord sequence in a DAW piano roll"
+                        widths={[480, 768]}
+                        sizes="(max-width: 880px) 100vw, 340px"
+                    />
+                    <p class="demo-title">2. Beautifully-voiced MIDI</p>
+                    <p class="demo-desc">
+                        Drop it into the arrangement. Voices stay separated,
+                        including the bass line.
+                    </p>
+                </article>
+                <article class="demo-card">
+                    <iframe
+                        src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F2234115233&color=%231058A9&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"
+                        title="SoundCloud sketch from one generated progression"
+                        loading="lazy"
+                        allow="autoplay"
+                    ></iframe>
+                    <p class="demo-title">3. Any instrument</p>
+                    <p class="demo-desc">
+                        Assign pads, choir, or ear candy. This sketch is one
+                        unedited progression.
+                    </p>
+                </article>
+            </div>
+        </section>
 
-      function activate(next) {
-        if (next === index) return;
-        var previous = index;
-        var direction = (next - previous + panels.length) % panels.length;
-        gallery.dataset.direction =
-          direction > panels.length / 2 ? "prev" : "next";
-        if (transitionTimer) window.clearTimeout(transitionTimer);
-        panels.forEach(function (p) {
-          p.classList.remove("was-active");
-        });
-        var outgoing = panels[previous];
-        if (outgoing) outgoing.classList.add("was-active");
-        gallery.classList.add("is-switching");
-        transitionTimer = window.setTimeout(function () {
-          gallery.classList.remove("is-switching");
-          if (outgoing) outgoing.classList.remove("was-active");
-          transitionTimer = null;
-        }, 920);
-        index = next;
-        panels.forEach(function (p, i) {
-          var active = i === index;
-          p.classList.toggle("is-active", active);
-          p.setAttribute("aria-hidden", active ? "false" : "true");
-        });
-        tabs.forEach(function (t, i) {
-          var active = i === index;
-          t.classList.toggle("is-active", active);
-          t.setAttribute("aria-pressed", active ? "true" : "false");
-        });
-        if (title) title.textContent = panels[index].dataset.title || "";
-        if (line) line.textContent = panels[index].dataset.line || "";
-      }
+        <section>
+            <div class="section-head">
+                <p class="section-num">04 · Features</p>
+                <h2 class="section-title">What it actually does</h2>
+            </div>
+            <ol class="features">
+                {features.map((feature) => (
+                    <li>
+                        <p class="name">
+                            {feature.name}
+                            <small>{feature.subtitle}</small>
+                        </p>
+                        <p class="what">{feature.description}</p>
+                    </li>
+                ))}
+            </ol>
+        </section>
 
-      function start() {
-        if (reduceMotion || timer) return;
-        timer = window.setInterval(function () {
-          activate((index + 1) % panels.length);
-        }, 4500);
-      }
-      function stop() {
-        if (!timer) return;
-        window.clearInterval(timer);
-        timer = null;
-      }
+        <section>
+            <div class="section-head">
+                <p class="section-num">05 · Listen</p>
+                <h2 class="section-title">Unedited MIDI, real instruments</h2>
+            </div>
+            <p class="listen-copy">
+                Every track in this album was generated in LucidHarmony,
+                exported unedited, and played by Omnisphere 3, Pigments 7, and
+                Ashlight 2 in Kontakt 8. Logic Pro here; any DAW works.
+            </p>
+            <div class="listen-frame">
+                <iframe
+                    width="100%"
+                    height="300"
+                    allow="autoplay"
+                    loading="lazy"
+                    title="SoundCloud album of LucidHarmony samples"
+                    src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2Fsoundcloud%3Aplaylists%3A2162448524&color=%231058A9&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
+                ></iframe>
+            </div>
+        </section>
 
-      tabs.forEach(function (tab, i) {
-        tab.addEventListener("click", function () {
-          stop();
-          activate(i);
-          start();
-        });
-      });
-      if (frame) {
-        frame.addEventListener("click", function (e) {
-          var box = frame.getBoundingClientRect();
-          var next =
-            e.clientX < box.left + box.width / 2
-              ? (index - 1 + panels.length) % panels.length
-              : (index + 1) % panels.length;
-          stop();
-          activate(next);
-          start();
-        });
-      }
-      gallery.addEventListener("mouseenter", stop);
-      gallery.addEventListener("mouseleave", start);
-      gallery.addEventListener("focusin", stop);
-      gallery.addEventListener("focusout", start);
-      start();
-    })();
-  </script>
+        <section>
+            <div class="section-head">
+                <p class="section-num">06 · Principles</p>
+                <h2 class="section-title">
+                    How the product is allowed to behave
+                </h2>
+            </div>
+            <ol class="principles">
+                {principles.map((item, i) => (
+                    <li>
+                        <span class="n">{i + 1}</span>
+                        <span class="body">
+                            <b>{item.title}</b>
+                            <span>{item.description}</span>
+                        </span>
+                    </li>
+                ))}
+            </ol>
+        </section>
 
-  <StructuredData
-    data={{
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      name: "LucidHarmony",
-      description:
-        "AI-powered MIDI chord progression generator that creates gorgeous, infinite harmony for ambient music and film scoring.",
-      url: SITE_URL,
-      applicationCategory: "MultimediaApplication",
-      operatingSystem: "Windows, macOS, Linux",
-      softwareVersion: "1.4.0",
-      offers: {
-        "@type": "Offer",
-        price: "10",
-        priceCurrency: "USD",
-        description: "50% off - regular price $20",
-      },
-      author: publisher,
-      screenshot: HERO_IMAGE,
-      featureList: [
-        "AI-powered chord progression generation",
-        "Follow Me live keyboard harmony",
-        "Factory and user presets",
-        "Intuitive and Advanced views",
-        "Infinite unique sequences",
-        "MIDI drag and drop export",
-        "Works in any DAW",
-      ],
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "5",
-        reviewCount: "3",
-        bestRating: "5",
-        worstRating: "1",
-      },
-      review: quotes.map((quote) => ({
-        "@type": "Review",
-        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-        author: { "@type": "Person", name: quote.attribution },
-        reviewBody: quote.text,
-      })),
-    }}
-  />
+        <section>
+            <div class="section-head">
+                <p class="section-num">07 · Pricing</p>
+                <h2 class="section-title">What you keep</h2>
+            </div>
+            <div class="price-card">
+                <ul class="price-benefits">
+                    {benefits.map((item) => (
+                        <li>{item}</li>
+                    ))}
+                </ul>
+                <p class="price-amount">{copy.pricing.price}</p>
+                <p class="price-vs">
+                    Scaler 3 lists at <s>$99</s>. Captain Chords lists at{" "}
+                    <s>$99</s>. LucidHarmony is a{" "}
+                    <span class="hl">one-time</span> license. Free update
+                    forever.
+                </p>
+                <a
+                    class="btn-primary gumroad-button"
+                    href={ctaHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Buy LucidHarmony
+                </a>
+                <p class="price-trial">
+                    Compare features in the{" "}
+                    <a href={PLUGIN_COMPARISON_PATH}>plugin survey</a>.
+                </p>
+                <p class="price-terms">{copy.pricing.terms}</p>
+            </div>
+        </section>
 
-  <script is:inline define:vars={{ conversionId: import.meta.env.PUBLIC_GOOGLE_ADS_CONVERSION_ID || "" }}>
-    document.querySelectorAll(".gumroad-button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        if (typeof gtag === "function" && conversionId) {
-          gtag("event", "conversion", { send_to: conversionId });
-        }
-      });
-    });
-  </script>
+        <section>
+            <div class="section-head">
+                <p class="section-num">08 · FAQ</p>
+                <h2 class="section-title">Before you install</h2>
+            </div>
+            <dl class="faq">
+                {faqs.map((item) => (
+                    <div class="faq-pair">
+                        <dt>{item.q}</dt>
+                        <dd>{item.a}</dd>
+                    </div>
+                ))}
+            </dl>
+            <p class="faq-tail">
+                More questions? See <a href="/support">support</a> or{" "}
+                <a href="/docs">documentation</a>.
+            </p>
+        </section>
+    </main>
+    <Footer />
+    <dialog
+        id="hero-lightbox"
+        class="lightbox"
+        data-lightbox
+        aria-labelledby="hero-shot-caption"
+    >
+        <button type="button" class="lightbox-close" data-lightbox-close>
+            Close
+        </button>
+        <figure class="lightbox-figure">
+            <Image
+                src={heroShot}
+                alt=""
+                widths={[1280, 1600, 2000]}
+                sizes="100vw"
+                loading="lazy"
+            />
+        </figure>
+    </dialog>
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.4/src/lite-yt-embed.min.css"
+    />
+    <script
+        is:inline
+        src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.4/src/lite-yt-embed.min.js"
+    ></script>
+    <script is:inline>
+        (function () {
+            var open = document.querySelector("[data-lightbox-open]");
+            var dialog = document.querySelector("[data-lightbox]");
+            if (!open || !dialog || typeof dialog.showModal !== "function")
+                return;
+            var close = dialog.querySelector("[data-lightbox-close]");
+            open.addEventListener("click", function () {
+                dialog.showModal();
+            });
+            if (close) {
+                close.addEventListener("click", function () {
+                    dialog.close();
+                });
+            }
+            dialog.addEventListener("click", function () {
+                dialog.close();
+            });
+        })();
+    </script>
+    <StructuredData
+        data={{
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "LucidHarmony",
+            description:
+                "AI-powered MIDI chord progression generator that creates gorgeous, infinite harmony for ambient music and film scoring.",
+            url: SITE_URL,
+            applicationCategory: "MultimediaApplication",
+            operatingSystem: "Windows, macOS, Linux",
+            softwareVersion: "1.4.0",
+            offers: {
+                "@type": "Offer",
+                price: "10",
+                priceCurrency: "USD",
+                description: "50% off - regular price $20",
+            },
+            author: publisher,
+            screenshot: HERO_IMAGE,
+            featureList: [
+                "AI-powered chord progression generation",
+                "Follow Me live keyboard harmony",
+                "Factory and user presets",
+                "Intuitive and Advanced views",
+                "Infinite unique sequences",
+                "MIDI drag and drop export",
+                "Works in any DAW",
+            ],
+            aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "5",
+                reviewCount: "3",
+                bestRating: "5",
+                worstRating: "1",
+            },
+            review: quotes.map((quote) => ({
+                "@type": "Review",
+                reviewRating: {
+                    "@type": "Rating",
+                    ratingValue: "5",
+                    bestRating: "5",
+                },
+                author: { "@type": "Person", name: quote.attribution },
+                reviewBody: quote.text,
+            })),
+        }}
+    />
+
+    {conversionInlineScript && (
+        <script is:inline set:html={conversionInlineScript} />
+    )}
 </Base>

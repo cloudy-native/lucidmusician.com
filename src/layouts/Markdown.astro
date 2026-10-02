@@ -21,6 +21,7 @@ const {
   structuredData,
 } = Astro.props;
 const fullTitle = `${title} | LucidHarmony`;
+const hasSidebar = Astro.slots.has("sidebar");
 ---
 
 <Page
@@ -31,23 +32,36 @@ const fullTitle = `${title} | LucidHarmony`;
   articleModifiedTime={articleModifiedTime}
   structuredData={structuredData}
 >
-  <div class="py-10 w-full min-w-0">
-    <div class="kami-page-header mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold break-words" style="color: var(--color-text);">{title}</h1>
-      <p class="text-base md:text-lg mt-4" style="color: var(--color-text-muted);">{description}</p>
+  <div
+    class:list={[
+      "py-10 w-full min-w-0",
+      hasSidebar && "lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10",
+    ]}
+  >
+    {hasSidebar && (
+      <aside class="docs-gutter mb-8 lg:mb-0 min-w-0 lg:self-start lg:sticky lg:top-[4.75rem] lg:max-h-[calc(100dvh-5.25rem)] lg:overflow-y-auto">
+        <slot name="sidebar" />
+      </aside>
+    )}
+
+    <div class="min-w-0">
+      <div class="kami-page-header mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold break-words" style="color: var(--color-text);">{title}</h1>
+        <p class="text-base md:text-lg mt-4" style="color: var(--color-text-muted);">{description}</p>
+      </div>
+
+      {Astro.slots.has("prepend") && (
+        <slot name="prepend" />
+      )}
+
+      <article class="prose prose-lg max-w-4xl mx-auto overflow-x-hidden [&>*]:max-w-full">
+        <slot />
+      </article>
+
+      {Astro.slots.has("append") && (
+        <slot name="append" />
+      )}
     </div>
-
-    {Astro.slots.has("prepend") && (
-      <slot name="prepend" />
-    )}
-
-    <article class="prose prose-lg max-w-4xl mx-auto overflow-x-hidden [&>*]:max-w-full">
-      <slot />
-    </article>
-
-    {Astro.slots.has("append") && (
-      <slot name="append" />
-    )}
   </div>
 
   {showCta && (
@@ -75,3 +89,12 @@ const fullTitle = `${title} | LucidHarmony`;
     </div>
   )}
 </Page>
+
+<style>
+  @media (min-width: 1024px) {
+    .docs-gutter {
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+  }
+</style>

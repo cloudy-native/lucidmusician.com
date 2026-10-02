@@ -37,29 +37,9 @@
     },
     "gallery": [
       {
-        "image": "src/assets/images/generate-sequence.png",
-        "title": "Generate",
-        "caption": "Key, model, richness. Then one click."
-      },
-      {
-        "image": "src/assets/images/lucid-harmony-hero.com.png",
+        "image": "src/assets/images/lucid-harmony-hero.png",
         "title": "In the DAW",
         "caption": "MIDI on the track, not a bounce."
-      },
-      {
-        "image": "src/assets/images/edit-mode.png",
-        "title": "Explorer",
-        "caption": "Click a chord. Keep the ones that land."
-      },
-      {
-        "image": "src/assets/images/refine-voicing.png",
-        "title": "Voicing",
-        "caption": "The inner voices, made visible."
-      },
-      {
-        "image": "src/assets/images/export-midi.png",
-        "title": "Export",
-        "caption": "Drag once. The piano roll is done."
       }
     ],
     "features": [

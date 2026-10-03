@@ -72,7 +72,7 @@ Here is your quick start and highlights of the controls. More details as we go a
 LucidHarmony's interface has four tabs: **Intuitive**, **Advanced**, **Harmonic Explorer**, and **About**. **Create** vs **Follow Me** is the mode switcher on the generator. Presets sit above the tabs.
 
 - **Intuitive** — Predictability, richness, Bars, and four voicing knobs: **Smooth**, **Open**, **Centered**, and **Ornaments**. Start chord, meter, chord length, extension toggles, Ensemble, and ornament type filters are hidden here. Ensemble stays Choir (SATB).
-- **Advanced** — Full generator (key, start chord, model, meter, chord length, bars, Infinite, 7ths/9ths) plus Ensemble, the separate voicing dials, **Ornaments**, and type toggles. Suspension is on by default; Passing, Neighbor, and Anticipation start off.
+- **Advanced** — Full generator (key, start chord, model, meter, chord length, bars, Infinite, Reset, 7ths/9ths) plus Ensemble, the separate voicing dials, **Ornaments**, and type toggles. Suspension is on by default; Passing, Neighbor, and Anticipation start off.
 
 ![Advanced tab](/images/ui-advanced-tab.png)
 
@@ -82,7 +82,7 @@ LucidHarmony's interface has four tabs: **Intuitive**, **Advanced**, **Harmonic 
 
 **Key** — Tonal center. The menu is C, C#/Db, D, D#/Eb, E, F, F#/Gb, G, G#/Ab, A, A#/Bb, and B, each in Major or Minor.
 
-**Start Chord** — First chord of a new Generate, in two dropdowns. The Roman numeral list always includes both I–VII and i–vii. The Variant dropdown lists the inversions and extensions that model knows (root position, 1st inversion, 7th, maj7, dim, aug, sus4, add9, and others in its vocabulary).
+**Start Chord** — First chord of a new Generate, in two dropdowns. The Roman numeral list always includes both I–VII and i–vii. The Variant dropdown lists the inversions and extensions that model knows (root position, 1st inversion, 7th, maj7, dim, aug, and others in its vocabulary).
 
 **AI Model** — Bach, Beethoven, Palestrina, Monteverdi, Corelli, or Trecento. Each has a distinct harmonic dialect, described in Getting Started.
 
@@ -90,11 +90,11 @@ LucidHarmony's interface has four tabs: **Intuitive**, **Advanced**, **Harmonic 
 
 **Predictability** — Red dial controlling how familiar or surprising the progressions feel. Five levels: Very Familiar, Familiar, Balanced, Surprising, Very Surprising.
 
-**Richness** — Red dial controlling chord extensions. Five levels: Simple, Some Color, Colorful, Rich, Very Rich. Higher levels bias 7ths, 9ths, and other extended chords. Two toggles, **7ths** and **9ths**, sit next to the dial. When Richness is above Simple, only a checked family is favored. Unchecked is off. At Simple the toggles do nothing.
+**Richness** — Red dial controlling chord extensions. Five levels: Simple, Some Color, Colorful, Rich, Very Rich. Higher levels bias 7ths, 9ths, and other extended chords. Two toggles, **7ths** and **9ths**, sit next to the dial. When Richness is above Simple, an unchecked family is not used. At Simple the toggles do nothing.
 
 **Bars** — How many bars a new Generate fills. Changing Bars, or the chord length, does not remove chords already on the tape.
 
-**Infinite Mode** — Toggle (or Bars at 33) for continuous streaming. Generate still starts the stream; press play in the DAW to hear it.
+**Infinite Mode** — Toggle (or Bars at 33) for continuous streaming. Generate still starts the stream; press play in the DAW to hear it. **Reset**, beside Infinite, is on by default and prepares a fresh stream when the host transport starts.
 
 ![Infinite mode](/images/ui-infinite.png)
 
@@ -414,7 +414,7 @@ Here, an ascending scale of C major was played and the chord tape filled automat
 
 ## Presets
 
-Factory and user presets capture generator and voicing style (model, predictability, richness, voicing, ornaments, Infinite, and bars). They do **not** overwrite your session key, major/minor, chord length, or start chord. Factory examples include Infinite Ambient and **Modal Drift** (Monteverdi, more open and wandering).
+Factory and user presets capture generator and voicing style (model, predictability, richness, voicing, ensemble, ornaments, Infinite, and bars). They do **not** overwrite your session key, major/minor, chord length, or start chord. Factory examples include Infinite Ambient and **Modal Drift** (Monteverdi, more open and wandering). **Early Polyphony** uses the Trecento model.
 
 ![Presets](/images/ui-presets.png)
 
@@ -447,13 +447,13 @@ Add LucidHarmony to an instrument track, enable Infinite, click Generate, then p
 
 ## Undo/Redo
 
-LucidHarmony maintains a complete history of up to **100 undo steps**, saving both your chord progressions and all configuration settings. This means you can freely experiment with different generations, voicing parameters, and settings — then step backward through your entire creative process.
+LucidHarmony maintains a complete history of up to **50 undo steps**, saving the chord progression together with voicing, ensemble, extension choices, and ornaments. This means you can freely experiment with different generations, voicing parameters, and settings — then step backward through your entire creative process.
 
 **How to use:**
 - **Undo**: Cmd+Z (Mac) / Ctrl+Z (Windows and Linux), or click Undo. The plugin help shows the shortcut for your OS.
 - **Redo**: Cmd+Shift+Z (Mac) / Ctrl+Shift+Z or Ctrl+Y (Windows and Linux), or click Redo.
 
-Each undo step captures everything: the generated chords, key, AI model, predictability, richness, voicing settings, and more. You can compare different generations side-by-side by undoing and redoing, or recover a progression you accidentally regenerated over.
+Each undo step captures the generated chords, key, AI model, predictability, richness, voicing, ensemble, ornaments, and more. A saved project keeps those undo snapshots. You can compare different generations side-by-side by undoing and redoing, or recover a progression you accidentally regenerated over.
 
 **Pro tip:** Generate 5-10 progressions in a row, then use undo to step back through them and pick your favorite. It's faster than trying to remember which one you liked best.
 
@@ -582,14 +582,14 @@ LucidHarmony's AI is not a generic large language model like ChatGPT: It is spec
 
 ### Training Data
 
-Each model is trained on chord progressions extracted from real compositions using computational musicology tools. The training data is Roman numeral analysis, not audio or MIDI. This means the AI learns harmonic relationships and tendencies, not melodies or rhythms.
+Each model is trained on Roman-numeral analyses, not on audio or MIDI. The six corpora together are **2,100+ pieces**. Bach, Beethoven, Monteverdi, and Corelli use expert harmonic annotations. Palestrina and Trecento are analyzed automatically from the scores, so those labels are noisier. The model learns which chords follow which chords. A separate voice-leading search assigns the pitches.
 
-- **Bach** — 371 chorale harmonizations (Riemenschneider collection) *(342 chord types)*
-- **Beethoven** — Classical and early Romantic harmony *(696 chord types)*
-- **Palestrina** — Sacred vocal works and masses *(717 chord types)*
-- **Monteverdi** — Madrigals and early opera *(155 chord types)*
-- **Corelli** — Trio sonatas and concerti grossi *(273 chord types)*
-- **Trecento** — 14th-century Italian secular music (Landini and others) *(605 chord types)*
+- **Bach** — chorales, plus a selection of the Well-Tempered Clavier *(342 chord types)*
+- **Beethoven** — piano sonatas and string quartets *(696 chord types)*
+- **Palestrina** — automatic analysis of sacred vocal works *(717 chord types)*
+- **Monteverdi** — madrigal books 3–5 *(155 chord types)*
+- **Corelli** — trio sonatas, Opp. 1, 3, and 4 *(273 chord types)*
+- **Trecento** — automatic analysis of 14th-century Italian secular music *(605 chord types)*
 
 Those counts are the chord types in each shipped model. Palestrina has the largest vocabulary. Monteverdi has the smallest.
 

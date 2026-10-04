@@ -5,6 +5,11 @@ description: "Latest updates and changelog for the LucidHarmony MIDI plugin."
 
 ## Unreleased
 
+- **Predictability** — The dial is the sampling temperature for Generate, Infinite, and MIDI top-up. Infinite and MIDI drag no longer use a hotter hidden scale.
+- **7ths and 9ths** — Above Simple, an unchecked family is left out. At Simple the toggles do nothing and the previous choice is kept.
+- **Undo** — 50 steps. Each step keeps voicing, ensemble, extensions, and ornaments, including after you reopen a project.
+- **Early Polyphony** — Factory preset uses the Trecento model.
+- **Figuring** — A bare `2` (as in `V2`) is voiced as a third-inversion seventh (4/2). In minor, `bVIImaj7` is a major seventh.
 - **Interface** — Panels, buttons, and menus share one corner radius and a quiet 1 px stroke. Section labels recede, and the two cards share a bottom edge. Create, Follow Me, and Generate sit under the generator card; drag and Hold notes sit under voicing, with the same gutter between them.
 - **Generate** — Highlighted when the chord tape is empty, including the first time you open the plugin.
 - **Harmonic Explorer** — Destinations cluster by root on the circle of fifths (tonic at 12 o'clock). Closer to the center is more likely. Hover to hear and expand inversions; click to commit. Diatonic filter (default), inversions collapsed/expanded, and Show more. Tape selection chooses add, replace, or insert. Labels are ASCII-only so they no longer show as `Â·`. Clusters stay off the hub; expanded inversion stacks stay on the map (top 5).

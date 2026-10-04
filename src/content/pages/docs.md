@@ -35,7 +35,7 @@ Then wander. The rest of this page is for when you get curious.
 
 ### LucidHarmony is for _all_ kinds of music
 
-While our AI models are trained on historical master composers, these foundational harmonic principles underpin all modern music — from contemporary pop and ambient to cinematic and experimental genres. LucidHarmony lets you dial in exactly how adventurous you want to be, with controls to embrace modern, unexpected harmonies and extended chords like 7ths, 9ths, and sus chords. Start with timeless foundations, then push into uncharted territory.
+While our AI models are trained on historical master composers, these foundational harmonic principles underpin all modern music — from contemporary pop and ambient to cinematic and experimental genres. LucidHarmony lets you dial in exactly how adventurous you want to be, with controls to embrace modern, unexpected harmonies and extended chords like 7ths and 9ths. Start with timeless foundations, then push into uncharted territory.
 
 ---
 

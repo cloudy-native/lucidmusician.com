@@ -7,7 +7,6 @@ description: "Latest updates and changelog for the LucidHarmony MIDI plugin."
 
 - **Predictability** — The dial is the sampling temperature for Generate, Infinite, and MIDI top-up. Infinite and MIDI drag no longer use a hotter hidden scale.
 - **7ths and 9ths** — Above Simple, an unchecked family is left out. At Simple the toggles do nothing and the previous choice is kept.
-- **Reset** — Checkbox next to Infinite, on by default. With Infinite, a fresh stream is prepared when the host transport starts.
 - **Undo** — 50 steps. Each step keeps voicing, ensemble, extensions, and ornaments, including after you reopen a project.
 - **Early Polyphony** — Factory preset uses the Trecento model.
 - **Figuring** — A bare `2` (as in `V2`) is voiced as a third-inversion seventh (4/2). In minor, `bVIImaj7` is a major seventh.

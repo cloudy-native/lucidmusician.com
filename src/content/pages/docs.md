@@ -72,7 +72,7 @@ Here is your quick start and highlights of the controls. More details as we go a
 LucidHarmony's interface has four tabs: **Intuitive**, **Advanced**, **Harmonic Explorer**, and **About**. **Create** vs **Follow Me** is the mode switcher on the generator. Presets sit above the tabs.
 
 - **Intuitive** — Predictability, richness, Bars, and four voicing knobs: **Smooth**, **Open**, **Centered**, and **Ornaments**. Start chord, meter, chord length, extension toggles, Ensemble, and ornament type filters are hidden here. Ensemble stays Choir (SATB).
-- **Advanced** — Full generator (key, start chord, model, meter, chord length, bars, Infinite, Reset, 7ths/9ths) plus Ensemble, the separate voicing dials, **Ornaments**, and type toggles. Suspension is on by default; Passing, Neighbor, and Anticipation start off.
+- **Advanced** — Full generator (key, start chord, model, meter, chord length, bars, Infinite, 7ths/9ths) plus Ensemble, the separate voicing dials, **Ornaments**, and type toggles. Suspension is on by default; Passing, Neighbor, and Anticipation start off.
 
 ![Advanced tab](/images/ui-advanced-tab.png)
 
@@ -94,7 +94,7 @@ LucidHarmony's interface has four tabs: **Intuitive**, **Advanced**, **Harmonic 
 
 **Bars** — How many bars a new Generate fills. Changing Bars, or the chord length, does not remove chords already on the tape.
 
-**Infinite Mode** — Toggle (or Bars at 33) for continuous streaming. Generate still starts the stream; press play in the DAW to hear it. **Reset**, beside Infinite, is on by default and prepares a fresh stream when the host transport starts.
+**Infinite Mode** — Toggle (or Bars at 33) for continuous streaming. Generate still starts the stream; press play in the DAW to hear it.
 
 ![Infinite mode](/images/ui-infinite.png)
 
